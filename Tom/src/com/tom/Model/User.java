@@ -1,18 +1,25 @@
 package com.tom.Model;
 
 public class User {
-	private int phone;
+	private int Uid;
+	private String phone;
 	private String password;
 	private int level;
 	private String username;
-	private char sex;
+	private String sex;
 	private int praise;
 	private int fucouse;
 	
-	public int getPhone() {
+	public int getUid() {
+		return Uid;
+	}
+	public void setUid(int uid) {
+		Uid = uid;
+	}
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public String getPassword() {
@@ -33,10 +40,10 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public char getSex() {
+	public String getSex() {
 		return sex;
 	}
-	public void setSex(char sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 	public int getPraise() {

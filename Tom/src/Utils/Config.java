@@ -6,4 +6,5 @@ public interface Config {
 	public static final int FAILE = 1002;
 	public static final int PHONE_NOT_EXIST = 1020;
 	public static final int WRONG_PSW = 1021;
+	public static final int EMPY_FOCUS = 1022;
 }

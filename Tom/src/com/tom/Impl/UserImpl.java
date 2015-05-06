@@ -9,6 +9,7 @@ import Utils.Config;
 import Utils.DBUtil;
 
 import com.tom.Dao.UserDao;
+import com.tom.Model.User;
 
 public class UserImpl implements UserDao{
 
@@ -19,16 +20,17 @@ public class UserImpl implements UserDao{
 	ResultSet rs = null;
 	
 	@Override
-	public int Register(String phone, String password, int activecode) {
+	public int Register(String phone, String password, int activecode, String username) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection();
 		
 		try {
-			sql = "insert into User(phone,password) values("
+			sql = "insert into User(phone,password,username) values("
 					+ "?,?)" ;
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, phone);
 			psmt.setString(2,password);
+			psmt.setString(3,username);
 			result = psmt.executeUpdate();
 			
 			if(result>0) {
@@ -120,13 +122,105 @@ public class UserImpl implements UserDao{
 		return result;
 	}
 
+	//获取用户关注列表
 	@Override
 	public ResultSet GetFocus(int userId) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select user.Uid,username from user,focusu where user.Uid = focusu.Uid and focusu.Uid = "+userId;
+		sql = "select user.Uid,username from user,focusu where user.Uid = focusu.Fid and focusu.Uid = "+userId;
 		System.out.println(sql);
-		return null;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+
+	@Override
+	public User GetUserInfo(int userId) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select* from user where Uid = "+userId;
+		System.out.println(sql);
+		
+		User user = new User();
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			rs.next();
+			user.setUid(rs.getInt("Uid"));
+			user.setPhone(rs.getString("phone"));
+			user.setPassword(null);
+			user.setUsername(rs.getString("username"));
+			user.setLevel(rs.getInt("level"));
+			user.setSex(rs.getString("sex"));
+			user.setPraise(rs.getInt("praise"));
+			user.setFucouse(rs.getInt("fucouse"));
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+
+	@Override
+	public int GetFucosNum(int userId) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select count(Fid) as focusNum from focusu where Fid = "+userId;
+		System.out.println(sql);
+		int FoNum = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				FoNum = rs.getInt("focusNum");
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(FoNum);
+		return FoNum;
+	}
+
+	@Override
+	public int GetPraiNum(int userId) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select count(Uid) as praiNum from praise where Uid = "+userId;
+		System.out.println(sql);
+		int PraNum = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				PraNum = rs.getInt("praiNum");
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(PraNum);
+		return PraNum;
 	}
 
 }
