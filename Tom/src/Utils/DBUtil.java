@@ -9,13 +9,11 @@ import java.sql.Statement;
 public class DBUtil {
 
 	
-	//属性:URL user password
-	private static String url="jdbc:mysql://127.0.0.1:3306/tom?useUnicode=true&amp;"+
-	"characterEncoding=utf-8";
+	private static String url="jdbc:mysql://127.0.0.1:3306/tom?characterEncoding=UTF-8";
 	private static String user="root";
 	private static String password="";
 	
-	//加载驱动
+
 	static{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -25,14 +23,11 @@ public class DBUtil {
 		}
 	}
 	
-	//方法，创建连接，关闭连接
+
 	public static Connection getConnection()
 	{
-		//加载驱动
 		Connection conn=null;
-		
-		
-		//创建链接
+
 		try {
 			conn=DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {

@@ -18,8 +18,13 @@ public class ThemeService {
 	}
 	
 	public int CreateTheme(int circleId, int Uid, String title, String content) {
-		themedao.CreateTheme(circleId, Uid, title, content);
+		result = themedao.CreateTheme(circleId, Uid, title, content);
 		return result;
+	}
+	
+	public ResultSet GetThemeList(int circleId) {
+		
+		return rs;
 	}
 
 }

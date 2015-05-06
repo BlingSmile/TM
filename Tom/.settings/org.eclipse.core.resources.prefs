@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/Utils/test.java=UTF-8
+encoding//src/com/tom/Dao/ResourceDao.java=UTF-8
+encoding//src/com/tom/Dao/ThemeDao.java=UTF-8
+encoding//src/com/tom/Dao/UserDao.java=UTF-8
+encoding//src/com/tom/Impl/ResourceImpl.java=UTF-8
+encoding//src/com/tom/Impl/SettingImpl.java=UTF-8
+encoding//src/com/tom/Impl/ThemeImpl.java=UTF-8
+encoding//src/com/tom/Impl/UserImpl.java=UTF-8
+encoding//src/com/tom/Service/ThemeService.java=UTF-8
+encoding/<project>=UTF-8

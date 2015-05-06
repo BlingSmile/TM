@@ -23,7 +23,7 @@ public class test {
 		//System.out.println(r);
 		
 		ThemeService ts = new ThemeService();
-		System.out.println(ts.CreateTheme(1, 2, "ÈçºÎÕÒµ½ºÏÊÊµÄµ¼Ê¦", "ÏëÒª±¨¿¼±±´ó£¬ÓĞÃ»ÓĞÈËÖªµÀ±±´óÈí¼ş¹¤³ÌÑĞ¾¿Éúµ¼Ê¦¶¼ÓĞË­£¿ÒÔ¼°Ã¿¸öµ¼Ê¦µÄ¾ßÌåÇé¿ö"));
+		System.out.println(ts.CreateTheme(1, 2, "å•Šs", "å•Š"));
 	}
 
 }

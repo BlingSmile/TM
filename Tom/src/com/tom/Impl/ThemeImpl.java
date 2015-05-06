@@ -48,8 +48,6 @@ public class ThemeImpl implements ThemeDao{
 		conn = DBUtil.getConnection(); 
 		sql = "insert into theme(Cid,Uid,Ttitle,Tcontent,Tdate) values (?,?,?,?,?)";
 		System.out.println(sql);
-		Date date = null;
-		System.out.println(title+content);
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, circleId);
@@ -58,7 +56,7 @@ public class ThemeImpl implements ThemeDao{
 			psmt.setString(4,content);
 			psmt.setTimestamp(5, new Timestamp(new Date().getTime()));
 			result = psmt.executeUpdate();
-			
+			System.out.println(result);
 			if(result > 0)
 				result = Config.SUCCESS;
 			conn.close();
@@ -67,6 +65,29 @@ public class ThemeImpl implements ThemeDao{
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+
+	@Override
+	public ResultSet GetTmemeLisi(int circleId) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "insert into theme(Cid,Uid,Ttitle,Tcontent,Tdate) values (?,?,?,?,?)";
+		System.out.println(sql);
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, circleId);
+			psmt.setTimestamp(5, new Timestamp(new Date().getTime()));
+			result = psmt.executeUpdate();
+			System.out.println(result);
+			if(result > 0)
+				result = Config.SUCCESS;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
