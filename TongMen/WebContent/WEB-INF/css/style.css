@@ -1,0 +1,54 @@
+.pull-right{
+  float: right;
+}
+.button-halfwidth{
+  width: 49%;
+}
+.button-fullwidth{
+  width: 100%;
+}
+div.item.item-avatar>img.avatar{
+	top:1px;
+}
+div.item.item-avatar {
+background-color:transparent;
+border-width:0px;
+
+}
+div.divborder{
+width:100%;
+height:2px;
+}/* 空白线，隔离 */
+ img.divavatar{
+top: 0px;
+right: 13px;
+max-width: 30px;
+max-height: 30px;
+
+
+}
+div.item .item-avatar >p
+{
+text-align:right;
+float:right;
+
+
+
+}
+/* 为了控制list里面的avatar大小位置 */
+ /* div.item.item-avatar {
+padding:8px;
+font-size:10px;
+color:#E6E6FA;
+
+}  */
+/* ul .switchtabs{
+width:100%;
+height:100%;
+float:left;
+
+}
+li .switchtab{
+float:left;
+
+} */
