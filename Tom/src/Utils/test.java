@@ -1,29 +1,41 @@
 package Utils;
 
-import com.tom.Impl.ThemeImpl;
-import com.tom.Model.User;
-import com.tom.Service.SettingService;
-import com.tom.Service.ThemeService;
-import com.tom.Service.UserService;
+
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+
+import com.tom.Service.CircleService;
+import com.tom.Service.ResourceService;
 
 public class test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		/*CircleService ci=new CircleService();
+		int r= ci.CreateCircle(1520136120,"aihuahua","xuexi");
 	
-	public static void main(String arg[]) {
-		//UserService us = new UserService();
-		//ThemeImpl tl = new ThemeImpl();
-		//us.Login("18811442530", "123456");
-		//User user = new User();
-		//SettingService ss = new SettingService();
-		//System.out.println(ss.OpenAllowInvite(2));
-		//System.out.println(ss.GetInviteStatu(2));
-		//user =  us.GetUserInfo(2);
-		//us.GetPubThem(2);
-		//us.GetFucosNum(4);
-		//us.GetPraiseNum(2);
-		//System.out.println(r);
+		if(r>0){
+			System.out.println("ceshishigong");
+		}
+		*/
 		
-		ThemeService ts = new ThemeService();
-		System.out.println(ts.CreateTheme(1, 2, "如何找到合适的导师", "想要报考北大，有没有人知道北大软件工程研究生导师都有谁？以及每个导师的具体情况"));
+		/* ResourceService re=new ResourceService();
+		// SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		 	Date d = new Date(System.currentTimeMillis());
+			//System.out.println(d);
+		    int r=re.ResourceService(1,2,"aihuhua","1314",d, "suxiaomo");
+		    if(r>0){
+		    	System.out.println("ceshishigong");
+		    }
+		    */
+		    CircleService ci=new CircleService();
+			ResultSet result= ci.getCidByUid(12301160);
+		
+			
+				System.out.println(result);
+			
 	}
+   
 
 }

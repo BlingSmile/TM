@@ -1,7 +1,11 @@
 package com.tom.Dao;
 
-import java.sql.ResultSet;
+import java.sql.Date;
+
 
 public interface ResourceDao {
-	public ResultSet GetPubRec(int userId);
+
+	int UploadResource(int cid, int uid, String rtitle, String rcontent,Date rdata,
+			String rlink);
+
 }
