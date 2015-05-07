@@ -164,7 +164,8 @@ $scope.content_data;
              .success(function(data, status, headers) { 
                     // the success function wraps the response in data 
                     // so we need to call data.data to fetch the raw data 
-
+            	 console.log(data); 
+            	 console.log(headers); 
           if(data.data=="true")
           {
             location.href="www.baidu.com";

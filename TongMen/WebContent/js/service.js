@@ -9,21 +9,14 @@
       }); 
     } ;
     var login= function(username,password){
+    	var params={};
+    	params.name = username;
+    	params.password =password;
     	return $http({
-
     		method:'post',
-    		url:'   ',
-    		data:{'name':username,"password":password}
-
-
-
-
+    		url:'LoginAction?name=123&password=ss',
+    		
     	})
-
-
-
-
-
     }
     return { 
       events: function(username) { return doRequest(username, 'events'); }, 
