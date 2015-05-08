@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tom.Service.UserService;
 
+@SuppressWarnings("unused")
 @WebServlet("/LoginAction")
 public class LoginServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -39,7 +40,7 @@ public class LoginServlet extends HttpServlet{
 		name = request.getParameter("name");
 		psw = request.getParameter("password");
 		System.out.println(name+psw);
-		UserService userservice = new UserService();
+		//UserService userservice = new UserService();
 		//userservice.Login(name, psw);
 		response.getWriter().print("hello111");
 	}

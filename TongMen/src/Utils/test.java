@@ -23,7 +23,10 @@ public class test {
 		//System.out.println(r);
 		
 		ThemeService ts = new ThemeService();
-		System.out.println(ts.CreateTheme(1, 2, "啊s", "啊"));
+		//ts.GetThemeInfo(1, 1);
+		//ts.GetThemeReply(1, 1);
+		//System.out.println(ts.AddThemePraise(1,2,1));
+		System.out.println(ts.AddThemeReplyPra(1, 2));
 	}
 
 }
