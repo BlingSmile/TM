@@ -19,7 +19,7 @@ public class CircleImpl implements CircleDao {
 	int result = -1;
      ResultSet rs = null;
 	
-     //´´½¨È¦×Ó
+     //ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½
 	public int CreateCircle(int Uid,String Cname,String Cdesc){
 		conn = DBUtil.getConnection();
 		//sql="select Cname FROM Circle";
@@ -44,13 +44,13 @@ public class CircleImpl implements CircleDao {
 		return result;
 	}
 	
-	//¸ù¾ÝÓÃ»§id»ñÈ¡¹Ø×¢µÄÈ¦×Ó
+	//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½idï¿½ï¿½È¡ï¿½ï¿½×¢ï¿½ï¿½È¦ï¿½ï¿½
 	public ResultSet getCidByUid(int Uid){
         conn=DBUtil.getConnection();
 		
 		try {
 			sql = "select Cname,Cdesc FROM circle,focusc where circle.Cid=focusc.Cid and focusc.Uid="+Uid;
-			System.out.println("¸ù¾ÝUid»ñµÃÈ¦×Ó"+Uid);
+			System.out.println("ï¿½ï¿½ï¿½Uidï¿½ï¿½ï¿½È¦ï¿½ï¿½"+Uid);
 			psmt = conn.prepareStatement(sql);
 			//psmt.setInt(1, Uid);			
 			
@@ -63,12 +63,12 @@ public class CircleImpl implements CircleDao {
 		return rs;		
 	}
 	
-	//Õ¹Ê¾È¦×Ó×ÊÁÏ
+	//Õ¹Ê¾È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public ResultSet showCircle(int Cid){
 		 conn=DBUtil.getConnection();
 		 try{
-		 sql = "select Cname£¬Cdesc FROM Circle Where circle.Cid= "+Cid;
-		 System.out.println("¸ù¾ÝÈ¦×Óid"+Cid+"»ñÈ¡È¦×ÓÐÅÏ¢");
+		 sql = "select Cnameï¿½ï¿½Cdesc FROM Circle Where circle.Cid= "+Cid;
+		 System.out.println("ï¿½ï¿½ï¿½È¦ï¿½ï¿½id"+Cid+"ï¿½ï¿½È¡È¦ï¿½ï¿½ï¿½ï¿½Ï¢");
 			psmt = conn.prepareStatement(sql);						
 			rs = psmt.executeQuery();
 			
@@ -79,19 +79,5 @@ public class CircleImpl implements CircleDao {
 		return rs;
 		
 	}
-	public ResultSet showCircleResource(int Cid){
-		 conn=DBUtil.getConnection();
-		 try{
-		 sql = "select Rid Rtitle,Rcontent,Rlink FROM Resource,Circle Where circle.Uid=resource.Uid and resource.Cid= "+Cid;
-		 System.out.println("¸ù¾ÝÈ¦×Óid"+Cid+"»ñÈ¡È¦×ÓÐÅÏ¢");
-			psmt = conn.prepareStatement(sql);						
-			rs = psmt.executeQuery();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return rs;
-		
-	}
+	
 }
