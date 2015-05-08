@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import Utils.Config;
@@ -69,25 +67,121 @@ public class ThemeImpl implements ThemeDao{
 
 
 	@Override
-	public ResultSet GetTmemeLisi(int circleId) {
+	public ResultSet GetTmemeList(int circleId) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "insert into theme(Cid,Uid,Ttitle,Tcontent,Tdate) values (?,?,?,?,?)";
+		sql = "select Tid,Ttitle,Tdate,username from theme,user where theme.Uid = user.Uid and Cid = "+circleId;
 		System.out.println(sql);
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, circleId);
-			psmt.setTimestamp(5, new Timestamp(new Date().getTime()));
-			result = psmt.executeUpdate();
-			System.out.println(result);
-			if(result > 0)
-				result = Config.SUCCESS;
+			rs = psmt.executeQuery();
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return rs;
+	}
+
+
+	@Override
+	public ResultSet GetThemeInfo(int circleId, int Tid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select username,level,sex,Ttitle,Tcontent,Tpraise,Tdate from theme,user where theme.Uid = user.Uid and Cid = "+circleId+" and Tid = "+Tid;
+		System.out.println(sql);
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+
+	@Override
+	public ResultSet GetThemeReply(int ReTid, int ReType) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select username,level,sex,Reid,Recontent,Repraise,Redate from reply,user where reply.Uid = user.Uid and ReTid = "+ReTid+" and ReType = "+ReType + " order by Redate";
+		System.out.println(sql);
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+
+	@Override
+	public int AddThemePraise(int Tid,int Uid,int Pid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "update theme set Tpraise = Tpraise+1 where Tid = "+Tid;
+		System.out.println(sql);
+		try {
+			psmt = conn.prepareStatement(sql);
+			result = psmt.executeUpdate();
+			
+			sql = "update user set praise = praise+1 where Uid = "+Uid;
+			psmt = conn.prepareStatement(sql); 
+			result = psmt.executeUpdate();
+			
+			sql = "insert into praise(Uid,Tid,Pid,Ptype) values(?,?,?,?)";
+			psmt = conn.prepareStatement(sql); 
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, Tid);
+			psmt.setInt(3, Pid);
+			psmt.setInt(4, 1);
+			result = psmt.executeUpdate();
+			
+			if(result == 0)
+				result = Config.FAILE;
+			else
+				result = Config.SUCCESS;
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
+	@Override
+	public int AddThemeReplyPra(int Reid, int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "update reply set Repraise = Repraise+1 where Reid = "+Reid;
+		System.out.println(sql);
+		try {
+			psmt = conn.prepareStatement(sql);
+			result = psmt.executeUpdate();
+			
+			sql = "update user set praise = praise + 1 where Uid = "+Uid;
+			psmt = conn.prepareStatement(sql);
+			result = psmt.executeUpdate();
+			
+			if(result > 0)
+				result = Config.SUCCESS;
+			else 
+				result = Config.FAILE;
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 }

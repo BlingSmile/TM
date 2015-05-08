@@ -7,6 +7,13 @@ public interface ThemeDao {
 	
 	public int CreateTheme(int circleId, int Uid, String title, String content);
 	
-	public ResultSet GetTmemeLisi(int circleId);
-
+	public ResultSet GetTmemeList(int circleId);
+	
+	public ResultSet GetThemeInfo(int circleId, int Tid);
+	
+	public ResultSet GetThemeReply(int ReTid, int ReType);
+	
+	public int AddThemePraise(int Tid,int Uid,int Pid);
+	
+	public int AddThemeReplyPra(int Reid, int Uid);
 }
