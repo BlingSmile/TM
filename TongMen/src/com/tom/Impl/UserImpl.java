@@ -20,7 +20,7 @@ public class UserImpl implements UserDao{
 	ResultSet rs = null;
 	
 	@Override
-	public int Register(String phone, String password, int activecode, String username) {
+	public int Register(String phone, String password, String activecode, String username) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection();
 		
@@ -58,7 +58,6 @@ public class UserImpl implements UserDao{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
 		return result;
 	}
 
@@ -67,7 +66,6 @@ public class UserImpl implements UserDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		
-		//判断电话是否已经被注册
 		sql = "select Uid from User where phone  = '"+ phone +"'";
 		
 		System.out.println(sql);
@@ -122,7 +120,7 @@ public class UserImpl implements UserDao{
 		return result;
 	}
 
-	//获取用户关注列表
+	//锟斤拷取锟矫伙拷锟斤拷注锟叫憋拷
 	@Override
 	public ResultSet GetFocus(int userId) {
 		// TODO Auto-generated method stub

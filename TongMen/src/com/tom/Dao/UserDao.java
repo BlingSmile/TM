@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import com.tom.Model.User;
 
 public interface UserDao {
-	public int Register(String phone, String password, int activecode, String username);
+	public int Register(String phone, String password, String activecode, String username);
 	
 	public int GetActivecode(String phone);
 	

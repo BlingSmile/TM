@@ -17,14 +17,14 @@ import Utils.Config;
 import com.tom.Service.UserService;
 
 @SuppressWarnings("unused")
-@WebServlet("/LoginAction")
-public class LoginServlet extends HttpServlet{
+@WebServlet("/RegisterAction")
+public class RegisterServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public RegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,28 +38,29 @@ public class LoginServlet extends HttpServlet{
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 * 需要参数：用户名username即手机号，密码
-	 * 返回参数：result String   三种情况：手机号未注册，密码错误，登陆成功
+	 * 需要参数：[String]手机号，密码，昵称   [int]激活码
+	 * 返回参数：result String   两种情况：注册成功，注册失败
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String name, psw, res;
+		String phone,name, psw, res,activecode;
 		int result;
+		
+		phone = request.getParameter("");
 		name = request.getParameter("name");
 		psw = request.getParameter("password");
-		System.out.println(name+psw);
-		UserService userservice = new UserService();
+		activecode = request.getParameter("");
 		
-		result = userservice.Login(name, psw);
+		UserService userservice = new UserService();
+		result = userservice.Register(phone, psw, activecode, name);
 		
 		Map<String, String> params = new HashMap<String, String>();
-		if(result == Config.PHONE_NOT_EXIST)
-			res = "手机号未注册";
-		else if(result == Config.WRONG_PSW)
-			res = "密码错误";
+		
+		if(result == Config.FAILE)
+			res = "注册成功";
 		else
-			res = "登陆成功";
+			res = "注册成功";
 			
 		params.put("result", res);
 		JSONArray array = JSONArray.fromObject(params);
