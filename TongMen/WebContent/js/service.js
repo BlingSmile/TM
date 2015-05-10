@@ -9,17 +9,30 @@
       }); 
     } ;
     var login= function(username,password){
-    	var params={};
-    	params.name = username;
-    	params.password =password;
     	return $http({
+
     		method:'post',
-    		url:'LoginAction?name=123&password=ss',
-    		
+    		url:'   ',
+    		data:{'name':username,"password":password}
+
+
+
+
     	})
+
+
+
+
+
     }
+
+
+
+
+    
     return { 
       events: function(username) { return doRequest(username, 'events'); }, 
       do_login:function(username,password){ return login(username,password);}
+     
     }; 
   }]); 

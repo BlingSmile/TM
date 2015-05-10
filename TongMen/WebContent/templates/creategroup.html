@@ -1,0 +1,30 @@
+<ion-view title="创建圈子">
+
+<div class="bar header-bar bar-energized ">
+        <button class="button button-clear icon ion-arrow-left-c" ng-click="back()"></button>
+        <h1 class="title">创建圈子</h1>
+        </div> 
+
+      <ion-content class="has-header" padding="true">
+      
+<form name="create" id="create">
+<div class="list">
+  <label class="item item-input">
+    <span class=" icon ion-plus-circled"></span>
+    <input type="text"   autofocus="autofocus" style="margin-left:20px;" placeholder="请输入圈子的名字" class="input_style" ng-model="groupname" required>
+  </label>
+  <label class="item item-input">
+  <span class=" icon ion-ios-information"></span>
+  <textarea id="notes" name="notes" maxLength="240" placeholder="对你的圈子的描述" rows="6" cols="20" style="resize:none;margin-left:20px;" ng-model="descroption" required ></textarea></label>
+  <label class="item item-input" style="padding:0;">
+    
+    <input type="text"  placeholder="亲，这能提高匹配度哦" ng-model="biaoqian" disabled="disabled" style="background-color:#fff;">
+    <button class="button" ng-click="openModal2()">添加标签</button>
+  </label>
+
+<input type="submit" name="register" value="创建" ng-click="submitForm(groupname,descroption,biaoqian)" class="button button-block button-balanced" style="margin-top:30%;"/>
+
+</div>
+
+</form>
+    </ion-view>

@@ -8,11 +8,13 @@ var app =angular.module('demo', ['ionic','demo.service'])
                 templateUrl : 'root.html',
                 controller : 'RootPageController'
             })
-
+          
             .state('login', {
                 url : '/login',
+              
                 templateUrl : 'login.html',
                 controller : 'LoginController'
+           
             })
 			.state('lunbo', {
                 url : '/lunbo',
@@ -69,6 +71,23 @@ var app =angular.module('demo', ['ionic','demo.service'])
                     }
                 }
             })
+
+              .state('create', {
+                url : '/create',
+             
+                  
+                templateUrl : 'templates/creategroup.html' , 
+                controller : 'validateCtrl'
+            })
+
+              .state('person_information', {
+                url : '/person',
+             
+                  
+                templateUrl : 'templates/person_information.html' , 
+                controller : 'person_ctrl'
+            })
+
             .state('homepage.chat', {
                 url: '/chat',
                 views: {
@@ -164,8 +183,7 @@ $scope.content_data;
              .success(function(data, status, headers) { 
                     // the success function wraps the response in data 
                     // so we need to call data.data to fetch the raw data 
-            	 console.log(data); 
-            	 console.log(headers); 
+
           if(data.data=="true")
           {
             location.href="www.baidu.com";
@@ -185,5 +203,36 @@ $scope.content_data;
 
 
     })
+
+
+    
+   .controller('validateCtrl',function($scope,$http){
+    
+    $scope.submitForm = function(groupname,descroption,biaoqian){
+            
+console.log(groupname+descroption);
+
+    }
+    $scope.back=function ()
+    {
+
+history.back();
+
+    }
+})
+
+   .controller('person_ctrl',function($scope){
+    
+ //$scope.person=$http.get('');
+ $scope.person={"personname":"那阵回忆","num_other_attention":'4',"num_good":'5',"num_my_attention":'6'};
+    $scope.back=function ()
+    {
+
+history.back();
+
+    }
+})
+
+
 
 

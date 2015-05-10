@@ -46,4 +46,8 @@ angular.module('demo.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+})
+
+
+
+;

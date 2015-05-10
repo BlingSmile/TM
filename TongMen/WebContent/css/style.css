@@ -35,6 +35,23 @@ float:right;
 
 
 }
+
+
+
+.has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline {
+color: #E40;
+}
+
+
+
+
+
+input:active
+{
+outline:#A5DEE4 dotted 1px;
+
+
+}
 /* 为了控制list里面的avatar大小位置 */
  /* div.item.item-avatar {
 padding:8px;
