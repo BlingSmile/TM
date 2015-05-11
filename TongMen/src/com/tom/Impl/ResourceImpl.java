@@ -48,23 +48,38 @@ public  class ResourceImpl implements ResourceDao{
 		
 	}
 	
-	public void addPraise(int Uid) {
+	public int AddResourcePraise(int Rid,int Uid,int Pid) {
 		// TODO Auto-generated method stub
-		
-		conn=DBUtil.getConnection();
-		
+		conn = DBUtil.getConnection(); 
+		sql = "update Resource set Rpraise = Rpraise+1 where Rid = "+Rid;
+		System.out.println(sql);
 		try {
-			sql = "update menu set praise = praise + 1 where Uid = "+Uid;
-			
 			psmt = conn.prepareStatement(sql);
+			result = psmt.executeUpdate();
 			
-			int i = psmt.executeUpdate();
+			sql = "update user set praise = praise+1 where Uid = "+Uid;
+			psmt = conn.prepareStatement(sql); 
+			result = psmt.executeUpdate();
 			
-			System.out.println(i);
+			sql = "insert into praise(Rid,Uid,Pid,Ptype) values(?,?,?,?)";
+			psmt = conn.prepareStatement(sql); 
+			psmt.setInt(1, Rid);
+			psmt.setInt(2, Uid);
+			psmt.setInt(3, Pid);
+			psmt.setInt(4, 1);
+			result = psmt.executeUpdate();
+			
+			if(result == 0)
+				result = Config.FAILE;
+			else
+				result = Config.SUCCESS;
+			
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
 	}
 	
 	
@@ -124,5 +139,48 @@ public  class ResourceImpl implements ResourceDao{
 		
 		return flag;
 	}
-
+	
+	public ResultSet SerchByRid(int Rid) {
+		// TODO Auto-generated method stub
+		conn=DBUtil.getConnection();
+		
+		try {
+			sql = "select * from Resource Where resource.Rid= "+Rid;
+			System.out.println("根据资料id查询"+sql);
+			
+			psmt = conn.prepareStatement(sql);
+			System.out.println(sql);
+			rs = psmt.executeQuery();
+			rs.next();
+			System.out.println(rs.getString(4));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+	
+	public ResultSet SerchByUid(int Uid) {
+		// TODO Auto-generated method stub
+		conn=DBUtil.getConnection();
+		
+		try {
+			sql = "select * from Resource Where resourceUid= "+Uid;
+			System.out.println("根据上传人Id查询"+sql);
+			
+			psmt = conn.prepareStatement(sql);
+			System.out.println(sql);
+			rs = psmt.executeQuery();
+			rs.next();
+			System.out.println(rs.getString(4));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
 }
