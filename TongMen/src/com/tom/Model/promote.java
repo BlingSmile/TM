@@ -1,5 +1,6 @@
 package com.tom.Model;
 
-public class promote {
-
+public class Promote {
+	 private int Uid;
+	  private String Rdata;
 }
