@@ -58,6 +58,7 @@ public class UserFocusServlet extends HttpServlet{
 		UserService userservice = new UserService();
 		
 		String form = request.getParameter("form");
+		
 		if(form.equals("GetFucosList")){
 			ResultSet rs = userservice.GetFucosList(userId);
 			
@@ -66,6 +67,7 @@ public class UserFocusServlet extends HttpServlet{
 		    
 		    // 获取列数  
 		    ResultSetMetaData metaData;
+		    
 			try {
 				metaData = rs.getMetaData();
 			  
@@ -88,6 +90,7 @@ public class UserFocusServlet extends HttpServlet{
 				e.printStackTrace();
 			}
 			response.getWriter().print(array);
+			
 		} else if(form.equals("GetFucosNum")) {
 			int FocNum = userservice.GetFucosNum(userId);
 			Map<String, Integer> params = new HashMap<String, Integer>();

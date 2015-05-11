@@ -44,13 +44,11 @@ public class CircleImpl implements CircleDao {
 		return result;
 	}
 	
-	//����û�id��ȡ��ע��Ȧ��
 	public ResultSet getCidByUid(int Uid){
         conn=DBUtil.getConnection();
 		
 		try {
 			sql = "select Cname,Cdesc FROM circle,focusc where circle.Cid=focusc.Cid and focusc.Uid="+Uid;
-			System.out.println("���Uid���Ȧ��"+Uid);
 			psmt = conn.prepareStatement(sql);
 			//psmt.setInt(1, Uid);			
 			
@@ -68,7 +66,6 @@ public class CircleImpl implements CircleDao {
 		 conn=DBUtil.getConnection();
 		 try{
 		 sql = "select Cname��Cdesc FROM Circle Where circle.Cid= "+Cid;
-		 System.out.println("���Ȧ��id"+Cid+"��ȡȦ����Ϣ");
 			psmt = conn.prepareStatement(sql);						
 			rs = psmt.executeQuery();
 			

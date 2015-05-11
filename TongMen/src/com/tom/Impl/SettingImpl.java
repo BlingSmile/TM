@@ -23,7 +23,6 @@ public class SettingImpl implements SettingDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		
-		//ÅÐ¶Ïµç»°ÊÇ·ñÒÑ¾­±»×¢²á
 		sql = "update setting set allowText = 0 where Uid = "+userId;
 		
 		System.out.println(sql);
@@ -49,7 +48,7 @@ public class SettingImpl implements SettingDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		
-		//ÅÐ¶Ïµç»°ÊÇ·ñÒÑ¾­±»×¢²á
+		//ï¿½Ð¶Ïµç»°ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½×¢ï¿½ï¿½
 		sql = "update setting set allowText = 1 where Uid = "+userId;
 		
 		System.out.println(sql);
@@ -75,7 +74,7 @@ public class SettingImpl implements SettingDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		
-		//ÅÐ¶Ïµç»°ÊÇ·ñÒÑ¾­±»×¢²á
+		//ï¿½Ð¶Ïµç»°ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½×¢ï¿½ï¿½
 		sql = "update setting set allowInvite = 0 where Uid = "+userId;
 		
 		System.out.println(sql);
@@ -101,7 +100,7 @@ public class SettingImpl implements SettingDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		
-		//ÅÐ¶Ïµç»°ÊÇ·ñÒÑ¾­±»×¢²á
+		//ï¿½Ð¶Ïµç»°ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½×¢ï¿½ï¿½
 		sql = "update setting set allowInvite = 1 where Uid = "+userId;
 		
 		System.out.println(sql);
@@ -127,7 +126,6 @@ public class SettingImpl implements SettingDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		
-		//ÅÐ¶Ïµç»°ÊÇ·ñÒÑ¾­±»×¢²á
 		sql = "select allowText from setting where Uid = "+userId;
 		
 		System.out.println(sql);
@@ -153,7 +151,7 @@ public class SettingImpl implements SettingDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		
-		//ÅÐ¶Ïµç»°ÊÇ·ñÒÑ¾­±»×¢²á
+		//ï¿½Ð¶Ïµç»°ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½×¢ï¿½ï¿½
 		sql = "select allowInvite from setting where Uid = "+userId;
 		
 		System.out.println(sql);
