@@ -11,7 +11,7 @@ public class DBUtil {
 	
 	private static String url="jdbc:mysql://127.0.0.1:3306/tom?characterEncoding=UTF-8";
 	private static String user="root";
-	private static String password="";
+	private static String password="1234qwer";
 	
 
 	static{

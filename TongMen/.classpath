@@ -13,7 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="E:/TM/TM/TongMen/WebContent/lib/mysql-connector-java-5.1.34-bin.jar"/>
-	<classpathentry kind="lib" path="E:/JavaEEEclips/JavaeePro/WebContent/WEB-INF/lib/json-lib-2.2.3-jdk15.jar"/>
+	<classpathentry kind="lib" path="F:/大三下/张红延实践课/eclipse/lib/mysql-connector-java-5.1.34-bin.jar"/>
+	<classpathentry kind="lib" path="F:/大三下/张红延实践课/eclipse/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="F:/大三下/张红延实践课/eclipse/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

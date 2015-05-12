@@ -16,12 +16,10 @@ public class CircleImpl implements CircleDao {
 	PreparedStatement psmt=null;
 	String sql = "";
 	int result = -1;
-     ResultSet rs = null;
+    ResultSet rs = null;
 	
-     //����Ȧ��
 	public int CreateCircle(int Uid,String Cname,String Cdesc){
 		conn = DBUtil.getConnection();
-		//sql="select Cname FROM Circle";
 		sql = "insert into Circle(Uid,Cname,Cdesc) values("
 				+ "?,?,?)" ;			
 					
@@ -48,8 +46,7 @@ public class CircleImpl implements CircleDao {
 		
 		try {
 			sql = "select Cname,Cdesc FROM circle,focusc where circle.Cid=focusc.Cid and focusc.Uid="+Uid;
-			psmt = conn.prepareStatement(sql);
-			//psmt.setInt(1, Uid);			
+			psmt = conn.prepareStatement(sql);			
 			
 			rs = psmt.executeQuery();
 			
@@ -60,11 +57,10 @@ public class CircleImpl implements CircleDao {
 		return rs;		
 	}
 	
-	//չʾȦ������
 	public ResultSet showCircle(int Cid){
 		 conn=DBUtil.getConnection();
 		 try{
-		 sql = "select Cname��Cdesc FROM Circle Where circle.Cid= "+Cid;
+		 sql = "select Cname,Cdesc FROM Circle Where circle.Cid= "+Cid;
 			psmt = conn.prepareStatement(sql);						
 			rs = psmt.executeQuery();
 			
