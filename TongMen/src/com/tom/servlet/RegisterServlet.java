@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String phone,name, psw, res,activecode;
-		int result;
+		JSONArray array;
 		
 		phone = request.getParameter("");
 		name = request.getParameter("name");
@@ -53,17 +53,7 @@ public class RegisterServlet extends HttpServlet{
 		activecode = request.getParameter("");
 		
 		UserService userservice = new UserService();
-		result = userservice.Register(phone, psw, activecode, name);
-		
-		Map<String, String> params = new HashMap<String, String>();
-		
-		if(result == Config.FAILE)
-			res = "注册成功";
-		else
-			res = "注册成功";
-			
-		params.put("result", res);
-		JSONArray array = JSONArray.fromObject(params);
+		array = userservice.Register(phone, psw, activecode, name);
 		
 		response.getWriter().print(array);
 	}

@@ -44,25 +44,14 @@ public class LoginServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String name, psw, res;
-		int result;
+		
+		String name, psw;
 		name = request.getParameter("name");
 		psw = request.getParameter("password");
 		System.out.println(name+psw);
 		UserService userservice = new UserService();
 		
-		result = userservice.Login(name, psw);
-		
-		Map<String, String> params = new HashMap<String, String>();
-		if(result == Config.PHONE_NOT_EXIST)
-			res = "手机号未注册";
-		else if(result == Config.WRONG_PSW)
-			res = "密码错误";
-		else
-			res = "登陆成功";
-			
-		params.put("result", res);
-		JSONArray array = JSONArray.fromObject(params);
+		JSONArray array = userservice.Login(name, psw);
 		
 		response.getWriter().print(array);
 	}

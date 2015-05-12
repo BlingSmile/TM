@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import Utils.Config;
 import Utils.DBUtil;
 
-import com.mysql.jdbc.Statement;
 import com.tom.Dao.CircleDao;
 
 public class CircleImpl implements CircleDao {

@@ -1,7 +1,13 @@
 package com.tom.Service;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import Utils.Config;
 
 import com.tom.Dao.ResourceDao;
@@ -33,20 +39,73 @@ public class UserService {
 		
 	}
 	
-	public int Register(String phone, String password, String activecode, String username) {
+	public JSONArray Register(String phone, String password, String activecode, String username) {
 		result = userdao.Register(phone, password, activecode, username);
+		String res = "";
 		
-		return result;
+		Map<String, String> params = new HashMap<String, String>();
+		
+		if(result == Config.FAILE)
+			res = "注册成功";
+		else
+			res = "注册成功";
+			
+		params.put("result", res);
+		JSONArray array = JSONArray.fromObject(params);
+		
+		return array;
 	}
 	
-	public int Login(String phone, String password) {
+	public JSONArray Login(String phone, String password) {
 		result = userdao.Login(phone, password);
-		return result;
+		String res = "";
+		
+		Map<String, String> params = new HashMap<String, String>();
+		if(result == Config.PHONE_NOT_EXIST)
+			res = "手机号未注册";
+		else if(result == Config.WRONG_PSW)
+			res = "密码错误";
+		else
+			res = "登陆成功";
+			
+		params.put("result", res);
+		JSONArray array = JSONArray.fromObject(params);
+		
+		return array;
 	}
 	
-	public ResultSet GetFucosList(int UserId) {
+	public JSONArray GetFucosList(int UserId) {
 		rs = userdao.GetFocus(UserId);
-		return rs;
+		
+		// json数组  
+	    JSONArray array = new JSONArray();  
+	    
+	    // 获取列数  
+	    ResultSetMetaData metaData;
+	    
+		try {
+			metaData = rs.getMetaData();
+		  
+		    int columnCount = metaData.getColumnCount();  
+		    
+		    // 遍历ResultSet中的每条数据  
+		    while (rs.next()) {  
+		        JSONObject jsonObj = new JSONObject();  
+		         
+		        // 遍历每一列  
+		        for (int i = 1; i <= columnCount; i++) {  
+		            String columnName =metaData.getColumnLabel(i);  
+		            String value = rs.getString(columnName);  
+		            jsonObj.put(columnName, value);  
+		        }   
+		        array.add(jsonObj);   
+		    }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return array;
 	}
 	
 	public User GetUserInfo(int userId) {
@@ -65,10 +124,15 @@ public class UserService {
 		return rs;
 	}
 	
-	public int GetFucosNum(int userId) {
+	public JSONArray GetFucosNum(int userId) {
 		int FNum = 0;
 		FNum = userdao.GetFucosNum(userId);
-		return FNum;
+		
+		Map<String, Integer> params = new HashMap<String, Integer>();
+		params.put("focusNum", FNum);
+		JSONArray array = JSONArray.fromObject(params);
+		
+		return array;
 	}
 	
 	public int GetPraiseNum(int userId) {
