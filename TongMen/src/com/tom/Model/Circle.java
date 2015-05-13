@@ -6,7 +6,13 @@ public class Circle {
       private String Cname;
       private String Cdesc;
 
-      public int getPhone() {
+      public int getUid() {
+		return Uid;
+	}
+	public void setUid(int uid) {
+		Uid = uid;
+	}
+	public int getPhone() {
 		return Uid;
 	}
 	public void setPhone(int phone) {

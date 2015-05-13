@@ -1,19 +1,34 @@
 package Utils;
 
+import java.sql.ResultSet;
+import java.util.List;
+
+import com.tom.Model.Circle;
 import com.tom.Service.CircleService;
 
 public class testsxm {
 
-
 		public static void main(String[] args) {
 			// TODO Auto-generated method stub
-			CircleService ci=new CircleService();
-			//int r= ci.CreateCircle(1520136120,"aihuahua","xuexi");
+			/*CircleService ci=new CircleService();
+			//int r= ci.CreateCircle(152013612,"aihuahua","xuexi");
 			int r= ci.CreateCircle(152013612,"suxiaomo","aihuahua");
-		
-			if(r>0){
+			//int r= ci.CreateCircle(123456,"331","123");
+			if(r== Config.SUCCESS){
 				System.out.println("ceshishigong");
 			}
+			*/
+			
+			CircleService ci=new CircleService();
+			List r=ci.getCidByUid(123456);
+			System.out.println(r);
+			for(int i=0;i<r.size();i++){
+				Circle c = (Circle) r.get(i);
+				String Cname = c.getCirclename();
+				String Cdesc = c.getCircledesc();
+				System.out.println(Cname+"   "+Cdesc);
+			}
+			
 			
 			
 			/* ResourceService re=new ResourceService();

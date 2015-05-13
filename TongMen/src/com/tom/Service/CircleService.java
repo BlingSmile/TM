@@ -1,6 +1,9 @@
 package com.tom.Service;
 
 import java.sql.ResultSet;
+import java.util.List;
+
+import Utils.Config;
 
 import com.tom.Dao.CircleDao;
 import com.tom.Impl.CircleImpl;
@@ -15,17 +18,18 @@ CircleDao circledao=null;
 	
 	public int CreateCircle(int Uid,String Cname,String Cdesc) {
 		int result;
-		result = circledao.CreateCircle(Uid,Cname,Cdesc); 
+		result = circledao.CircleIsExit(Cname);
+		if(result == Config.SUCCESS)
+			result = circledao.CreateCircle(Uid,Cname,Cdesc); 
+		
 		return result;
-		
-		
+	
 	}
 
-	public ResultSet getCidByUid(int Uid) {
+	public List getCidByUid(int Uid) {
 		// TODO Auto-generated method stub
-		ResultSet result;
-		result=circledao.getCidByUid(Uid);
-		return result;
+		List list=circledao.getCidByUid(Uid);
+		return list;
 	}
 
 }
