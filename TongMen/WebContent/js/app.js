@@ -424,18 +424,20 @@ $scope.group=[{'title':'北京交通大学','groupId':'123'}];
 
         $scope.password1="";
         $scope.password2="";
-        $scope.register=function()
+        $scope.register=function(username,password1,password2,phone)
         {
-            if($scope.password1==$scope.password2&&$scope.password1!='')
+        	
+        	console.log( password1); 
+            if(password1==password2&&password1!='')
             {
-             console.log(username); 
             
-            login_register.do_login($scope.username,$scope.password1,$scope.phone)
+            
+            login_register.do_register(username,password1,phone)
              .success(function(data, status, headers) { 
                     // the success function wraps the response in data 
                     // so we need to call data.data to fetch the raw data 
-
-                          if(data.data=="true")
+console.log(data);
+                         if(data.data=="true")
                           {
                             location.href="www.baidu.com";
 

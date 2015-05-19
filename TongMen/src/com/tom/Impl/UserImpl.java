@@ -26,7 +26,7 @@ public class UserImpl implements UserDao{
 		
 		try {
 			sql = "insert into User(phone,password,username) values("
-					+ "?,?)" ;
+					+ "?,?,?)" ;
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, phone);
 			psmt.setString(2,password);
@@ -198,7 +198,6 @@ public class UserImpl implements UserDao{
 
 	@Override
 	public int GetPraiNum(int userId) {
-		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		sql = "select count(Uid) as praiNum from praise where Uid = "+userId;

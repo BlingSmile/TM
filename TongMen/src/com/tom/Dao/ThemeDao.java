@@ -16,4 +16,6 @@ public interface ThemeDao {
 	public int AddThemePraise(int Tid,int Uid,int Pid);
 	
 	public int AddThemeReplyPra(int Reid, int Uid);
+	
+	public int GetThemeReplyNum(int ReTid, int Retype);
 }

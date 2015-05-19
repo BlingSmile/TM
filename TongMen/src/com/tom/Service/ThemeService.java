@@ -1,11 +1,16 @@
 package com.tom.Service;
 
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.json.JSONArray;
 
 import com.tom.Dao.ThemeDao;
 import com.tom.Impl.ThemeImpl;
 
 import Utils.Config;
+import Utils.ToJSON;
 
 public class ThemeService {
 	
@@ -18,27 +23,47 @@ public class ThemeService {
 	}
 	
 	//创建新主题
-	public int CreateTheme(int circleId, int Uid, String title, String content) {
+	public JSONArray CreateTheme(int circleId, int Uid, String title, String content) {
 		result = themedao.CreateTheme(circleId, Uid, title, content);
-		return result;
+		String res = "";
+		
+		Map<String, String> params = new HashMap<String, String>();
+		
+		if(result == Config.FAILE)
+			res = "发表失败";
+		else
+			res = "发表成功";
+			
+		params.put("result", res);
+		JSONArray array = JSONArray.fromObject(params);
+		
+		return array;
 	}
 	
 	//获取圈子主题
-	public ResultSet GetThemeList(int circleId) {
+	public JSONArray GetThemeList(int circleId) {
 		rs = themedao.GetTmemeList(circleId);
-		return rs;
+		JSONArray array = new JSONArray();
+		
+		array = ToJSON.RsToJson(rs);
+		
+		return array;
 	}
 	
 	//获取主题具体内容
-	public ResultSet GetThemeInfo(int circleId, int Tid) {
+	public JSONArray GetThemeInfo(int circleId, int Tid) {
 		rs = themedao.GetThemeInfo(circleId, Tid);
-		return rs;
+		JSONArray array = new JSONArray();
+		array = ToJSON.RsToJson(rs);
+		return array;
 	}
 	
 	//获取主题回复
-	public ResultSet GetThemeReply(int ReTid, int ReType) {
+	public JSONArray GetThemeReply(int ReTid, int ReType) {
 		rs = themedao.GetThemeReply(ReTid, ReType);
-		return rs;
+		JSONArray array = new JSONArray();
+		array = ToJSON.RsToJson(rs);
+		return array;
 	}
 	
 	//给主题点赞,并且给主题发布者的点赞总数加一，并且加入点赞记录
@@ -51,5 +76,17 @@ public class ThemeService {
 	public int AddThemeReplyPra(int Reid, int Uid) {
 		result = themedao.AddThemeReplyPra(Reid, Uid);
 		return result;
+	}
+	
+	//获取主题的回复数
+	public JSONArray GetThemeReplyNum(int ReTid, int Retype) {
+		int ReplyNum = themedao.GetThemeReplyNum(ReTid,Retype);
+		
+		Map<String, String> params = new HashMap<String, String>();
+		
+		params.put("ReplyNum", Integer.toString(ReplyNum));
+		JSONArray array = JSONArray.fromObject(params);
+		
+		return array;
 	}
 }

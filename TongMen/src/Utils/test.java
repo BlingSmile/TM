@@ -22,11 +22,13 @@ public class test {
 		//us.GetPraiseNum(2);
 		//System.out.println(r);
 		
-		ThemeService ts = new ThemeService();
+		//ThemeService ts = new ThemeService();
 		//ts.GetThemeInfo(1, 1);
 		//ts.GetThemeReply(1, 1);
 		//System.out.println(ts.AddThemePraise(1,2,1));
-		System.out.println(ts.AddThemeReplyPra(1, 2));
+		ThemeImpl themeimpl = new ThemeImpl();
+		//System.out.println(ts.AddThemeReplyPra(1, 2));
+		System.out.println(themeimpl.GetThemeReplyNum(1	, 1));
 	}
 
 }

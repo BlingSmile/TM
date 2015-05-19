@@ -9,6 +9,7 @@ import java.util.Map;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import Utils.Config;
+import Utils.ToJSON;
 
 import com.tom.Dao.ResourceDao;
 import com.tom.Dao.ThemeDao;
@@ -36,7 +37,6 @@ public class UserService {
 		result = userdao.GetActivecode(phone);
 		
 		return result;
-		
 	}
 	
 	public JSONArray Register(String phone, String password, String activecode, String username) {
@@ -62,9 +62,9 @@ public class UserService {
 		
 		Map<String, String> params = new HashMap<String, String>();
 		if(result == Config.PHONE_NOT_EXIST)
-			res = "手机号未注册";
+			res = "用户名或密码错误";
 		else if(result == Config.WRONG_PSW)
-			res = "密码错误";
+			res = "用户名或密码错误";
 		else
 			res = "登陆成功";
 			
@@ -80,48 +80,41 @@ public class UserService {
 		// json数组  
 	    JSONArray array = new JSONArray();  
 	    
-	    // 获取列数  
-	    ResultSetMetaData metaData;
-	    
-		try {
-			metaData = rs.getMetaData();
-		  
-		    int columnCount = metaData.getColumnCount();  
-		    
-		    // 遍历ResultSet中的每条数据  
-		    while (rs.next()) {  
-		        JSONObject jsonObj = new JSONObject();  
-		         
-		        // 遍历每一列  
-		        for (int i = 1; i <= columnCount; i++) {  
-		            String columnName =metaData.getColumnLabel(i);  
-		            String value = rs.getString(columnName);  
-		            jsonObj.put(columnName, value);  
-		        }   
-		        array.add(jsonObj);   
-		    }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    array = ToJSON.RsToJson(rs);
 		
 		return array;
 	}
 	
-	public User GetUserInfo(int userId) {
+	public JSONArray GetUserInfo(int userId) {
 		User us = new User();
 		us = userdao.GetUserInfo(userId);
-		return us;
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("Uid", Integer.toString(us.getUid()));
+		params.put("phone", us.getPhone());
+		params.put("username", us.getUsername());
+		params.put("level", us.getUsername());
+		JSONArray array = JSONArray.fromObject(params);
+		
+		return array;
 	}
 	
-	public ResultSet GetPubThem(int userId) {
+	public JSONArray GetPubThem(int userId) {
 		rs = themedao.GetPubTheme(userId);
-		return rs;
+		// json数组  
+	    JSONArray array = new JSONArray();  
+	    array = ToJSON.RsToJson(rs);
+		
+		return array;
 	}
 	
-	public ResultSet GetPubRec(int userId) {
-		rs = resourcedao.GetPubRec(2);
-		return rs;
+	public JSONArray GetPubRec(int userId) {
+		rs = resourcedao.GetPubRec(userId);
+		
+		JSONArray array = new JSONArray();  
+	    array = ToJSON.RsToJson(rs);
+		
+		return array;
 	}
 	
 	public JSONArray GetFucosNum(int userId) {
@@ -135,10 +128,15 @@ public class UserService {
 		return array;
 	}
 	
-	public int GetPraiseNum(int userId) {
+	public JSONArray GetPraiseNum(int userId) {
 		int PraiNum = 0;
 		PraiNum = userdao.GetPraiNum(userId);
-		return PraiNum;
-	}
 
+		Map<String, Integer> params = new HashMap<String, Integer>();
+		params.put("focusNum", PraiNum);
+		JSONArray array = JSONArray.fromObject(params);
+		
+		return array;
+	}
+	
 }

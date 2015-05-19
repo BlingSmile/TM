@@ -35,7 +35,6 @@ public class ThemeImpl implements ThemeDao{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return rs;
 	}
 
@@ -57,6 +56,8 @@ public class ThemeImpl implements ThemeDao{
 			System.out.println(result);
 			if(result > 0)
 				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -182,6 +183,33 @@ public class ThemeImpl implements ThemeDao{
 		}
 		
 		return result;
+	}
+
+
+	@Override
+	public int GetThemeReplyNum(int ReTid, int Retype) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select count(Reid) as ReplyNum from reply where ReTid = ? and Retype = ?";
+		System.out.println(sql);
+		int ReplyNum = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, ReTid);
+			psmt.setInt(2, Retype);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				ReplyNum = rs.getInt("ReplyNum");
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(ReplyNum);
+		return ReplyNum;
 	}
 
 }
