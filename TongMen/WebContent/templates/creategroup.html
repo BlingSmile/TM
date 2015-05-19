@@ -3,16 +3,14 @@
 <div class="bar header-bar bar-energized ">
         <button class="button button-clear icon ion-arrow-left-c" ng-click="back()"></button>
         <h1 class="title">创建圈子</h1>
+        <button class="button" ng-click="edit()">编辑</button>
         </div> 
 
       <ion-content class="has-header" padding="true">
       
 <form name="create" id="create">
 <div class="list">
-  <label class="item item-input">
-    <span class=" icon ion-plus-circled"></span>
-    <input type="text"   autofocus="autofocus" style="margin-left:20px;" placeholder="请输入圈子的名字" class="input_style" ng-model="groupname" required>
-  </label>
+   
   <label class="item item-input">
   <span class=" icon ion-ios-information"></span>
   <textarea id="notes" name="notes" maxLength="240" placeholder="对你的圈子的描述" rows="6" cols="20" style="resize:none;margin-left:20px;" ng-model="descroption" required ></textarea></label>
