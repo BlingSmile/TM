@@ -46,6 +46,13 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
                 controller : 'LoginController'
            
             })
+            .state('register', {
+                url : '/register',
+              
+                templateUrl : 'register.html',
+                controller : 'registerController'
+           
+            })
 			.state('lunbo', {
                 url : '/lunbo',
                 templateUrl : 'lunbo.html',
@@ -410,6 +417,43 @@ $scope.group=[{'title':'北京交通大学','groupId':'123'}];
 
     })
 
+
+    .controller('registerController', function($scope,login_register) {
+        $scope.username="";
+        $scope.phone="";
+
+        $scope.password1="";
+        $scope.password2="";
+        $scope.register=function()
+        {
+            if($scope.password1==$scope.password2&&$scope.password1!='')
+            {
+             console.log(username); 
+            
+            login_register.do_login($scope.username,$scope.password1,$scope.phone)
+             .success(function(data, status, headers) { 
+                    // the success function wraps the response in data 
+                    // so we need to call data.data to fetch the raw data 
+
+                          if(data.data=="true")
+                          {
+                            location.href="www.baidu.com";
+
+                          }
+                          else
+                          {
+
+
+                          }
+                        }) 
+
+
+            }
+        }
+
+
+
+    })
 
     
    .controller('validateCtrl',function($scope,$http){
