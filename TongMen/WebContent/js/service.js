@@ -9,16 +9,16 @@
       }); 
     } ;
     var login= function(username,password){
-    	return $http({
+      return $http({
 
-    		method:'post',
-    		url:'LoginAction',
-    		params:{'name':username,"password":password}
-
-
+        method:'post',
+        url:'LoginAction',
+        params:{'name':username,"password":password}
 
 
-    	})
+
+
+      })
 
     };
     var register=function(username,password,phone){
@@ -39,4 +39,45 @@
       do_register:function(username,password,phone){return register(username,password,phone)}
      
     }; 
+  }])
+
+
+
+
+
+  .factory('userInformation', ['$http', function($http) { 
+  
+    var getMyAteention= function(){
+      return $http({
+
+        method:'get',
+        url:'UserFocusAction'
+
+
+
+
+      })
+
+    };
+    var getAteentionMe= function(){
+      return $http({
+
+        method:'get',
+        url:'UserFocusAction'
+
+
+
+
+      })
+
+    };
+   
+
+    
+    return { 
+    do_getMyAteention:function(){return getMyAteention();}
+    ,
+    do_getAteentionMe:function(){return getAteentionMe();}
+    }
+  
   }]); 

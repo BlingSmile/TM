@@ -1,0 +1,50 @@
+
+.time{
+	color:#6E6E6E;;
+	font-size: 10px;
+	float:right;
+	panding:10px;
+}
+
+.circle_img{
+	border-radius:50%;
+}
+
+.sep{
+	border: 1px solid #EEEEEE;
+	float:left;
+	width:100%;
+}
+
+.one{
+	border-right: 1px solid #EEEEEE;
+}
+
+.two,.one{
+	border-top: 1px solid #EEEEEE;
+
+}
+
+
+.small-p{
+	font-size:10%;
+	color:#6E6E6E;
+	float:left;
+}
+
+.small-p-right{
+	font-size:10%;
+	color:#6E6E6E;
+	float:left;
+	padding-left:5%;
+}
+
+.user-name{
+	float:left;
+	margin-right:3%;
+	margin:0;
+}
+
+.user_img{
+	border-bottom: 1px solid #EEEEEE;
+}

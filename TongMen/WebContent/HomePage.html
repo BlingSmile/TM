@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>index</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width,height=device-height">
+    <link rel="stylesheet" href="css/style.css">
+     <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+     <link href="css/ThemeList.css" rel="stylesheet">
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+
+ 
+ 
+</head>
+
+<body>
+   <ion-side-menus>
+			<ion-side-menu-content>
+				 
+				<ion-tabs  class="tabs-positive tabs-icon-top" has-header="true">
+					<ion-tab  icon-on="ion-ios-home" icon-off="ion-ios-home-outline" ui-sref="homepage.HotTheme">						
+						<ion-view>
+							<ion-header-bar>
+								<ion-nav-bar class="bar-positive">
+														<div>			
+															<ion-nav-buttons side="left">
+											
+											        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+															<button class="button" ui-sref="homepage.HotCircle" nav-direction="back" >热门圈子</button>									  
+															<button class="button" ui-sref="homepage.HotTheme" nav-direction="forward" >热门主题</button>
+															<button class="button" ui-sref="homepage.HotUser" nav-direction="forward" >风云人物</button>
+											     	  </ion-nav-buttons>						
+											
+														</div>				
+								</ion-nav-bar>
+							</ion-header-bar>
+							<ion-nav-view  name="theme"></ion-nav-view>	
+						</ion-view>
+					</ion-tab>
+					<ion-tab  icon-on="ion-ios-circle-filled" icon-off="ion-ios-circle-outline" ui-sref="homepage.homeGroup">	
+						<ion-view>
+						<ion-header-bar>
+								<ion-nav-bar class="bar-positive">
+														<div>			
+															<ion-nav-buttons side="left">
+											
+											        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+															
+											     	  </ion-nav-buttons>						
+											
+														</div>				
+								</ion-nav-bar>
+							</ion-header-bar>
+							<ion-content >
+								<ion-nav-view  name="group"></ion-nav-view>	
+							</ion-content>
+						</ion-view>
+					</ion-tab>
+					<ion-tab  icon-on="ion-ios-people" icon-off="ion-ios-people-outline"  ui-sref="homepage.homeFriend">	
+						<ion-view>
+						<ion-header-bar>
+								<ion-nav-bar class="bar-positive">
+														<div>			
+															<ion-nav-buttons side="left">
+											
+											        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+															
+											     	  </ion-nav-buttons>						
+											
+														</div>				
+								</ion-nav-bar>
+							</ion-header-bar>
+							
+
+								<ion-nav-view  name="friend"></ion-nav-view>	
+							
+						</ion-view>
+					</ion-tab>
+				</ion-tabs>
+			</ion-side-menu-content>
+
+   <ion-side-menu side="left" width="240" ng-controller="NavController">
+				<ion-header-bar class="bar bar-header bar-assertive">
+          <div class="item item-avatar"><img src="img/avatar.png " class="avatar"></div>
+		 			<div class="item item-avatar"><img src="img/avatar2.png" class="avatar"></div>
+        </ion-header-bar>
+         
+				<ion-content has-header="true">
+					<ul class="list">
+            <a ui-sref="fst.first" class="item" ng-click="toggleLeft()"><span class="icon ion-gear-b"></span>&nbsp &nbsp    设置</a>
+            <a ui-sref="fst.second" class="item" ng-click="toggleLeft()"><span class="icon ion-ios-medkit-outline"></span>&nbsp &nbsp   收藏</a>
+						<a ui-sref="create" class="item" ng-click="toggleLeft()"><span class="icon ion-plus"></span>&nbsp &nbsp   创建圈子</a>
+						<a ui-sref="person_information" class="item" ng-click="toggleLeft()"><span class="ion-information"></span> &nbsp &nbsp 个人信息</a>
+          </ul>
+				</ion-content>
+				 <div class="bar bar-subfooter"><button class="button-fullwidth icon ion-log-out">注销</button></div>
+			</ion-side-menu>		
+	</ion-side-menus>
+</body>
+<html>
+	
