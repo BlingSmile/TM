@@ -48,7 +48,6 @@ public class LoginServlet extends HttpServlet{
 		String name, psw;
 		name = request.getParameter("name");
 		psw = request.getParameter("password");
-		System.out.println(name+psw);
 		UserService userservice = new UserService();
 		
 		JSONArray array = userservice.Login(name, psw);

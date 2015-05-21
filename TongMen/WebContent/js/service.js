@@ -50,8 +50,9 @@
     var getMyAteention= function(){
       return $http({
 
-        method:'get',
-        url:'UserFocusAction'
+        method:'post',
+        url:'UserFocusAction',
+        params:{"form":"GetFucosList"}
 
 
 
@@ -62,12 +63,9 @@
     var getAteentionMe= function(){
       return $http({
 
-        method:'get',
-        url:'UserFocusAction'
-
-
-
-
+        method:'post',
+        url:'UserFocusAction',
+        params:{"form":"GetWhofucos"}
       })
 
     };

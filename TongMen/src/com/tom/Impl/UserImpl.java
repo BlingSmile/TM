@@ -99,7 +99,7 @@ public class UserImpl implements UserDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		String password;
-		sql = "select password from User where phone = '" + phone + "'";
+		sql = "select Uid,password from User where phone = '" + phone + "'";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -110,8 +110,9 @@ public class UserImpl implements UserDao{
 			else 
 			{
 				password = rs.getString("password");
-				if(psw.equals(password))
-					result = Config.SUCCESS;
+				if(psw.equals(password)) {
+					result = rs.getInt("Uid");
+				}
 				else
 					result = Config.WRONG_PSW;
 					
@@ -121,8 +122,6 @@ public class UserImpl implements UserDao{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return result;
 	}
 
@@ -130,14 +129,13 @@ public class UserImpl implements UserDao{
 	public ResultSet GetFocus(int userId) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select user.Uid,username,describe from user,focusu where user.Uid = focusu.Fid and focusu.Uid = "+userId;
+		sql = "select user.Uid,username,'describe' from user,focusu where user.Uid = focusu.Fid and focusu.Uid = "+userId;
 		System.out.println(sql);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -261,19 +259,17 @@ public class UserImpl implements UserDao{
 	@Override
 	public ResultSet GetWhofucosMe(int userId) {
 		conn = DBUtil.getConnection(); 
-		sql = "select user.Uid,username,describe from user,focusu where user.Uid = focusu.Uid and focusu.Fid = "+userId;
+		sql = "select user.Uid,username,'describe' from user,focusu where user.Uid = focusu.Uid and focusu.Fid = "+userId;
 		System.out.println(sql);
 		
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return rs;
 	}
 

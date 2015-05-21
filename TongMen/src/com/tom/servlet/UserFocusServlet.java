@@ -56,25 +56,24 @@ public class UserFocusServlet extends HttpServlet{
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		Uid = request.getParameter("");
-		userId = Integer.parseInt(Uid);
+		//Uid = request.getParameter("");
+		//userId = Integer.parseInt(Uid);
 		
 		UserService userservice = new UserService();
 		
 		String form = request.getParameter("form");
 		
 		if(form.equals("GetFucosList")){
-			array = userservice.GetFucosList(userId);
+			array = userservice.GetFucosList(2);
 			
 			response.getWriter().print(array);
 			
 		} else if(form.equals("GetFucosNum")) {
-			array = userservice.GetFucosNum(userId);
+			array = userservice.GetFucosNum(2);
 			
 			response.getWriter().print(array.toString());
 		} else if(form.equals("GetWhofucos")) {
-			array = userservice.GetFucosNum(userId);
-			
+			array = userservice.GetWhofucosMe(3);
 			response.getWriter().print(array.toString());
 		}
 	}
