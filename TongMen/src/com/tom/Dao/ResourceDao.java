@@ -7,5 +7,15 @@ public interface ResourceDao {
 	public ResultSet GetPubRec(int userId);
 
 	public int UploadResource(int cid, int uid, String rtitle, String rcontent,
-			Date rdata, String rlink);
+			Date rdata, String rlink);
+
+	public ResultSet showCircleResource(int cid, int uid);
+
+	public int deleteResource(int cid, int uid);
+
+	public ResultSet SerchByCid(int cid);
+
+	public ResultSet SerchByUid(int uid);
+
+
 }

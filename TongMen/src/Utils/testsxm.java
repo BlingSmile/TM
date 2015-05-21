@@ -9,17 +9,20 @@ import com.tom.Service.CircleService;
 public class testsxm {
 
 		public static void main(String[] args) {
-			// TODO Auto-generated method stub
+			 //TODO Auto-generated method stub
 			/*CircleService ci=new CircleService();
 			//int r= ci.CreateCircle(152013612,"aihuahua","xuexi");
-			int r= ci.CreateCircle(152013612,"suxiaomo","aihuahua");
+			int r= ci.CreateCircle(123456,"suxiaoo","1234");
 			//int r= ci.CreateCircle(123456,"331","123");
 			if(r== Config.SUCCESS){
 				System.out.println("ceshishigong");
+			}else{
+				System.out.println("您要创建的圈子已经存在！");
 			}
 			*/
 			
-			CircleService ci=new CircleService();
+			
+		CircleService ci=new CircleService();
 			List r=ci.getCidByUid(123456);
 			System.out.println(r);
 			for(int i=0;i<r.size();i++){
