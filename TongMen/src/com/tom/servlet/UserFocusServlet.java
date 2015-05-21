@@ -53,6 +53,9 @@ public class UserFocusServlet extends HttpServlet{
 		int result;
 		JSONArray array = new JSONArray();
 	
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		Uid = request.getParameter("");
 		userId = Integer.parseInt(Uid);
 		
@@ -66,6 +69,10 @@ public class UserFocusServlet extends HttpServlet{
 			response.getWriter().print(array);
 			
 		} else if(form.equals("GetFucosNum")) {
+			array = userservice.GetFucosNum(userId);
+			
+			response.getWriter().print(array.toString());
+		} else if(form.equals("GetWhofucos")) {
 			array = userservice.GetFucosNum(userId);
 			
 			response.getWriter().print(array.toString());

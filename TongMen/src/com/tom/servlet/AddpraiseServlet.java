@@ -41,6 +41,8 @@ public class AddpraiseServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String CircleId,ThemeId,form;
 		int Cid,Tid;
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		ThemeService themeservice = new ThemeService();
 		JSONArray array = new JSONArray();
 		

@@ -42,6 +42,8 @@ public class CreatethemeServlet extends HttpServlet {
 		String CircleId,UserId,title,content;
 		int Cid,Uid;
 		ThemeService themeservice = new ThemeService();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		
 		CircleId = request.getParameter("");
 		UserId = request.getParameter("");

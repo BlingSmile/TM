@@ -43,6 +43,9 @@ public class GetThemeServlet extends HttpServlet {
 		int Cid;
 		ThemeService themsev = new ThemeService();
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		CircleId = request.getParameter("");
 		Cid = Integer.parseInt(CircleId);
 		

@@ -1,6 +1,5 @@
 package com.tom.Dao;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 import com.tom.Model.Circle;

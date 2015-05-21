@@ -44,6 +44,9 @@ public class ThemeinfoServlet extends HttpServlet {
 		ThemeService themeservice = new ThemeService();
 		JSONArray array = new JSONArray();
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		CircleId = request.getParameter("");
 		ThemeId = request.getParameter("");
 		

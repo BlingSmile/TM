@@ -43,6 +43,9 @@ public class PraiseSevlet extends HttpServlet {
 		String UserId;
 		int Uid;
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		UserId = request.getParameter("");
 		Uid = Integer.parseInt(UserId);
 		UserService userservice = new UserService();

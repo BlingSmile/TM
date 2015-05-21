@@ -1,13 +1,10 @@
 package com.tom.Service;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import Utils.Config;
 import Utils.ToJSON;
 
@@ -17,6 +14,7 @@ import com.tom.Dao.UserDao;
 import com.tom.Impl.ResourceImpl;
 import com.tom.Impl.ThemeImpl;
 import com.tom.Impl.UserImpl;
+import com.tom.Model.Labelcolle;
 import com.tom.Model.User;
 
 public class UserService {
@@ -85,6 +83,17 @@ public class UserService {
 		return array;
 	}
 	
+	public JSONArray GetWhofucosMe(int UserId) {
+		rs = userdao.GetWhofucosMe(UserId);
+		
+		// json数组  
+	    JSONArray array = new JSONArray();  
+	    
+	    array = ToJSON.RsToJson(rs);
+		
+		return array;
+	}
+	
 	public JSONArray GetUserInfo(int userId) {
 		User us = new User();
 		us = userdao.GetUserInfo(userId);
@@ -139,4 +148,14 @@ public class UserService {
 		return array;
 	}
 	
+	public void UpdateColleLabel(Labelcolle labelcolle) {
+		userdao.UpdateColleLabel(labelcolle);
+	}
+	
+	public JSONArray GetColleLabel(int Uid) {
+		rs = userdao.GetColleLabel(Uid);
+		JSONArray array = new JSONArray(); 
+	    array = ToJSON.RsToJson(rs);
+	    return array;
+	}
 }

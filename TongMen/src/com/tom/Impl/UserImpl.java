@@ -9,6 +9,7 @@ import Utils.Config;
 import Utils.DBUtil;
 
 import com.tom.Dao.UserDao;
+import com.tom.Model.Labelcolle;
 import com.tom.Model.User;
 
 public class UserImpl implements UserDao{
@@ -43,6 +44,11 @@ public class UserImpl implements UserDao{
 				
 				sql = "insert into Setting(Uid) values ("+Uid+")";
 				psmt = conn.prepareStatement(sql);
+				result = psmt.executeUpdate();
+				
+				sql = "insert into labelcolle(Uid) values(?)";
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, Uid);
 				result = psmt.executeUpdate();
 				
 				if(result > 0)
@@ -120,12 +126,11 @@ public class UserImpl implements UserDao{
 		return result;
 	}
 
-	//��ȡ�û���ע�б�
 	@Override
 	public ResultSet GetFocus(int userId) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select user.Uid,username from user,focusu where user.Uid = focusu.Fid and focusu.Uid = "+userId;
+		sql = "select user.Uid,username,describe from user,focusu where user.Uid = focusu.Fid and focusu.Uid = "+userId;
 		System.out.println(sql);
 		
 		try {
@@ -218,6 +223,77 @@ public class UserImpl implements UserDao{
 		
 		System.out.println(PraNum);
 		return PraNum;
+	}
+
+	@Override
+	public void UpdateColleLabel(Labelcolle label) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "update labelcolle set age = ?,grade = ?,school = ?, college = ?,"
+				+ "major = ?, area = ?,Tschool = ?,Tcollege = ?,Tmajor = ?,Tmaster = ?, Tarea=?"
+				+ "where Uid = " + label.getUid();
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, label.getAge());
+			psmt.setInt(2, label.getGrade());
+			psmt.setString(3, label.getSchool());
+			psmt.setString(4, label.getCollege());
+			psmt.setString(5, label.getMajor());
+			psmt.setString(6, label.getArea());
+			psmt.setString(7, label.getTcollege());
+			psmt.setString(8, label.getTmajor());
+			psmt.setString(9, label.getTmaster());
+			psmt.setString(10, label.getTarea());
+			result = psmt.executeUpdate();
+			if(result > 0)
+				result = Config.SUCCESS;
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public ResultSet GetWhofucosMe(int userId) {
+		conn = DBUtil.getConnection(); 
+		sql = "select user.Uid,username,describe from user,focusu where user.Uid = focusu.Uid and focusu.Fid = "+userId;
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+
+	@Override
+	public ResultSet GetColleLabel(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select* from labelcolle where Uid = "+Uid;
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
 	}
 
 }

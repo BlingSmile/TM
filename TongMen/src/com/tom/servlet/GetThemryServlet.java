@@ -44,6 +44,9 @@ public class GetThemryServlet extends HttpServlet {
 		ThemeService themeservice = new ThemeService();
 		JSONArray array = new JSONArray();
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		ThemeId = request.getParameter("");
 		
 		Tid = Integer.parseInt(ThemeId);

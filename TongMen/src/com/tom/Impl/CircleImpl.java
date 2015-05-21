@@ -30,6 +30,7 @@ public class CircleImpl implements CircleDao {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
+				@SuppressWarnings("unused")
 				String Cname1 = rs.getString("Cname");	
 				result=Config.FAILE;
 			}else{

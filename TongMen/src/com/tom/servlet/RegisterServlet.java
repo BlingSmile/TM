@@ -47,6 +47,9 @@ public class RegisterServlet extends HttpServlet{
 		String phone,name, psw, res,activecode;
 		JSONArray array;
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		phone = request.getParameter("phone");
 		name = request.getParameter("name");
 		psw = request.getParameter("password");

@@ -1,5 +1,5 @@
 package Utils;
 
-public class Constant {
-
+public interface Constant {
+	 
 }
