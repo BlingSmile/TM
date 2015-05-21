@@ -1,5 +1,7 @@
 package com.tom.Dao;
 
-public interface PromoteDao {
+import java.sql.ResultSet;
 
+public interface PromoteDao {
+	public ResultSet PromoteTheme();//推送主题
 }

@@ -16,10 +16,9 @@ public class PromoteImpl implements PromoteDao{
 	ResultSet rs = null;
 	
 	public ResultSet PromoteTheme(){
-		conn = DBUtil.getConnection();
-		sql = "select FROM relpy ORDER BY Repraise desc";
-		System.out.println("");
 		
+		sql = "select FROM relpy ORDER BY Repraise desc";
+		System.out.println("123");
 		
 		return rs;
 		
