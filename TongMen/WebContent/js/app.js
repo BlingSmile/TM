@@ -331,39 +331,24 @@ var theme={
 })
 
 
-.controller("ThemeCtrl",function($scope,ThemeInformation){
-    $scope.theme = {
-    useravrurl:'img/avatar.png',
-    user:'习大大',
-    tname:'我是传说中的主题名',
-    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-    time:'2015-05-15 8:10:10',
-    praice:'32',
-    comments:'5'
-    };
-    var answer={
-    ans_user_url:'img/avatar.png',
-    ans_username:'毛东东',
-    ans_content:'我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气',
-    ans_time:'2015-05-16 9:10:10',
-    ans_praice:'32'
-};
-		
+.controller("ThemeCtrl",function($scope,$ionicSideMenuDelegate,$ionicHistory,ThemeInformation){
+	$scope.answers=[];
+	$scope.theme;
+	$scope.comments=1;
+
 		ThemeInformation.do_getTheme().success(function(data, status, headers){
-	
-	
+
 			$scope.theme = data[0];
+
+			$scope.comments = data[1].ReplyNum;
 			
-			$scope.comments = data.ReplyNum;
 	
+		});
+		ThemeInformation.do_getAnswer().success(function(data, status, headers){	
+				$scope.answers = data;	
 		});
 		
-		ThemeInformation.do_getAnswer().success(function(data, status, headers){
-	
-			$scope.answers = data;
-	
-		});
-    
+   // alert($scope.comments);
      $scope.back=function ()
     {
             history.back();
@@ -481,7 +466,7 @@ userInformation.do_getMyAteention().success(function(data, status, headers){
     $scope.friends=data;
 })
 
-        }
+        
 	$scope.getPeopelInf2=function()
     {
         if(!$scope.second)
@@ -489,7 +474,7 @@ userInformation.do_getMyAteention().success(function(data, status, headers){
             $scope.first=!$scope.first;
             $scope.second=!$scope.second;
            }
-
+    }
 userInformation.do_getAteentionMe().success(function(data, status, headers){
     $scope.friends=data;
 })
@@ -682,11 +667,9 @@ history.back();
  
 		ThemeListInformation.do_getThemeList().success(function(data, status, headers){
 	
-<<<<<<< HEAD
+
 		$scope.themes= data;
-=======
-		$scope.themes= [theme,theme,theme];
->>>>>>> 001c96886929a3b6b37bcb5c47f0837d3b13d44b
+
 	
 		});
 })

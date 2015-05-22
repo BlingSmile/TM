@@ -93,7 +93,6 @@ public class ThemeImpl implements ThemeDao{
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,7 +110,6 @@ public class ThemeImpl implements ThemeDao{
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

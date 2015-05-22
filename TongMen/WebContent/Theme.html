@@ -1,6 +1,6 @@
 ﻿
 <!DOCTYPE html>
-<html >
+<html ng-app="demo">
 <head>
     <title>Theme</title>
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
  
 </head>
 
-<body ng-app="HomePages">
+<body>
 	<div >
 			<ion-header-bar align-title="center" class="bar-positive" >
 				<button class="button button-clear icon ion-ios-arrow-left" ng-click="back()"></button>
@@ -54,9 +54,9 @@
 				  <div>
 				  	<div class="list list-inset" collection-repeat="item in answers">
 							<div class="item item-avatar" >
-						    <img ng-src={{theme.useravrurl}}>
+						    <img ng-src={{item.useravrurl}}>
 						    <h2>{{item.username}}</h2>
-						    <p>{{item.Rcontent}} </p>
+						    <p>{{item.Recontent}} </p>
 						  </div>
 				 		 </div>
 				  </div>				  

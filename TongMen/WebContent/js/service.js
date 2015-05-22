@@ -30,7 +30,7 @@
 
       })
 
-    }
+    };
 
     
     return { 
@@ -126,7 +126,7 @@
    
     
     return { 
-    do_getTheme:function(){return getTheme();}
+    do_getTheme:function(){return getTheme();},
     do_getAnswer:function(){return getAnswer();}
     }
   
