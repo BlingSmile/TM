@@ -331,7 +331,7 @@ var theme={
 })
 
 
-.controller("ThemeCtrl",function($scope){
+.controller("ThemeCtrl",function($scope,ThemeInformation){
     $scope.theme = {
     useravrurl:'img/avatar.png',
     user:'习大大',
@@ -341,7 +341,29 @@ var theme={
     praice:'32',
     comments:'5'
     };
-    $scope.answers = [answer,answer,answer,answer,answer];
+    var answer={
+    ans_user_url:'img/avatar.png',
+    ans_username:'毛东东',
+    ans_content:'我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气',
+    ans_time:'2015-05-16 9:10:10',
+    ans_praice:'32'
+};
+		
+		ThemeInformation.do_getTheme().success(function(data, status, headers){
+	
+	
+			$scope.theme = data[0];
+			
+			$scope.comments = data.ReplyNum;
+	
+		});
+		
+		ThemeInformation.do_getAnswer().success(function(data, status, headers){
+	
+			$scope.answers = data;
+	
+		});
+    
      $scope.back=function ()
     {
             history.back();
@@ -650,11 +672,17 @@ history.back();
 
 
 .controller('circleThemeList', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
-		$scope.themes=[];
+	var theme={
+    useravrurl:'img/avatar.png',
+    tname:'主题名',
+    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
+    time:'2015-05-15',
+    praice:'32'
+    };
  
 		ThemeListInformation.do_getThemeList().success(function(data, status, headers){
 	
-		$scope.friends= data;
+		$scope.themes= [theme,theme,theme];
 	
 		});
 })
