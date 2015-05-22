@@ -488,11 +488,16 @@ userInformation.do_getAteentionMe().success(function(data, status, headers){
 		
     })
 
-    .controller('friendController', function($scope, $stateParams) {
+    .controller('friendController', function($scope, $stateParams,userInformation) {
   // $scope.friend = friend.get($stateParams.roomid);
   $scope.friendID=$stateParams.friendID;
-  console.log($scope.friendID)
-  $scope.friend={"name":"nazhenhuiyi"}
+  $scope.praiseNum=userInformation.do_getPraise($scope.friendID).success(function(data,status,headers){ return data});
+  $scope.ThemeNum=userInformation.do_getThemeNum($scope.friendId).success(function(data,status,headers){return data});
+  $scope.attentionMe=userInformation.do_getAteentionMe($scope.friendID).success(function(data,status,headers){return data});
+  $scope.myAttention=userInformation.do_getMyAteention($scope.friendID).success(function(data,status,headers){return data});
+  
+
+
 })
      .controller('groupController', function($scope, $stateParams,$state) {
   // $scope.friend = friend.get($stateParams.roomid);
