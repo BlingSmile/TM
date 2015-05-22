@@ -54,4 +54,13 @@ public class CircleService {
 		
 		return array;
     }
+
+	public JSONArray ShowCircle(int Cid) {
+		rs = circledao.showCircle(Cid);
+		JSONArray array = new JSONArray();
+		
+		array = ToJSON.RsToJson(rs);
+		
+		return array;
+	}
 }
