@@ -26,7 +26,8 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
             views:{
                 'theme':{
             
-            templateUrl: "ThemeList.html"
+           				 templateUrl: "ThemeList.html",
+           				 controller: 'circleThemeList'
         }
         }
         })
@@ -330,17 +331,24 @@ var theme={
 })
 
 
-.controller("ThemeCtrl",function($scope){
-    $scope.theme = {
-    useravrurl:'img/avatar.png',
-    user:'习大大',
-    tname:'我是传说中的主题名',
-    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-    time:'2015-05-15 8:10:10',
-    praice:'32',
-    comments:'5'
-    };
-    $scope.answers = [answer,answer,answer,answer,answer];
+.controller("ThemeCtrl",function($scope,$ionicSideMenuDelegate,$ionicHistory,ThemeInformation){
+	$scope.answers=[];
+	$scope.theme;
+	$scope.comments=1;
+
+		ThemeInformation.do_getTheme().success(function(data, status, headers){
+
+			$scope.theme = data[0];
+
+			$scope.comments = data[1].ReplyNum;
+			
+	
+		});
+		ThemeInformation.do_getAnswer().success(function(data, status, headers){	
+				$scope.answers = data;	
+		});
+		
+   // alert($scope.comments);
      $scope.back=function ()
     {
             history.back();
@@ -458,7 +466,7 @@ userInformation.do_getMyAteention().success(function(data, status, headers){
     $scope.friends=data;
 })
 
-        }
+        
 	$scope.getPeopelInf2=function()
     {
         if(!$scope.second)
@@ -466,7 +474,7 @@ userInformation.do_getMyAteention().success(function(data, status, headers){
             $scope.first=!$scope.first;
             $scope.second=!$scope.second;
            }
-
+    }
 userInformation.do_getAteentionMe().success(function(data, status, headers){
     $scope.friends=data;
 })
@@ -648,4 +656,20 @@ history.back();
 
 
 
+.controller('circleThemeList', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
+	var theme={
+    useravrurl:'img/avatar.png',
+    tname:'主题名',
+    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
+    time:'2015-05-15',
+    praice:'32'
+    };
+ 
+		ThemeListInformation.do_getThemeList().success(function(data, status, headers){
+	
 
+		$scope.themes= data;
+
+	
+		});
+})

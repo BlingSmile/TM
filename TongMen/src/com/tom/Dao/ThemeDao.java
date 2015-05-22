@@ -18,4 +18,6 @@ public interface ThemeDao {
 	public int AddThemeReplyPra(int Reid, int Uid);
 	
 	public int GetThemeReplyNum(int ReTid, int Retype);
+	
+	public int DelectTheme(int Uid, int Tid);
 }

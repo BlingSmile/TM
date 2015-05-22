@@ -1,13 +1,13 @@
-ï»¿
-		<!--å¯¼èˆªæ¡†æž¶ä¹‹æ¨¡æ¿è§†å›¾-->
+
+		<!--µ¼º½¿ò¼ÜÖ®Ä£°åÊÓÍ¼-->
 				
 				<ion-content hide-back-button="true">
-					<ion-list ng-controller="ThemeListCtrl" has-header="true">
+					<ion-list has-header="true">
 						 <ion-item class="item item-avatar" collection-repeat="item in themes" ui-sref="theme">
 						 	<img ng-src={{item.useravrurl}} />
-					    <h2>{{item.tname}}</h2>
-					    <span class="time">{{item.time}}</span>
-					   	<p>{{item.content}}</p>
+					    <h2>{{item.Ttitle}}</h2>
+					    <span class="time">{{item.Tdate}}</span>
+					   	<p>{{item.Tcontent}}</p>
 				     </ion-item>
 					</ion-list>
 				</ion-content>

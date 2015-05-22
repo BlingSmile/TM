@@ -44,7 +44,7 @@ public class UserService {
 		Map<String, String> params = new HashMap<String, String>();
 		
 		if(result == Config.FAILE)
-			res = "注册成功";
+			res = "注册失败";
 		else
 			res = "注册成功";
 			
@@ -54,22 +54,9 @@ public class UserService {
 		return array;
 	}
 	
-	public JSONArray Login(String phone, String password) {
+	public int Login(String phone, String password) {
 		result = userdao.Login(phone, password);
-		String res = "";
-		
-		Map<String, String> params = new HashMap<String, String>();
-		if(result == Config.PHONE_NOT_EXIST)
-			res = "用户名或密码错误";
-		else if(result == Config.WRONG_PSW)
-			res = "用户名或密码错误";
-		else
-			res = "登陆成功";
-			
-		params.put("result", res);
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return result;
 	}
 	
 	public JSONArray GetFucosList(int UserId) {
@@ -126,26 +113,25 @@ public class UserService {
 		return array;
 	}
 	
-	public JSONArray GetFucosNum(int userId) {
+	public int GetFucosNum(int userId) {
 		int FNum = 0;
 		FNum = userdao.GetFucosNum(userId);
 		
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("focusNum", FNum);
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return FNum;
 	}
 	
-	public JSONArray GetPraiseNum(int userId) {
+	public int GetBefucosNum(int userId) {
+		int FNum = 0;
+		FNum = userdao.GetBeFucosNum(userId);
+		
+		return FNum;
+	}
+	
+	public int GetPraiseNum(int userId) {
 		int PraiNum = 0;
 		PraiNum = userdao.GetPraiNum(userId);
 
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("focusNum", PraiNum);
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return PraiNum;
 	}
 	
 	public void UpdateColleLabel(Labelcolle labelcolle) {
@@ -158,4 +144,16 @@ public class UserService {
 	    array = ToJSON.RsToJson(rs);
 	    return array;
 	}
+	
+	public int GetPubthemeNum(int Uid) {
+		int PubthemeNum = userdao.GetPubthemeNum(Uid);
+		return PubthemeNum;
+	}
+	
+	public int GetPubrecNum(int Uid) {
+		int PubrecNum = userdao.GetPubrecNum(Uid);
+		return PubrecNum;
+	}
+	
+	
 }

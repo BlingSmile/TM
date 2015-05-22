@@ -1,6 +1,6 @@
 ﻿
 <!DOCTYPE html>
-<html >
+<html ng-app="demo">
 <head>
     <title>Theme</title>
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
  
 </head>
 
-<body ng-app="HomePages">
+<body>
 	<div >
 			<ion-header-bar align-title="center" class="bar-positive" >
 				<button class="button button-clear icon ion-ios-arrow-left" ng-click="back()"></button>
@@ -24,24 +24,24 @@
 				 <div class="list card">
 						<div class="item item-avatar" >
 					    <img ng-src={{theme.useravrurl}}>
-					    <h2>{{theme.tname}}</h2>
-					    <p>{{theme.user}} 于{{theme.time}} 发表</p>
+					    <h2>{{theme.Ttitle}}</h2>
+					    <p>{{theme.username}} 于{{theme.Tdate}} 发表</p>
 					  </div>
 					  <div class="item item-body">
 					    <p>
-					      {{theme.content}}
+					      {{theme.Tcontent}}
 					    </p>
 					    
 				 		 </div>
 				 		 <div class="item tabs tabs-secondary tabs-icon-left">
 					    <a class="tab-item" href="#">
 					      <i class="icon ion-thumbsup"></i>
-					      {{theme.praice}} 
+					      {{theme.Tpraice}} 
 					      赞
 					    </a>
 					    <a class="tab-item" href="#">
 					      <i class="icon ion-ios-chatboxes-outline"></i>
-					      {{theme.comments}} 
+					      {{comments}} 
 					      评论
 					    </a>
 					    <a class="tab-item" href="#">
@@ -54,9 +54,9 @@
 				  <div>
 				  	<div class="list list-inset" collection-repeat="item in answers">
 							<div class="item item-avatar" >
-						    <img ng-src={{theme.useravrurl}}>
-						    <h2>{{item.ans_username}}</h2>
-						    <p>{{item.ans_content}} </p>
+						    <img ng-src={{item.useravrurl}}>
+						    <h2>{{item.username}}</h2>
+						    <p>{{item.Recontent}} </p>
 						  </div>
 				 		 </div>
 				  </div>				  

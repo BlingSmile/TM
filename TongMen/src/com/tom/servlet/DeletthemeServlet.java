@@ -7,23 +7,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import javax.servlet.http.HttpSession;
 
 import com.tom.Service.ThemeService;
 
+import net.sf.json.JSONObject;
+
 /**
- * Servlet implementation class ThemeinfoServlet
+ * Servlet implementation class DeletthemeServlet
  */
-@WebServlet("/ThemeinfoAction")
-public class ThemeinfoServlet extends HttpServlet {
+@WebServlet("/DeletthemeAction")
+public class DeletthemeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ThemeinfoServlet() {
+    public DeletthemeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,26 +40,16 @@ public class ThemeinfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String CircleId,ThemeId;
-		int Cid =-1,Tid = -1,ReplyNum = -1;
-		ThemeService themeservice = new ThemeService();
-		JSONArray array = new JSONArray();
+		int Uid = -1, Tid = -1;
 		JSONObject object = new JSONObject();
+		ThemeService theserv = new ThemeService();
+		HttpSession session = request.getSession();
 		
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
+		Tid = Integer.parseInt(request.getParameter(""));
+		Uid = (Integer) session.getAttribute("Uid");
 		
-		CircleId = request.getParameter("CircleId");
-		ThemeId = request.getParameter("ThemeId");
-		
-		Cid = Integer.parseInt(CircleId);
-		Tid = Integer.parseInt(ThemeId);
-		
-		array = themeservice.GetThemeInfo(Cid, Tid);
-		ReplyNum = themeservice.GetThemeReplyNum(Tid, 1);
-		object.put("ReplyNum", ReplyNum);
-		array.add(object);
-		response.getWriter().print(array);
+		object = theserv.DelectTheme(Uid, Tid);
+		response.getWriter().print(object);
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import com.tom.Service.ThemeService;
 
@@ -40,18 +41,20 @@ public class GetThemryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String ThemeId;
-		int Tid;
+		int Tid = -1;
 		ThemeService themeservice = new ThemeService();
 		JSONArray array = new JSONArray();
+		
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		ThemeId = request.getParameter("");
+		ThemeId = request.getParameter("ThemeId");
 		
 		Tid = Integer.parseInt(ThemeId);
 		
 		array = themeservice.GetThemeReply(Tid, 1);
+		
 		response.getWriter().print(array);
 	}
 

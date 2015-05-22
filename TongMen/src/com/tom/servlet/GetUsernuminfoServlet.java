@@ -1,8 +1,6 @@
 package com.tom.servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,21 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONArray;
-
 import com.tom.Service.UserService;
 
+import net.sf.json.JSONObject;
+
 /**
- * Servlet implementation class PraiseSevlet
+ * Servlet implementation class GetUsernuminfoServlet
  */
-@WebServlet("/GetpraiseAction")
-public class PraiseSevlet extends HttpServlet {
+@WebServlet("/GetUsernuminfoAction")
+public class GetUsernuminfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PraiseSevlet() {
+    public GetUsernuminfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,23 +40,28 @@ public class PraiseSevlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		int Uid = 0, PraiNum = 0;
-		
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		
-		Uid = (Integer) session.getAttribute("Uid");
+		int focusNum = 0, pubthemeNum = 0, pubrecNum = 0, befocusNum = 0, praiNum = 0;
+		int Uid = 0;
 		UserService userservice = new UserService();
 		
-		PraiNum = userservice.GetPraiseNum(Uid);
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("PraiNum", PraiNum);
-		JSONArray array = JSONArray.fromObject(params);
+		HttpSession session = request.getSession();
+		Uid = (Integer) session.getAttribute("Uid");
+		focusNum = userservice.GetFucosNum(Uid);
 		
+		JSONObject JObject = new JSONObject();
+		focusNum = userservice.GetFucosNum(Uid);
+		pubthemeNum = userservice.GetPubthemeNum(Uid);
+		pubrecNum = userservice.GetPubrecNum(Uid);
+		befocusNum = userservice.GetBefucosNum(Uid);
+		praiNum = userservice.GetPraiseNum(Uid);
+		JObject.put("focusNum", focusNum);
+		JObject.put("pubthemeNum", pubthemeNum);
+		JObject.put("pubrecNum", pubrecNum);
+		JObject.put("befocusNum", befocusNum);
+		JObject.put("praiNum", praiNum);
 		
-		response.getWriter().print(array);
+		response.getWriter().print(JObject);
+		
 	}
 
 }

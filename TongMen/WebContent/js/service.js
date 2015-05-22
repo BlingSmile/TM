@@ -30,7 +30,7 @@
 
       })
 
-    }
+    };
 
     
     return { 
@@ -76,6 +76,58 @@
     do_getMyAteention:function(){return getMyAteention();}
     ,
     do_getAteentionMe:function(){return getAteentionMe();}
+    }
+  
+  }])
+  
+  .factory('ThemeListInformation', ['$http', function($http) { 
+  
+    var getThemeList= function(){
+      return $http({
+
+        method:'post',
+        url:'GetThemeAction',
+        params:{"CircleId":"1"}
+
+      })
+
+    };
+   
+    
+    return { 
+    do_getThemeList:function(){return getThemeList();}
+    }
+  
+  }])
+  
+  .factory('ThemeInformation', ['$http', function($http) { 
+  
+    var getTheme= function(){
+      return $http({
+
+        method:'post',
+        url:'ThemeinfoAction',
+        params:{"CircleId":"1","ThemeId":"1"}
+
+      })
+
+    };
+    
+    var getAnswer= function(){
+      return $http({
+
+        method:'post',
+        url:'GetThemRyAction',
+        params:{"ThemeId":"1"}
+
+      })
+
+    };
+   
+    
+    return { 
+    do_getTheme:function(){return getTheme();},
+    do_getAnswer:function(){return getAnswer();}
     }
   
   }]); 
