@@ -26,7 +26,8 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
             views:{
                 'theme':{
             
-            templateUrl: "ThemeList.html"
+           				 templateUrl: "ThemeList.html",
+           				 controller: 'circleThemeList'
         }
         }
         })
@@ -648,4 +649,12 @@ history.back();
 
 
 
-
+.controller('circleThemeList', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
+		$scope.themes=[];
+ 
+		ThemeListInformation.do_getThemeList().success(function(data, status, headers){
+	
+		$scope.friends= data;
+	
+		});
+})

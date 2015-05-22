@@ -78,4 +78,24 @@
     do_getAteentionMe:function(){return getAteentionMe();}
     }
   
+  }])
+  
+  .factory('ThemeListInformation', ['$http', function($http) { 
+  
+    var getThemeList= function(){
+      return $http({
+
+        method:'post',
+        url:'ThemeListAction',
+        params:{"CircleId":"10000"}
+
+      })
+
+    };
+   
+    
+    return { 
+    do_getThemeList:function(){return getThemeList();}
+    }
+  
   }]); 
