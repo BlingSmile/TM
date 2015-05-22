@@ -23,8 +23,7 @@ public class CircleImpl implements CircleDao {
 	String sql = "";
 	int result = -1;
     ResultSet rs = null;
-	
-    
+	  
     public int CircleIsExit(String Cname){
     	conn = DBUtil.getConnection();	
     	sql = "select Cname from Circle where Cname ='"+Cname+"'";
@@ -38,8 +37,7 @@ public class CircleImpl implements CircleDao {
 			}else{
 				result=Config.SUCCESS;
 			}
-					
-			
+								
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,8 +82,7 @@ public class CircleImpl implements CircleDao {
 			psmt = conn.prepareStatement(sql);			
 			
 			rs = psmt.executeQuery();
-			
-			
+						
 			if(rs.next()){
 				Circle c = new Circle();
 				c.setCirclename(rs.getString("Cname"));
@@ -112,7 +109,8 @@ public class CircleImpl implements CircleDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return rs;
+		
+		 return rs;
 		
 	}
 }

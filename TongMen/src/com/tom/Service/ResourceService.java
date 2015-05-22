@@ -21,7 +21,7 @@ public class ResourceService {
 		resourcedao = new ResourceImpl();
 	}
 
-	public JSONArray ResourceService(int Cid, int Uid, String Rtitle, String Rcontent,Date Rdata,String Rlink)  {
+	public JSONArray UploadResource(int Cid, int Uid, String Rtitle, String Rcontent,Date Rdata,String Rlink)  {
 		result = resourcedao.UploadResource(Cid, Uid, Rtitle, Rcontent,Rdata,Rlink);
 		String res = "";
 		
@@ -81,4 +81,6 @@ public class ResourceService {
 		
 		return array;
 	}
+
+	
 }
