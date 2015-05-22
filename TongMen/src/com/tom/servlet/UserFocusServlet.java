@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -48,32 +49,34 @@ public class UserFocusServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String Uid;
-		int userId;
+		int Uid;
 		int result;
 		JSONArray array = new JSONArray();
 	
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		//Uid = request.getParameter("");
-		//userId = Integer.parseInt(Uid);
+		HttpSession httpsession = request.getSession();
+		Uid = (Integer) httpsession.getAttribute("Uid");
 		
 		UserService userservice = new UserService();
 		
 		String form = request.getParameter("form");
 		
 		if(form.equals("GetFucosList")){
-			array = userservice.GetFucosList(2);
+			array = userservice.GetFucosList(Uid);
 			
 			response.getWriter().print(array);
 			
 		} else if(form.equals("GetFucosNum")) {
-			array = userservice.GetFucosNum(2);
+			int FNum = userservice.GetFucosNum(Uid);
 			
-			response.getWriter().print(array.toString());
+			JSONObject JObject = new JSONObject();
+			JObject.put("focusNum", FNum);
+			
+			response.getWriter().print(JObject);
 		} else if(form.equals("GetWhofucos")) {
-			array = userservice.GetWhofucosMe(3);
+			array = userservice.GetWhofucosMe(Uid);
 			response.getWriter().print(array.toString());
 		}
 	}

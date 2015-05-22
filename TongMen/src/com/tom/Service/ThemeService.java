@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import com.tom.Dao.ThemeDao;
 import com.tom.Impl.ThemeImpl;
@@ -79,14 +80,18 @@ public class ThemeService {
 	}
 	
 	//获取主题的回复数
-	public JSONArray GetThemeReplyNum(int ReTid, int Retype) {
+	public int GetThemeReplyNum(int ReTid, int Retype) {
 		int ReplyNum = themedao.GetThemeReplyNum(ReTid,Retype);
 		
-		Map<String, String> params = new HashMap<String, String>();
+		return ReplyNum;
+	}
+	
+	//删除发布的主题
+	public JSONObject DelectTheme(int Uid, int Tid) {
+		result = themedao.DelectTheme(Uid, Tid);
+		JSONObject object = new JSONObject();
 		
-		params.put("ReplyNum", Integer.toString(ReplyNum));
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		object.put("result", result);
+		return object;
 	}
 }

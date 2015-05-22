@@ -176,7 +176,8 @@ public class UserImpl implements UserDao{
 	}
 
 	@Override
-	public int GetFucosNum(int userId) {
+	//被关注数
+	public int GetBeFucosNum(int userId) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		sql = "select count(Fid) as focusNum from focusu where Fid = "+userId;
@@ -195,6 +196,30 @@ public class UserImpl implements UserDao{
 			e.printStackTrace();
 		}
 		
+		System.out.println(FoNum);
+		return FoNum;
+	}
+	
+	//关注数
+	public int GetFucosNum(int userId) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select count(Uid) as focusNum from focusu where Uid = "+userId;
+		System.out.println(sql);
+		int FoNum = 0;
+			
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				FoNum = rs.getInt("focusNum");
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
 		System.out.println(FoNum);
 		return FoNum;
 	}
@@ -290,6 +315,53 @@ public class UserImpl implements UserDao{
 		}
 		
 		return rs;
+	}
+
+	@Override
+	public int GetPubthemeNum(int Uid) {
+		conn = DBUtil.getConnection(); 
+		sql = "select count(Uid) as PubthemeNum from theme where Uid = "+Uid;
+		System.out.println(sql);
+		int PubthemeNum = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				PubthemeNum = rs.getInt("PubthemeNum");
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("发布的主题数目："+PubthemeNum);
+		return PubthemeNum;
+	}
+
+	@Override
+	public int GetPubrecNum(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select count(Uid) as PubrecNum from resource where Uid = "+Uid;
+		System.out.println(sql);
+		int PubrecNum = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				PubrecNum = rs.getInt("PubrecNum");
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("发布的资源数目："+PubrecNum);
+		return PubrecNum;
 	}
 
 }

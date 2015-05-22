@@ -28,7 +28,8 @@ public class test {
 		//System.out.println(ts.AddThemePraise(1,2,1));
 		ThemeImpl themeimpl = new ThemeImpl();
 		//System.out.println(ts.AddThemeReplyPra(1, 2));
-		System.out.println(themeimpl.GetThemeReplyNum(1	, 1));
+		//System.out.println(themeimpl.GetThemeReplyNum(1	, 1));
+		System.out.println(themeimpl.DelectTheme(2, 23));
 	}
 
 }

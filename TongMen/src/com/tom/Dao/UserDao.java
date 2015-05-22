@@ -18,11 +18,19 @@ public interface UserDao {
 	
 	public User GetUserInfo(int userId);
 	
-	public int GetFucosNum(int userId);
+	//被关注数
+	public int GetBeFucosNum(int userId);
 	
 	public int GetPraiNum(int userId);
 	
 	public void UpdateColleLabel(Labelcolle label);
 	
 	public ResultSet GetColleLabel(int Uid);
+	
+	public int GetPubthemeNum(int Uid);
+	
+	public int GetPubrecNum(int Uid);
+	
+	//关注其他人的数目
+	public int GetFucosNum(int Uid);
 }

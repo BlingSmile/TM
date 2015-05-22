@@ -46,8 +46,10 @@ public class GetThemeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		CircleId = request.getParameter("");
+		CircleId = request.getParameter("CircleId");
 		Cid = Integer.parseInt(CircleId);
+		
+		System.out.println(CircleId+Cid);
 		
 		JSONArray array = new JSONArray();
 		array = themsev.GetThemeList(Cid);

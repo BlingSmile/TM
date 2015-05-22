@@ -39,7 +39,7 @@ public class AddpraiseServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String CircleId,ThemeId,form;
+		String CircleId,ThemeId;
 		int Cid,Tid;
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -48,8 +48,6 @@ public class AddpraiseServlet extends HttpServlet {
 		
 		CircleId = request.getParameter("");
 		ThemeId = request.getParameter("");
-		form = request.getParameter("");
-		
 		Cid = Integer.parseInt(CircleId);
 		Tid = Integer.parseInt(ThemeId);
 		

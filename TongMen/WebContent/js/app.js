@@ -654,7 +654,7 @@ history.back();
  
 		ThemeListInformation.do_getThemeList().success(function(data, status, headers){
 	
-		$scope.friends= data;
+		$scope.themes= data;
 	
 		});
 })

@@ -71,12 +71,11 @@ public class ThemeImpl implements ThemeDao{
 	public ResultSet GetTmemeList(int circleId) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select Tid,Ttitle,Tdate,username from theme,user where theme.Uid = user.Uid and Cid = "+circleId;
+		sql = "select Tid,Ttitle,Tdate,username,Tcontent from theme,user where theme.Uid = user.Uid and Cid = "+circleId;
 		System.out.println(sql);
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -210,6 +209,33 @@ public class ThemeImpl implements ThemeDao{
 		
 		System.out.println(ReplyNum);
 		return ReplyNum;
+	}
+
+
+	@Override
+	public int DelectTheme(int Uid, int Tid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "delete from theme where Tid = ? and Uid = ?";
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Tid);
+			psmt.setInt(2, Uid);
+			result = psmt.executeUpdate();
+			if(result > 0)
+				result = Config.SUCCESS;
+			else 
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(result);
+		return result;
 	}
 
 }
