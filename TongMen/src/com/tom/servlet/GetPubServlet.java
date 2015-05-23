@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -44,10 +45,10 @@ public class GetPubServlet extends HttpServlet{
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		String form = request.getParameter("form");
-		String UserId;
-		int Uid;
-		UserId = request.getParameter("");
-		Uid = Integer.parseInt(UserId);
+		int Uid = -1;
+		
+		HttpSession session = request.getSession();
+		Uid = (Integer) session.getAttribute("Uid");
 		UserService userservice = new UserService();
 		JSONArray array = new JSONArray();
 		

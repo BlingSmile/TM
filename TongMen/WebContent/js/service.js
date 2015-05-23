@@ -130,4 +130,31 @@
     do_getAnswer:function(){return getAnswer();}
     }
   
-  }]); 
+  }])
+ 
+ .factory('PeopleInformation', ['$http', function($http) { 
+	  
+	    var getInformation= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'GetUsernuminfoAction',
+	      })
+
+	    };
+	    
+	    var getSchoolInformation= function(){
+		      return $http({
+		        method:'post',
+		        url:'CollelabelAction',
+		        params:{"form":"query"}
+		      })
+
+		    };
+ 
+	    return { 
+	    do_getInformation:function(){return getInformation();},
+	    do_getSchoolInformation:function(){return getSchoolInformation();}
+	    }
+	  
+	  }]); 

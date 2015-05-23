@@ -141,17 +141,13 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
 
               .state('create', {
-                url : '/create',
-             
-                  
+                url : '/create',                
                 templateUrl : 'templates/creategroup.html' , 
                 controller : 'validateCtrl'
             })
 
               .state('person_information', {
-                url : '/person',
-             
-                  
+                url : '/person',                 
                 templateUrl : 'templates/person_information.html' , 
                 controller : 'person_ctrl'
             })
@@ -301,16 +297,27 @@ history.back();
 
     }
 })
+	//个人信息
+   .controller('person_ctrl',function($scope,$ionicSideMenuDelegate,$ionicHistory,PeopleInformation){
+	   var grades=["大一","大二","大三","大四","研一","研二","研三"];   
+ PeopleInformation.do_getInformation().success(function(data, status, headers){
+		
+		$scope.focusNum = data.focusNum;
+		$scope.pubthemeNum = data.pubthemeNum;
+		$scope.pubrecNum = data.pubrecNum;
+		$scope.befocusNum = data.befocusNum;
+		$scope.praiNum = data.praiNum;
 
-   .controller('person_ctrl',function($scope){
-    
- $scope.person={"personname":"那阵回忆","num_other_attention":'4',"num_good":'5',"num_my_attention":'6'};
-    $scope.back=function ()
-    {
+	});
+ PeopleInformation.do_getSchoolInformation().success(function(data, status, headers){
+		
+		$scope.school = data[0].school;
+		$scope.college = data[0].college;
+		$scope.major = data[0].major;
+		$scope.grade = grades[data[0].grade];
 
-history.back();
-
-    }
+	});
+ 
 })
 
 
@@ -444,3 +451,4 @@ var circle ={
 	$scope.resources = [resource,resource,resource,resource,resource,resource,resource];
 
 })
+

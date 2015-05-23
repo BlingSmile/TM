@@ -228,7 +228,7 @@ public class UserImpl implements UserDao{
 	public int GetPraiNum(int userId) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select count(Uid) as praiNum from praise where Uid = "+userId;
+		sql = "select praise from user where Uid = "+userId;
 		System.out.println(sql);
 		int PraNum = 0;
 		
@@ -236,7 +236,7 @@ public class UserImpl implements UserDao{
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next())
-				PraNum = rs.getInt("praiNum");
+				PraNum = rs.getInt("praise");
 			
 			conn.close();
 		} catch (SQLException e) {
@@ -308,7 +308,6 @@ public class UserImpl implements UserDao{
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

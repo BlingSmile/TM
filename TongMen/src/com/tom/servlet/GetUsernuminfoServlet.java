@@ -45,7 +45,8 @@ public class GetUsernuminfoServlet extends HttpServlet {
 		UserService userservice = new UserService();
 		
 		HttpSession session = request.getSession();
-		Uid = (Integer) session.getAttribute("Uid");
+		//Uid = (Integer) session.getAttribute("Uid");
+		Uid = 2;
 		focusNum = userservice.GetFucosNum(Uid);
 		
 		JSONObject JObject = new JSONObject();

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import Utils.Config;
@@ -41,16 +42,22 @@ public class CollelabelServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int grade = 0;
+		int grade = 0,Uid = -1;
 		String form = "";
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		UserService userservice = new UserService();
+		HttpSession session = request.getSession();
+		//Uid = session.getAttribute("Uid");
+		Uid = 2;
 		
 		form = request.getParameter("form");
 		if(form.equals("update")) {
 			Labelcolle label = new Labelcolle();
 			label.setAge(Integer.parseInt(request.getParameter("")));
-			label.setUid(Integer.parseInt(request.getParameter("")));
+			label.setUid(Uid);
 			for(; grade < 7; grade++) {
 				if(Config.grade[grade].equals(request.getParameter("")))
 					break;
@@ -68,8 +75,6 @@ public class CollelabelServlet extends HttpServlet {
 			
 			userservice.UpdateColleLabel(label);
 		} else if(form.equals("query")) {
-			String userid = request.getParameter("Uid");
-			int Uid = Integer.parseInt(userid);
 			JSONArray array = new JSONArray();
 			
 			array = userservice.GetColleLabel(Uid);
