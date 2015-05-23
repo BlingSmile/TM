@@ -30,7 +30,7 @@
 
       })
 
-    };
+    }
 
     
     return { 
@@ -86,8 +86,8 @@
       return $http({
 
         method:'post',
-        url:'GetThemeAction',
-        params:{"CircleId":"1"}
+        url:'ThemeListAction',
+        params:{"CircleId":"10000"}
 
       })
 

@@ -1,0 +1,16 @@
+
+		<!--导航框架之模板视图-->
+				
+				<ion-content >
+					<ion-list has-header="true">
+						 <ion-item class="item item-avatar" collection-repeat="item in resources">
+						 	<img ng-src={{item.img}} />
+					    <h2>{{item.rname}}</h2>
+					    <span class="time">{{item.rtime}}</span>
+
+				     </ion-item>
+					</ion-list>
+				</ion-content>
+
+
+		
