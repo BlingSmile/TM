@@ -89,7 +89,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
          .state("circledetail.theme",{
             url:"/Theme",
             views:{
-                'content':{
+                'theme':{
                     templateUrl:'ThemeList.html',
                     controller : 'circleThemeList'
                 }
@@ -101,7 +101,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
           .state("circledetail.user",{
             url:"/Users",
             views:{
-                'content':{
+                'user':{
                     templateUrl:'UserList.html',
                     controller :'circleUserCtrl'
                 }
@@ -113,7 +113,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
           .state("circledetail.resource",{
             url:"/Resource",
             views:{
-                'content':{
+                'resource':{
                     templateUrl:'ResourceList.html',
                     controller :'circleResourceCtrl'
                 }
@@ -139,12 +139,57 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
            
             })
 
-
-              .state('create', {
-                url : '/create',                
-                templateUrl : 'templates/creategroup.html' , 
+							//创建圈子
+              .state('createCircle', {
+                url : '/createCircle',                
+                templateUrl : 'creategroup.html' , 
                 controller : 'validateCtrl'
             })
+            
+            	//创建主题
+              .state('createTheme', {
+                url : '/createTheme',                
+                templateUrl : 'creatTheme.html' , 
+                controller : 'creatThemeCtrl'
+            })
+            
+            //创建资料
+              .state('createResource', {
+                url : '/createResource',                
+                templateUrl : 'creatResource.html' , 
+                controller : 'creatResourceCtrl'
+            })
+            
+            //收藏
+              .state('Collection', {
+                url : '/Collection',                
+                templateUrl : 'Collection.html' , 
+                controller : 'CollectionCtrl',
+                 abstract : true,
+            })
+            
+            //收藏-主题
+	         .state("Collection.theme",{
+	            url:"/Theme",
+	            views:{
+	                'theme':{
+	                    templateUrl:'ThemeList.html',
+	                    controller :'circleThemeList'
+	                }
+	            }
+	
+	         })
+	         
+	          //收藏-资源
+	         .state("Collection.resource",{
+	            url:"/Resource",
+	            views:{
+	                'resource':{
+	                    templateUrl:'ResourceList.html',
+	                    controller : 'circleResourceCtrl'
+	                }
+	            }
+	         })
 
               .state('person_information', {
                 url : '/person',                 
@@ -452,3 +497,33 @@ var circle ={
 
 })
 
+
+//创建主题
+.controller('creatThemeCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory) {
+
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+//创建资料
+.controller('creatResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory) {
+
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+//创建资料
+.controller('CollectionCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory) {
+
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})

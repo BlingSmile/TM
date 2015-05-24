@@ -32,7 +32,7 @@
 				</ion-view>-->
 				
 				<ion-tabs  class="tabs-positive tabs-icon-top" has-header="true">
-					<ion-tab  icon-on="ion-ios-book" icon-off="ion-ios-book-outline" ui-sref="circledetail.theme">						
+					<ion-tab  icon-on="ion-ios-book" icon-off="ion-ios-book-outline" ui-sref="homepage.HotTheme">						
 						<ion-view>
 							<ion-header-bar>
 								<ion-nav-bar class="bar-positive">
