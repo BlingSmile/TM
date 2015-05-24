@@ -47,7 +47,7 @@ public class PromoteImpl implements PromoteDao{
 	public ResultSet PromoteUser(){
 		conn=DBUtil.getConnection();
 		try {
-			sql = "select user.Uid,username,level,sex,praise,fucouse FROM user where user.level>3 ORDER BY praise desc";
+			sql = "select Uid,username,level,sex,praise,fucouse FROM user where user.level>3 ORDER BY praise desc";
 			System.out.println(sql);
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();

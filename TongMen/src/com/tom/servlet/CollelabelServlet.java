@@ -50,8 +50,8 @@ public class CollelabelServlet extends HttpServlet {
 		
 		UserService userservice = new UserService();
 		HttpSession session = request.getSession();
-		//Uid = session.getAttribute("Uid");
-		Uid = 2;
+		Uid = (Integer) session.getAttribute("Uid");
+		//Uid = 2
 		
 		form = request.getParameter("form");
 		if(form.equals("update")) {

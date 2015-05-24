@@ -51,7 +51,7 @@ public class GetThemeServlet extends HttpServlet {
 		Cid = Integer.parseInt(CircleId);
 		
 		HttpSession session = request.getSession();
-		session.putValue("Cid", Cid);
+		session.setAttribute("Cid", Cid);
 		
 		System.out.println(CircleId+Cid);
 		

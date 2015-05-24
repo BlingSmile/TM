@@ -37,21 +37,10 @@ public class UserService {
 		return result;
 	}
 	
-	public JSONArray Register(String phone, String password, String activecode, String username) {
+	public int Register(String phone, String password, String activecode, String username) {
 		result = userdao.Register(phone, password, activecode, username);
-		String res = "";
 		
-		Map<String, String> params = new HashMap<String, String>();
-		
-		if(result == Config.FAILE)
-			res = "注册失败";
-		else
-			res = "注册成功";
-			
-		params.put("result", res);
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return result;
 	}
 	
 	public int Login(String phone, String password) {

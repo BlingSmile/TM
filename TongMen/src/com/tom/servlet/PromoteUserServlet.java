@@ -12,7 +12,6 @@ import net.sf.json.JSONArray;
 
 import com.tom.Service.PromoteService;
 
-@SuppressWarnings("unused")
 @WebServlet("/PromoteUserAction")
 public class PromoteUserServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
@@ -40,7 +39,7 @@ public class PromoteUserServlet extends HttpServlet{
 		response.setCharacterEncoding("UTF-8");
 		
 		JSONArray array = new JSONArray();
-		
+		System.out.println("in promote user");
 		PromoteService promoteservice = new PromoteService();
 		
 		array =promoteservice.PromoteUser();

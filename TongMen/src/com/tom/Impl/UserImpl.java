@@ -52,7 +52,7 @@ public class UserImpl implements UserDao{
 				result = psmt.executeUpdate();
 				
 				if(result > 0)
-					result = Config.SUCCESS;
+					result = Uid;
 				else 
 					result = Config.FAILE;
 			}

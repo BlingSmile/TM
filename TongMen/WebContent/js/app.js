@@ -290,13 +290,13 @@ userInformation.do_getAteentionMe().success(function(data, status, headers){
         $scope.password="";
         $scope.login=function(username,password)
         {
-             console.log(username); 
+             
             login_register.do_login(username,password)
              .success(function(data, status, headers) { 
-
-          if(data.data=="true")
+            	 alert(data[0]);
+          if(data[0].result=="登陆成功")
           {
-            location.href="www.baidu.com";
+            location.href="index.html#/homepage/HotTheme";
           }
           else
           {
@@ -322,9 +322,9 @@ userInformation.do_getAteentionMe().success(function(data, status, headers){
             
             login_register.do_register(username,password1,phone)
              .success(function(data, status, headers) { 
-                         if(data.data=="true")
+                         if(data.result=="注册成功")
                          {
-                            location.href="www.baidu.com";
+                            location.href="index.html#/homepage/HotTheme";
                           }
                           else
                           {
@@ -579,7 +579,6 @@ history.back();
 
 })
 
->>>>>>> origin/孙晓梦-界面链接
 //收藏资料
 .controller('CollectionResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,getCollectionResource) {
 
