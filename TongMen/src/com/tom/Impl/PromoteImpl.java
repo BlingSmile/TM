@@ -19,8 +19,8 @@ public class PromoteImpl implements PromoteDao{
 	public ResultSet PromoteTheme(){
 		conn=DBUtil.getConnection();
 		try {
-			sql = "select * FROM theme  ORDER BY Tpraise desc";
-			System.out.println(sql);
+			sql = "select Tid,username,Ttitle,Tcontent,Tdate FROM theme,user where user.Uid=theme.Uid ORDER BY Tpraise desc";
+			System.out.println(sql+"1");
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 		} catch (SQLException e) {
@@ -33,7 +33,7 @@ public class PromoteImpl implements PromoteDao{
 	public ResultSet PromoteCircle(){
 		conn=DBUtil.getConnection();
 		try {
-			sql = "select * FROM circle,resource where circle.Cid=resource.Cid  ORDER BY Rpraise desc";
+			sql = "select DISTINCT circle.Cid,Cname,Cdesc FROM circle,focusc  where circle.Cid=focusc.Cid";
 			System.out.println(sql);
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
@@ -47,7 +47,7 @@ public class PromoteImpl implements PromoteDao{
 	public ResultSet PromoteUser(){
 		conn=DBUtil.getConnection();
 		try {
-			sql = "select * FROM user where user.level>4 ORDER BY praise desc";
+			sql = "select user.Uid,username,level,sex,praise,fucouse FROM user where user.level>3 ORDER BY praise desc";
 			System.out.println(sql);
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();

@@ -57,8 +57,8 @@ public class UserFocusServlet extends HttpServlet{
 		response.setCharacterEncoding("UTF-8");
 		
 		HttpSession httpsession = request.getSession();
-		Uid = (Integer) httpsession.getAttribute("Uid");
-		
+		//Uid = (Integer) httpsession.getAttribute("Uid");
+		Uid=2;
 		UserService userservice = new UserService();
 		
 		String form = request.getParameter("form");

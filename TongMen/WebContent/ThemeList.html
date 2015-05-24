@@ -1,9 +1,9 @@
 
 		<!--导航框架之模板视图-->
 				
-				<ion-content hide-back-button="true">
+				<ion-content >
 					<ion-list has-header="true">
-						 <ion-item class="item item-avatar" collection-repeat="item in themes" ui-sref="theme">
+						 <ion-item class="item item-avatar" collection-repeat="item in themes" href="index.html#/theme/{{item.Tid}}">
 						 	<img ng-src={{item.useravrurl}} />
 					    <h2>{{item.Ttitle}}</h2>
 					    <span class="time">{{item.Tdate}}</span>

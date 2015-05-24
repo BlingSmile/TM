@@ -30,7 +30,7 @@
 
       })
 
-    };
+    }
 
     
     return { 
@@ -44,7 +44,7 @@
 
 
 
-
+   //关注的用户
   .factory('userInformation', ['$http', function($http) { 
   
     var getMyAteention= function(){
@@ -80,14 +80,15 @@
   
   }])
   
+  //主题列表
   .factory('ThemeListInformation', ['$http', function($http) { 
   
-    var getThemeList= function(){
+    var getThemeList= function(Cid){
       return $http({
 
         method:'post',
-        url:'PromoteThemeAction',
-      //  params:{"CircleId":"1"}
+        url:'GetThemeAction',
+        params:{"CircleId":Cid}
 
       })
 
@@ -95,30 +96,31 @@
    
     
     return { 
-    do_getThemeList:function(){return getThemeList();}
+    do_getThemeList:function(Cid){return getThemeList(Cid);}
     }
   
   }])
   
+  //主题详细
   .factory('ThemeInformation', ['$http', function($http) { 
   
-    var getTheme= function(){
+    var getTheme= function(Tid){
       return $http({
 
         method:'post',
         url:'ThemeinfoAction',
-        params:{"CircleId":"1","ThemeId":"1"}
+        params:{"ThemeId":Tid}
 
       })
 
     };
     
-    var getAnswer= function(){
+    var getAnswer= function(Tid){
       return $http({
 
         method:'post',
         url:'GetThemRyAction',
-        params:{"ThemeId":"1"}
+        params:{"ThemeId":Tid}
 
       })
 
@@ -126,8 +128,173 @@
    
     
     return { 
-    do_getTheme:function(){return getTheme();},
-    do_getAnswer:function(){return getAnswer();}
+    do_getTheme:function(Tid){return getTheme(Tid);},
+    do_getAnswer:function(Tid){return getAnswer(Tid);}
     }
   
-  }]); 
+  }])
+ 
+  //用户资料
+ .factory('PeopleInformation', ['$http', function($http) { 
+	  
+	    var getInformation= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'GetUsernuminfoAction',
+	      })
+
+	    };
+	    
+	    var getSchoolInformation= function(){
+		      return $http({
+		        method:'post',
+		        url:'CollelabelAction',
+		        params:{"form":"query"}
+		      })
+
+		    };
+ 
+	    return { 
+	    do_getInformation:function(){return getInformation();},
+	    do_getSchoolInformation:function(){return getSchoolInformation();}
+	    }
+	  
+	  }]) 
+ //收藏主题
+ .factory('getCollectionTheme', ['$http', function($http) { 
+	  
+	    var getCollectionThemeList= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'GetSavelistAction',
+	        params:{"form":"ThemeList"}
+	      })
+
+	    };
+
+
+	    return { 
+	    do_getCollectionThemeList:function(){return getCollectionThemeList();}
+	    }
+	  
+	  }])
+ 
+ //收藏资料
+ .factory('getCollectionResource', ['$http', function($http) { 
+	  
+	    var getCollectionResourceList= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'GetSavelistAction',
+	        params:{"form":"RescList"}
+	      })
+
+	    };
+
+
+	    return { 
+	    do_getCollectionResourceList:function(){return getCollectionResourceList();}
+	    }
+	  
+	  }])
+ 
+//收藏资料
+ .factory('getFocusCircle', ['$http', function($http) { 
+	  
+	    var getFocusCircleList= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'UserFocusAction',
+	        params:{"form":"GetFocusciecle"}
+	      })
+
+	    };
+
+
+	    return { 
+	    do_getFocusCircleList:function(){return getFocusCircleList();}
+	    }
+	  
+	  }])
+ 
+//创建主题
+ .factory('createTheme', ['$http', function($http) { 
+	  
+	    var createTheme= function(title,content){
+	      return $http({
+
+	        method:'post',
+	        url:'CreatethemeAction',
+	        params:{"title":title,"content":content}
+	      })
+
+	    };
+
+
+	    return { 
+	    do_createTheme:function(title,content){return createTheme(title,content);}
+	    }
+	  
+	  }])
+ 
+ 
+//主题推送
+ .factory('ThemePromote', ['$http', function($http) { 
+	  
+	    var ThemePromote= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'PromoteThemeAction',
+	      })
+
+	    };
+
+
+	    return { 
+	    do_ThemePromote:function(){return ThemePromote();}
+	    }
+	  
+	  }])
+	  
+	  //圈子推送
+ .factory('CirclePromote', ['$http', function($http) { 
+	  
+	    var CirclePromote= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'PromoteCircleAction',
+	      })
+
+	    };
+
+
+	    return { 
+	    do_CirclePromote:function(){return CirclePromote();}
+	    }
+	  
+	  }]) 
+ 
+ //圈子推送
+ .factory('UserPromote', ['$http', function($http) { 
+	  
+	    var UserPromote= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'PromoteUserAction',
+	      })
+
+	    };
+
+
+	    return { 
+	    do_UserPromote:function(){return UserPromote();}
+	    }
+	  
+	  }]); 

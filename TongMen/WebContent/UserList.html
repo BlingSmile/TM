@@ -1,6 +1,6 @@
-﻿<!--导航框架之模板视图-->
+<!--导航框架之模板视图-->
 
-			<ion-content ng-controller="UserCtrl">
+			<ion-content >
 				<div collection-repeat="item in users" >
 				<div  class="list card">
 					<div >
@@ -8,7 +8,7 @@
 								<img class="circle_img user_img"  ng-src={{item.user_img}} style="width:15%;float:left;margin:5%">	
 								<div style="float:left;width:75%;height:60%">
 									<div style="float:left;width:100%">
-										<p class="user-name">{{item.user_name}}  </p>	<span class="small-p-right">{{item.user_city}}  {{item.user_school}}  {{item.user_grade}}</span>
+										<p class="user-name">{{item.username}}  </p>	<span class="small-p-right">{{item.user_city}}  {{item.user_school}}  {{item.user_grade}}</span>
 									
 									</div>
 									<div class="row">
@@ -40,7 +40,7 @@
 			    <div class="item tabs tabs-secondary tabs-icon-left">
 					    <a class="tab-item" href="#">
 					      <i class="icon ion-thumbsup"></i>
-					      {{theme.praice}} 
+					      {{item.praise}} 
 					      点赞数
 					    </a>
 					    <a class="tab-item" href="#">

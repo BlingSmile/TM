@@ -11,7 +11,7 @@ import Utils.ToJSON;
 
 import com.tom.Dao.CircleDao;
 import com.tom.Impl.CircleImpl;
-import com.tom.Model.Circle;
+import com.tom.Model.Labelcircle;
 
 public class CircleService {
 
@@ -23,8 +23,8 @@ public class CircleService {
 		circledao = new CircleImpl();
 	}
 	
-	public JSONArray CreateCircle(int Uid,String Cname,String Cdesc) {
-		result = circledao.CreateCircle(Uid,Cname,Cdesc);
+	public JSONArray CreateCircle(int Uid,String Cname,String Cdesc, Labelcircle lebcic) {
+		result = circledao.CreateCircle(Uid,Cname,Cdesc,lebcic);
 		String res = "";
 		
 		Map<String, String> params = new HashMap<String, String>();
@@ -40,9 +40,9 @@ public class CircleService {
 		return array;
 	}
 
-	public List getCidByUid(int Uid) {
+	public List<?> getCidByUid(int Uid) {
 		// TODO Auto-generated method stub
-		List list=circledao.getCidByUid(Uid);
+		List<?> list=circledao.getCidByUid(Uid);
 		return list;
 	}
 	

@@ -8,13 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.json.JSONArray;
 import Utils.Config;
 import Utils.DBUtil;
-import Utils.ToJSON;
-
 import com.tom.Dao.CircleDao;
 import com.tom.Model.Circle;
+import com.tom.Model.Labelcircle;
 
 public class CircleImpl implements CircleDao {
 
@@ -47,7 +45,7 @@ public class CircleImpl implements CircleDao {
     
     }
     
-	public int CreateCircle(int Uid,String Cname,String Cdesc){
+	public int CreateCircle(int Uid,String Cname,String Cdesc, Labelcircle labcic){
 		conn = DBUtil.getConnection();				
 					
 		try{ 
@@ -58,7 +56,28 @@ public class CircleImpl implements CircleDao {
 			psmt.setString(2,Cname);
 			psmt.setString(3,Cdesc);
 			result = psmt.executeUpdate();
+			
+			sql = "select Cid from circle where Uid = ? and Cname = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setString(2,Cname);
+			rs = psmt.executeQuery();
+			int Cid = rs.getInt("Cid");
+			
+			sql = "insert into labelcircle(Cid,subject,school,college,major,area,Tschool,Tcollege,Tmajor,Tarea) values(?,?,?,?,?,?,?,?,?,?)";
 			//conn.close();
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Cid);
+			psmt.setString(2,labcic.getSubject());
+			psmt.setString(3,labcic.getSchool());
+			psmt.setString(4,labcic.getCollege());
+			psmt.setString(5,labcic.getMajor());
+			psmt.setString(6,labcic.getArea());
+			psmt.setString(7,labcic.getTschool());
+			psmt.setString(8,labcic.getTcollege());
+			psmt.setString(9,labcic.getTmajor());
+			psmt.setString(10,labcic.getTarea());
+			result = psmt.executeUpdate();
 			
 			if(result>0)
 				result = Config.SUCCESS;
@@ -73,7 +92,7 @@ public class CircleImpl implements CircleDao {
 	}
 	
 	public List<Circle> getCidByUid(int Uid){
-		List list = new ArrayList();
+		List<Circle> list = new ArrayList<Circle>();
 		
         conn=DBUtil.getConnection();
         
