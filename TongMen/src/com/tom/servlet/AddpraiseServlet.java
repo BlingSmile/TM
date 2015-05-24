@@ -51,7 +51,7 @@ public class AddpraiseServlet extends HttpServlet {
 		Cid = Integer.parseInt(CircleId);
 		Tid = Integer.parseInt(ThemeId);
 		
-		array = themeservice.GetThemeInfo(Cid, Tid);
+		//array = themeservice.GetThemeInfo(Cid, Tid);
 		response.getWriter().print(array);
 		
 	}

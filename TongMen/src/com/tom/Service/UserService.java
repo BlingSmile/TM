@@ -155,5 +155,25 @@ public class UserService {
 		return PubrecNum;
 	}
 	
+	public JSONArray GetSavetheme(int Uid) {
+		rs = userdao.GetSavetheme(Uid);
+		JSONArray array = new JSONArray(); 
+	    array = ToJSON.RsToJson(rs);
+	    return array;
+	}
+	
+	public JSONArray GetSaveresource(int Uid) {
+		rs = userdao.GetSaveresource(Uid);
+		JSONArray array = new JSONArray(); 
+	    array = ToJSON.RsToJson(rs);
+	    return array;
+	}
+	
+	public JSONArray GetFocuscircle(int Uid) {
+		rs = userdao.GetFocuscircle(Uid);
+		JSONArray array = new JSONArray(); 
+	    array = ToJSON.RsToJson(rs);
+	    return array;
+	}
 	
 }

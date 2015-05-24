@@ -45,6 +45,7 @@ public class ThemeImpl implements ThemeDao{
 		conn = DBUtil.getConnection(); 
 		sql = "insert into theme(Cid,Uid,Ttitle,Tcontent,Tdate) values (?,?,?,?,?)";
 		System.out.println(sql);
+		System.out.println(title+content);
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, circleId);
@@ -85,10 +86,10 @@ public class ThemeImpl implements ThemeDao{
 
 
 	@Override
-	public ResultSet GetThemeInfo(int circleId, int Tid) {
+	public ResultSet GetThemeInfo(int Tid) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select username,level,sex,Ttitle,Tcontent,Tpraise,Tdate from theme,user where theme.Uid = user.Uid and Cid = "+circleId+" and Tid = "+Tid;
+		sql = "select username,level,sex,Ttitle,Tcontent,Tpraise,Tdate from theme,user where theme.Uid = user.Uid and Tid = "+Tid;
 		System.out.println(sql);
 		try {
 			psmt = conn.prepareStatement(sql);

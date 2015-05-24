@@ -12,7 +12,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
          
          //主题详细
         .state("theme", {
-            url: "theme",
+            url: "/theme/:Tid",
             templateUrl: "Theme.html",
             controller : "ThemeCtrl"
         })
@@ -25,9 +25,10 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
                 'theme':{        
            				 templateUrl: "ThemeList.html",
            				 controller: 'circleThemeLists'
-        }
-        }
+                }
+            }
         })
+        
         //主页圈子推送
         .state("homepage.HotCircle", {
              url: "/HotCircle",
@@ -87,7 +88,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
         
         //圈子详细-主题
          .state("circledetail.theme",{
-            url:"/Theme",
+            url:"/Theme/:Cid",
             views:{
                 'theme':{
                     templateUrl:'ThemeList.html',
@@ -174,7 +175,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 	            views:{
 	                'theme':{
 	                    templateUrl:'ThemeList.html',
-	                    controller :'circleThemeList'
+	                    controller :'CollectionThemeCtrl'
 	                }
 	            }
 	
@@ -186,7 +187,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 	            views:{
 	                'resource':{
 	                    templateUrl:'ResourceList.html',
-	                    controller : 'circleResourceCtrl'
+	                    controller : 'CollectionResourceCtrl'
 	                }
 	            }
 	         })
@@ -380,25 +381,26 @@ history.back();
 })
 
 //主题详细
-.controller("ThemeCtrl",function($scope,ThemeInformation){
-    $scope.theme = {
-    useravrurl:'img/avatar.png',
-    user:'习大大',
-    tname:'我是传说中的主题名',
-    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-    time:'2015-05-15 8:10:10',
-    praice:'32',
-    comments:'5'
-    };
-    var answer={
-    ans_user_url:'img/avatar.png',
-    ans_username:'毛东东',
-    ans_content:'我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气',
-    ans_time:'2015-05-16 9:10:10',
-    ans_praice:'32'
-};
+.controller("ThemeCtrl",function($scope,$state,$stateParams,ThemeInformation){
+//    $scope.theme = {
+//    useravrurl:'img/avatar.png',
+//    user:'习大大',
+//    tname:'我是传说中的主题名',
+//    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
+//    time:'2015-05-15 8:10:10',
+//    praice:'32',
+//    comments:'5'
+//    };
+//    var answer={
+//    ans_user_url:'img/avatar.png',
+//    ans_username:'毛东东',
+//    ans_content:'我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气',
+//    ans_time:'2015-05-16 9:10:10',
+//    ans_praice:'32'
+//};
 		
-		ThemeInformation.do_getTheme().success(function(data, status, headers){
+		$scope.Tid =$stateParams.Tid;
+		ThemeInformation.do_getTheme($scope.Tid).success(function(data, status, headers){
 	
 	
 			$scope.theme = data[0];
@@ -407,12 +409,12 @@ history.back();
 	
 		});
 		
-		ThemeInformation.do_getAnswer().success(function(data, status, headers){
+		ThemeInformation.do_getAnswer($scope.Tid).success(function(data, status, headers){
 	
 			$scope.answers = data;
 	
 		});
-    
+
      $scope.back=function ()
     {
             history.back();
@@ -422,15 +424,21 @@ history.back();
 
 
 //圈子详细-主题
-.controller('circleThemeList', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
-	var theme={
-    useravrurl:'img/avatar.png',
-    tname:'主题名',
-    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-    time:'2015-05-15',
-    praice:'32'
-    };
- 		$scope.themes= [theme,theme,theme];
+.controller('circleThemeList', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
+//	var theme={
+//    useravrurl:'img/avatar.png',
+//    tname:'主题名',
+//    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
+//    time:'2015-05-15',
+//    praice:'32'
+//    };
+	$scope.Cid = $stateParams.Cid;
+	ThemeListInformation.do_getThemeList($scope.Cid).success(function(data, status, headers){
+		$scope.themes = data;
+
+
+	});
+ 		//$scope.themes= [theme,theme,theme];
 
 })
 
@@ -471,16 +479,21 @@ history.back();
 })
 
 //主页-我关注的圈子
-.controller("MyCircleCtrl",function($scope){
+.controller("MyCircleCtrl",function($scope, $ionicSideMenuDelegate,$ionicHistory,getFocusCircle){
+	getFocusCircle.do_getFocusCircleList().success(function(data, status, headers){
+	
+		$scope.circles = data;
 
-var circle ={
-    cir_name:'高等数学',
-    cir_img:'img/avatar2.png',
-    cir_des:'数学是研究现实世界数量关系和空间形式的学科.随着现代科学技术和数学科学的发展，“数量关系”和“空间形式”有了越来越丰富的内涵和更加广泛的外延.数学不仅是一种工具，而且是一种思维模式； 不仅是一种知识，而且是一种素养； 不仅是一门科学，而且是一种文化.数学教育在培养高素质科技人才中具有其独特的、不可替代的作用.对于高等学校工科类专业的本科生而言，高等数学课程是一门非常重要的基础课，它内容丰富，理论严谨，应用广泛，影响深远.不仅为学习后继课程和进一步扩大数学知识面奠定必要的基础，而且在培养学生抽象思维、逻辑推理能力，综合利用所学知识分析问题解决问题的能力，较强的自主学习的能力，创新意识和创新能力上都具有非常重要的作用.',
-    cir_user:'小小彬'
-}
-
-    $scope.circles = [circle,circle,circle,circle,circle,circle,circle];
+	});
+	
+//var circle ={
+//    cir_name:'高等数学',
+//    cir_img:'img/avatar2.png',
+//    cir_des:'数学是研究现实世界数量关系和空间形式的学科.随着现代科学技术和数学科学的发展，“数量关系”和“空间形式”有了越来越丰富的内涵和更加广泛的外延.数学不仅是一种工具，而且是一种思维模式； 不仅是一种知识，而且是一种素养； 不仅是一门科学，而且是一种文化.数学教育在培养高素质科技人才中具有其独特的、不可替代的作用.对于高等学校工科类专业的本科生而言，高等数学课程是一门非常重要的基础课，它内容丰富，理论严谨，应用广泛，影响深远.不仅为学习后继课程和进一步扩大数学知识面奠定必要的基础，而且在培养学生抽象思维、逻辑推理能力，综合利用所学知识分析问题解决问题的能力，较强的自主学习的能力，创新意识和创新能力上都具有非常重要的作用.',
+//    cir_user:'小小彬'
+//}
+//
+//    $scope.circles = [circle,circle,circle,circle,circle,circle,circle];
     
 })
 
@@ -499,8 +512,14 @@ var circle ={
 
 
 //创建主题
-.controller('creatThemeCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory) {
-
+.controller('creatThemeCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,createTheme) {
+	 
+	 $scope.submitForm=function (theme)
+	    {
+		 //alert(theme.themename);
+		 createTheme.do_createTheme(theme.themename,theme.themecontent);
+	    }
+	 
 	 $scope.back=function ()
     {
             history.back();
@@ -518,9 +537,41 @@ var circle ={
 
 })
 
-//创建资料
+//收藏
 .controller('CollectionCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory) {
 
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+//收藏主题
+.controller('CollectionThemeCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,getCollectionTheme) {
+
+	getCollectionTheme.do_getCollectionThemeList().success(function(data, status, headers){
+		
+		$scope.themes = data;
+
+	});
+	
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+//收藏资料
+.controller('CollectionResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,getCollectionResource) {
+
+	getCollectionResource.do_getCollectionResourceList().success(function(data, status, headers){
+		
+		$scope.resources = data;
+
+	});
+	
 	 $scope.back=function ()
     {
             history.back();

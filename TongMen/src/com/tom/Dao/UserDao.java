@@ -33,4 +33,10 @@ public interface UserDao {
 	
 	//关注其他人的数目
 	public int GetFucosNum(int Uid);
+	
+	public ResultSet GetSavetheme(int Uid);
+	
+	public ResultSet GetSaveresource(int Uid);
+	
+	public ResultSet GetFocuscircle(int Uid);
 }

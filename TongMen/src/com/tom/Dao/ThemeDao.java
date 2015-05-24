@@ -9,7 +9,7 @@ public interface ThemeDao {
 	
 	public ResultSet GetTmemeList(int circleId);
 	
-	public ResultSet GetThemeInfo(int circleId, int Tid);
+	public ResultSet GetThemeInfo(int Tid);
 	
 	public ResultSet GetThemeReply(int ReTid, int ReType);
 	

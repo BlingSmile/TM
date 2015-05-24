@@ -52,8 +52,8 @@ public class ThemeService {
 	}
 	
 	//获取主题具体内容
-	public JSONArray GetThemeInfo(int circleId, int Tid) {
-		rs = themedao.GetThemeInfo(circleId, Tid);
+	public JSONArray GetThemeInfo(int Tid) {
+		rs = themedao.GetThemeInfo(Tid);
 		JSONArray array = new JSONArray();
 		array = ToJSON.RsToJson(rs);
 		return array;

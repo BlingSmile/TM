@@ -363,4 +363,58 @@ public class UserImpl implements UserDao{
 		return PubrecNum;
 	}
 
+	@Override
+	public ResultSet GetSavetheme(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select Tid,Ttitle,Tdate,username,Tcontent from theme,user,save where theme.Uid=user.Uid and theme.Tid=save.Sid and save.Stype = 1 and save.Uid = "+Uid;
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+
+	@Override
+	public ResultSet GetSaveresource(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select Rid,Rtitle,Rdate,username,Rcontent,Rlink from resource,user,save where resource.Uid=user.Uid and resource.Rid=save.Sid and save.Stype = 2 and save.Uid = "+Uid;
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+
+	@Override
+	public ResultSet GetFocuscircle(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select circle.Cid,Cname from circle,focusc where circle.Cid=focusc.Cid and focusc.Uid = "+Uid;
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+
 }

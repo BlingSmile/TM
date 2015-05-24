@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/login.html=UTF-8
 encoding//WebContent/templates/person_information.html=UTF-8
+encoding//src/com/tom/servlet/CreatethemeServlet.java=UTF-8
+encoding//src/com/tom/servlet/GetSavelist.java=UTF-8
 encoding/src=UTF-8

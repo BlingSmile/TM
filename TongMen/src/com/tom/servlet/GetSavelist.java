@@ -7,23 +7,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import Utils.Config;
 
-import com.tom.Service.ThemeService;
+import com.tom.Model.Labelcolle;
+import com.tom.Service.UserService;
 
 /**
- * Servlet implementation class ThemeinfoServlet
+ * Servlet implementation class GetSavelist
  */
-@WebServlet("/ThemeinfoAction")
-public class ThemeinfoServlet extends HttpServlet {
+@WebServlet("/GetSavelistAction")
+public class GetSavelist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ThemeinfoServlet() {
+    public GetSavelist() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,25 +42,24 @@ public class ThemeinfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String CircleId,ThemeId;
-		int Cid =-1,Tid = -1,ReplyNum = -1;
-		ThemeService themeservice = new ThemeService();
-		JSONArray array = new JSONArray();
-		JSONObject object = new JSONObject();
+		int Uid = -1;
+		String form = "";
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		//CircleId = request.getParameter("CircleId");
-		ThemeId = request.getParameter("ThemeId");
+		UserService userservice = new UserService();
+		HttpSession session = request.getSession();
+		JSONArray array = new JSONArray();
+		//Uid = session.getAttribute("Uid");
+		Uid = 2;
 		
-		//Cid = Integer.parseInt(CircleId);
-		Tid = Integer.parseInt(ThemeId);
-		
-		array = themeservice.GetThemeInfo(Tid);
-		ReplyNum = themeservice.GetThemeReplyNum(Tid, 1);
-		object.put("ReplyNum", ReplyNum);
-		array.add(object);
+		form = request.getParameter("form");
+		if(form.equals("ThemeList")) {
+			array = userservice.GetSavetheme(Uid);
+		} else if(form.equals("RescList")) {
+			array = userservice.GetSaveresource(Uid);
+		}
 		response.getWriter().print(array);
 	}
 

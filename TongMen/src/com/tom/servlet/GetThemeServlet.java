@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 
@@ -48,6 +49,9 @@ public class GetThemeServlet extends HttpServlet {
 		
 		CircleId = request.getParameter("CircleId");
 		Cid = Integer.parseInt(CircleId);
+		
+		HttpSession session = request.getSession();
+		session.putValue("Cid", Cid);
 		
 		System.out.println(CircleId+Cid);
 		
