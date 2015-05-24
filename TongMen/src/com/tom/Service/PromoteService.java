@@ -3,6 +3,10 @@ package com.tom.Service;
 import java.sql.ResultSet;
 
 import com.tom.Dao.PromoteDao;
+import com.tom.Impl.PromoteImpl;
+import com.tom.Impl.ResourceImpl;
+import com.tom.Impl.ThemeImpl;
+import com.tom.Impl.UserImpl;
 
 import net.sf.json.JSONArray;
 import Utils.Config;
@@ -13,6 +17,10 @@ public class PromoteService {
 	int result = Config.FAILE;
 	PromoteDao promotedao = null;
 	ResultSet rs = null;
+	
+	public PromoteService() {
+		promotedao = new PromoteImpl();
+	}
 	
 	public JSONArray PromoteTheme() {
 		rs = promotedao.PromoteTheme();

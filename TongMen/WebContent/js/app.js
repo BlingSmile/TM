@@ -657,13 +657,7 @@ history.back();
 
 
 .controller('circleThemeList', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
-	var theme={
-    useravrurl:'img/avatar.png',
-    tname:'主题名',
-    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-    time:'2015-05-15',
-    praice:'32'
-    };
+
  
 		ThemeListInformation.do_getThemeList().success(function(data, status, headers){
 	

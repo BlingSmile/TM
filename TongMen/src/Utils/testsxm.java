@@ -3,8 +3,11 @@ package Utils;
 import java.sql.ResultSet;
 import java.util.List;
 
+import net.sf.json.JSONArray;
+
 import com.tom.Model.Circle;
 import com.tom.Service.CircleService;
+import com.tom.Service.PromoteService;
 
 public class testsxm {
 
@@ -22,7 +25,7 @@ public class testsxm {
 			*/
 			
 			
-		CircleService ci=new CircleService();
+		/*CircleService ci=new CircleService();
 			List r=ci.getCidByUid(123456);
 			System.out.println(r);
 			for(int i=0;i<r.size();i++){
@@ -31,7 +34,7 @@ public class testsxm {
 				String Cdesc = c.getCircledesc();
 				System.out.println(Cname+"   "+Cdesc);
 			}
-			
+			*/
 			
 			
 			/* ResourceService re=new ResourceService();
@@ -48,7 +51,11 @@ public class testsxm {
 			
 				
 					//System.out.println(result);
-				
+			PromoteService rd=new PromoteService();
+			JSONArray xbb=rd.PromoteTheme();
+			System.out.println(xbb);
+			
+			
 		}
 	   
 	

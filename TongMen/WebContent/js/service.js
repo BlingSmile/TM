@@ -86,8 +86,8 @@
       return $http({
 
         method:'post',
-        url:'GetThemeAction',
-        params:{"CircleId":"1"}
+        url:'PromoteThemeAction',
+      //  params:{"CircleId":"1"}
 
       })
 
