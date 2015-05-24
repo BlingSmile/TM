@@ -239,4 +239,63 @@
 	    do_createTheme:function(title,content){return createTheme(title,content);}
 	    }
 	  
+	  }])
+ 
+ 
+//主题推送
+ .factory('ThemePromote', ['$http', function($http) { 
+	  
+	    var ThemePromote= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'PromoteThemeAction',
+	      })
+
+	    };
+
+
+	    return { 
+	    do_ThemePromote:function(){return ThemePromote();}
+	    }
+	  
+	  }])
+	  
+	  //圈子推送
+ .factory('CirclePromote', ['$http', function($http) { 
+	  
+	    var CirclePromote= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'PromoteCircleAction',
+	      })
+
+	    };
+
+
+	    return { 
+	    do_CirclePromote:function(){return CirclePromote();}
+	    }
+	  
+	  }]) 
+ 
+ //圈子推送
+ .factory('UserPromote', ['$http', function($http) { 
+	  
+	    var UserPromote= function(){
+	      return $http({
+
+	        method:'post',
+	        url:'PromoteUserAction',
+	      })
+
+	    };
+
+
+	    return { 
+	    do_UserPromote:function(){return UserPromote();}
+	    }
+	  
+
 	  }]); 

@@ -102,10 +102,10 @@ public  class ResourceImpl implements ResourceDao{
 		return rs;
 	}
 	
-	public ResultSet showCircleResource(int Rid){
+	public ResultSet showCircleResource(int Cid,int Uid){
 		 conn=DBUtil.getConnection();
 		 try{
-		 sql = "select Rtitle,Rcontent,Rlink FROM Resource Where resource.Rid= "+Rid;
+		 sql = "select Rtitle,Rcontent,Rlink FROM Resource Where resource.Cid= "+Cid+"and Uid="+Uid;
 		// System.out.println("");
 			psmt = conn.prepareStatement(sql);						
 			rs = psmt.executeQuery();
@@ -118,34 +118,32 @@ public  class ResourceImpl implements ResourceDao{
 		
 	}
 
-	public boolean deleteResource(int Uid,int Rid) {
+	public int deleteResource(int Uid,int Cid) {
 		// TODO Auto-generated method stub
-		boolean flag=  false;
 		conn = DBUtil.getConnection();
-		String sql = "delete from Resoruce where Uid=? and Rid=?";
+		sql = "delete * from Resoruce where Uid="+Uid+" and Cid="+Cid;
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, Uid);
-			psmt.setInt(1, Rid);
 			result = psmt.executeUpdate();
 			if(result>0)
 			{
-				flag=true;
+				result = Config.SUCCESS;
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return flag;
+		return result;
 	}
 	
-	public ResultSet SerchByRid(int Rid) {
+	public ResultSet SerchByCid(int Cid) {
 		// TODO Auto-generated method stub
 		conn=DBUtil.getConnection();
 		
 		try {
-			sql = "select * from Resource Where resource.Rid= "+Rid;
+			sql = "select * from Resource Where resource.Cid= "+Cid;
 			System.out.println("根据资料id查询"+sql);
 			
 			psmt = conn.prepareStatement(sql);

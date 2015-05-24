@@ -58,7 +58,9 @@ public class UserFocusServlet extends HttpServlet{
 		
 		HttpSession httpsession = request.getSession();
 		//Uid = (Integer) httpsession.getAttribute("Uid");
-		Uid = 2;
+
+		Uid=2;
+
 		UserService userservice = new UserService();
 		
 		String form = request.getParameter("form");

@@ -213,16 +213,22 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
 
 //主页-圈子推送
-.controller("CircleCtrl",function($scope){
-
-var circle ={
-    cir_name:'高等数学',
-    cir_img:'img/avatar2.png',
-    cir_des:'数学是研究现实世界数量关系和空间形式的学科.随着现代科学技术和数学科学的发展，“数量关系”和“空间形式”有了越来越丰富的内涵和更加广泛的外延.数学不仅是一种工具，而且是一种思维模式； 不仅是一种知识，而且是一种素养； 不仅是一门科学，而且是一种文化.数学教育在培养高素质科技人才中具有其独特的、不可替代的作用.对于高等学校工科类专业的本科生而言，高等数学课程是一门非常重要的基础课，它内容丰富，理论严谨，应用广泛，影响深远.不仅为学习后继课程和进一步扩大数学知识面奠定必要的基础，而且在培养学生抽象思维、逻辑推理能力，综合利用所学知识分析问题解决问题的能力，较强的自主学习的能力，创新意识和创新能力上都具有非常重要的作用.',
-    cir_user:'小小彬'
-}
-
-    $scope.circles = [circle,circle,circle,circle,circle,circle,circle];
+.controller("CircleCtrl",function($scope,$ionicSideMenuDelegate,$ionicHistory,CirclePromote){
+//
+//var circle ={
+//    cir_name:'高等数学',
+//    cir_img:'img/avatar2.png',
+//    cir_des:'数学是研究现实世界数量关系和空间形式的学科.随着现代科学技术和数学科学的发展，“数量关系”和“空间形式”有了越来越丰富的内涵和更加广泛的外延.数学不仅是一种工具，而且是一种思维模式； 不仅是一种知识，而且是一种素养； 不仅是一门科学，而且是一种文化.数学教育在培养高素质科技人才中具有其独特的、不可替代的作用.对于高等学校工科类专业的本科生而言，高等数学课程是一门非常重要的基础课，它内容丰富，理论严谨，应用广泛，影响深远.不仅为学习后继课程和进一步扩大数学知识面奠定必要的基础，而且在培养学生抽象思维、逻辑推理能力，综合利用所学知识分析问题解决问题的能力，较强的自主学习的能力，创新意识和创新能力上都具有非常重要的作用.',
+//    cir_user:'小小彬'
+//}
+//
+//    $scope.circles = [circle,circle,circle,circle,circle,circle,circle];
+	CirclePromote.do_CirclePromote().success(function(data, status, headers){
+			
+			
+		$scope.circles = data;
+		
+	});
     
 })
 
@@ -368,16 +374,22 @@ history.back();
 
 
 //主页-主题推送
-.controller('circleThemeLists', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
-	var theme={
-    useravrurl:'img/avatar.png',
-    tname:'主题名',
-    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-    time:'2015-05-15',
-    praice:'32'
-    };
- 		$scope.themes= [theme,theme,theme];
-
+.controller('circleThemeLists', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemePromote) {
+//	var theme={
+//    useravrurl:'img/avatar.png',
+//    tname:'主题名',
+//    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
+//    time:'2015-05-15',
+//    praice:'32'
+//    };
+// 		$scope.themes= [theme,theme,theme];
+ 	
+ 		ThemePromote.do_ThemePromote().success(function(data, status, headers){
+ 			
+ 			
+			$scope.themes = data;
+			
+		});
 })
 
 //主题详细
@@ -461,21 +473,25 @@ history.back();
 })
 
 //主页用户推送
-.controller('hotUserCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
-	var user = {
-    user_name:'小小彬',
-    user_img:'img/avatar2.png',
-    user_des:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
-    user_city:'北京',
-    user_school:'北京交通大学',
-    user_grade:'研一',
-    user_themenum:'5',
-    user_ansnum:'12',
-    user_focusnum:'2',
-	}
+.controller('hotUserCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,UserPromote) {
+//	var user = {
+//    user_name:'小小彬',
+//    user_img:'img/avatar2.png',
+//    user_des:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
+//    user_city:'北京',
+//    user_school:'北京交通大学',
+//    user_grade:'研一',
+//    user_themenum:'5',
+//    user_ansnum:'12',
+//    user_focusnum:'2',
+//	}
+//
+//	$scope.users = [user,user,user,user,user,user,user,user,user,user,user,user,user];
+	UserPromote.do_UserPromote().success(function(data, status, headers){
+		
+		$scope.users = data;
 
-	$scope.users = [user,user,user,user,user,user,user,user,user,user,user,user,user];
-
+	});
 })
 
 //主页-我关注的圈子
@@ -563,6 +579,7 @@ history.back();
 
 })
 
+>>>>>>> origin/孙晓梦-界面链接
 //收藏资料
 .controller('CollectionResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,getCollectionResource) {
 
