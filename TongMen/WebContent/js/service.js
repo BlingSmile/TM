@@ -298,4 +298,44 @@
 	    }
 	  
 
-	  }]); 
+	  }])
+ 
+//创建资料
+ .factory('createResource', ['$http', function($http) { 
+	  
+	    var createResource= function(title,content,link){
+	      return $http({
+
+	        method:'post',
+	        url:'UploadResourceAction',
+	        params:{"title":title,"content":content,"link":link}
+	      })
+
+	    };
+
+
+	    return { 
+	    do_createResource:function(title,content,link){return createResource(title,content,link);}
+	    }
+	  
+	  }])
+	  
+//创建圈子
+ .factory('createCircle', ['$http', function($http) { 
+	  
+	    var createCircle= function(name,content,subject,area,school,college,major,scolearea,scoleschool,scolecollege,scolemajor){
+	      return $http({
+
+	        method:'post',
+	        url:'CreateCircleAction',
+	        params:{"Cname":name,"Cdesc":content,"subject":subject,"area":area,"school":school,"college":college,"major":major,"Tarea":scolearea,"Tschool":scoleschool,"Tcollege":scolecollege,"Tmajor":scolemajor}
+	      })
+
+	    };
+
+
+	    return { 
+	    do_createCircle:function(name,content,subject,area,school,college,major,scolearea,scoleschool,scolecollege,scolemajor){return createCircle(name,content,subject,area,school,college,major,scolearea,scoleschool,scolecollege,scolemajor);}
+	    }
+	  
+	  }])
