@@ -15,8 +15,8 @@ import net.sf.json.JSONArray;
 import com.tom.Service.ResourceService;
 
 @WebServlet("/UploadResourceAction")
-public class UploadResourceServlet {
-    @SuppressWarnings("unused")
+public class UploadResourceServlet extends HttpServlet { 
+    
 	private static final long serialVersionUID = 1L;
     
     /**
@@ -50,15 +50,21 @@ public class UploadResourceServlet {
 		
 		Date d = new Date(System.currentTimeMillis());
 		
-		Rtitle = request.getParameter("Rtitle");
-		Rcontent = request.getParameter("Rcontent");
-		Rlink = request.getParameter("Rlink");
-		
+		Rtitle = request.getParameter("title");
+		Rtitle = new String(Rtitle.getBytes("ISO-8859-1"),"UTF8");
+		Rtitle=java.net.URLDecoder.decode(Rtitle, "UTF-8");
+		Rcontent = request.getParameter("content");
+		Rcontent = new String(Rcontent.getBytes("ISO-8859-1"),"UTF8");
+		Rcontent=java.net.URLDecoder.decode(Rcontent, "UTF-8");
+		Rlink = request.getParameter("link");
+		Rlink = new String(Rlink.getBytes("ISO-8859-1"),"UTF8");
+		Rlink=java.net.URLDecoder.decode(Rlink, "UTF-8");
 		
 		HttpSession session = request.getSession();
-		Uid = (Integer) session.getAttribute("Uid");
-		Cid = (Integer) session.getAttribute("Cid");
-		
+		//Uid = (Integer) session.getAttribute("Uid");
+		//Cid = (Integer) session.getAttribute("Cid");
+		Uid=3;
+		Cid=26;
 		ResourceService resourceservice = new ResourceService();
 		array = resourceservice.UploadResource(Cid,Uid,Rtitle,Rcontent,d,Rlink);
 		

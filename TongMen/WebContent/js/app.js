@@ -144,7 +144,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
               .state('createCircle', {
                 url : '/createCircle',                
                 templateUrl : 'creategroup.html' , 
-                controller : 'validateCtrl'
+                controller : 'createCircleCtrl'
             })
             
             	//创建主题
@@ -335,20 +335,27 @@ userInformation.do_getAteentionMe().success(function(data, status, headers){
     })
 
     
-   .controller('validateCtrl',function($scope,$http){
-    
-    $scope.submitForm = function(groupname,descroption,biaoqian){
-            
-console.log(groupname+descroption);
 
-    }
-    $scope.back=function ()
+    //创建圈子
+.controller('createCircleCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,createCircle) {
+	
+	 $scope.submitForm=function (circle)
+	    {
+		 //alert(theme.themename);
+		 createCircle.do_createCircle(circle.name,circle.content,circle.subject,circle.area,circle.school,circle.college,circle.major,circle.scolearea,circle.scoleschool,circle.scolecollege,circle.scolemajor).success(function(data, status, headers){
+			 if(data[0].result == "创建成功"){
+				 history.back();
+			 }
+		 })
+	    }
+	 
+	 $scope.back=function ()
     {
-
-history.back();
-
+            history.back();
     }
+
 })
+
 	//个人信息
    .controller('person_ctrl',function($scope,$ionicSideMenuDelegate,$ionicHistory,PeopleInformation){
 	   var grades=["大一","大二","大三","大四","研一","研二","研三"];   
@@ -544,8 +551,18 @@ history.back();
 })
 
 //创建资料
-.controller('creatResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory) {
-
+.controller('creatResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,createResource) {
+	
+	 $scope.submitForm=function (resource)
+	    {
+		 //alert(theme.themename);
+		 createResource.do_createResource(resource.name,resource.content,resource.link).success(function(data, status, headers){
+			 if(data[0].result == "上传成功"){
+				 history.back();
+			 }
+		 })
+	    }
+	 
 	 $scope.back=function ()
     {
             history.back();
@@ -579,7 +596,22 @@ history.back();
 
 })
 
->>>>>>> origin/孙晓梦-界面链接
+//收藏资料
+.controller('CollectionResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,getCollectionResource) {
+
+	getCollectionResource.do_getCollectionResourceList().success(function(data, status, headers){
+		
+		$scope.resources = data;
+
+	});
+	
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
 //收藏资料
 .controller('CollectionResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,getCollectionResource) {
 
