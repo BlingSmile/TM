@@ -39,7 +39,7 @@ public class CreateCircleServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		String Cname,Cdesc;
+		String Cname,Cdesc,area,school,college,major,Tarea,Tschool,Tcollege,Tmajor,subject;
 		int Uid;
 		JSONArray array;
 		Labelcircle labcic = new Labelcircle();
@@ -48,19 +48,61 @@ public class CreateCircleServlet extends HttpServlet{
 		response.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
-		Uid = (Integer) session.getAttribute("Uid");
-		
+		//Uid = (Integer) session.getAttribute("Uid");
+		Uid=3;
 		Cname = request.getParameter("Cname");
+		Cname = new String(Cname.getBytes("ISO-8859-1"),"UTF8");
+		Cname=java.net.URLDecoder.decode(Cname, "UTF-8");
+		
 		Cdesc = request.getParameter("Cdesc");
-		labcic.setArea(request.getParameter("area"));
-		labcic.setCollege(request.getParameter("college"));
-		labcic.setMajor(request.getParameter("major"));
-		labcic.setSchool(request.getParameter("school"));
-		labcic.setSubject(request.getParameter("subject"));
-		labcic.setTarea(request.getParameter("Tarea"));
-		labcic.setTcollege(request.getParameter("Tcollege"));
-		labcic.setTmajor(request.getParameter("Tschool"));
-		labcic.setTschool(request.getParameter("Tmajor"));
+		Cdesc = new String(Cdesc.getBytes("ISO-8859-1"),"UTF8");
+		Cdesc=java.net.URLDecoder.decode(Cdesc, "UTF-8");
+		
+		area = request.getParameter("area");
+		area = new String(area.getBytes("ISO-8859-1"),"UTF8");
+		area=java.net.URLDecoder.decode(area, "UTF-8");
+
+		school = request.getParameter("school");
+		school = new String(school.getBytes("ISO-8859-1"),"UTF8");
+		school=java.net.URLDecoder.decode(school, "UTF-8");
+		
+		college = request.getParameter("college");
+		college = new String(college.getBytes("ISO-8859-1"),"UTF8");
+		college=java.net.URLDecoder.decode(college, "UTF-8");
+		
+		major = request.getParameter("major");
+		major = new String(major.getBytes("ISO-8859-1"),"UTF8");
+		major=java.net.URLDecoder.decode(major, "UTF-8");
+		
+		Tarea = request.getParameter("Tarea");
+		Tarea = new String(Tarea.getBytes("ISO-8859-1"),"UTF8");
+		Tarea=java.net.URLDecoder.decode(Tarea, "UTF-8");
+		
+		Tschool= request.getParameter("Tschool");
+		Tschool = new String(Tschool.getBytes("ISO-8859-1"),"UTF8");
+		Tschool=java.net.URLDecoder.decode(Tschool, "UTF-8");
+		
+		Tcollege = request.getParameter("Tcollege");
+		Tcollege = new String(Tcollege.getBytes("ISO-8859-1"),"UTF8");
+		Tcollege=java.net.URLDecoder.decode(Tcollege, "UTF-8");
+		
+		Tmajor = request.getParameter("Tmajor");
+		Tmajor = new String(Tmajor.getBytes("ISO-8859-1"),"UTF8");
+		Tmajor=java.net.URLDecoder.decode(Tmajor, "UTF-8");
+		
+		subject = request.getParameter("subject");
+		subject = new String(subject.getBytes("ISO-8859-1"),"UTF8");
+		subject=java.net.URLDecoder.decode(subject, "UTF-8");
+		
+		labcic.setArea(area);
+		labcic.setCollege(college);
+		labcic.setMajor(major);
+		labcic.setSchool(school);
+		labcic.setSubject(subject);
+		labcic.setTarea(Tarea);
+		labcic.setTcollege(Tcollege);
+		labcic.setTmajor(Tmajor);
+		labcic.setTschool(Tschool);
 		
 		CircleService userservice = new CircleService();
 		array = userservice.CreateCircle(Uid,Cname,Cdesc,labcic);

@@ -1,28 +1,62 @@
 <ion-view title="创建圈子">
 
-<div class="bar header-bar bar-positive ">
-        <button class="button button-clear icon ion-ios-arrow-left" ui-sref="homepage.homeGroup"></button>
-        <h1 class="title">创建圈子</h1>
-        <button class="button" ng-click="edit()">编辑</button>
+<ion-content padding="true">
+<form name="create" id="create">
+		<div class="bar header-bar bar-positive ">
+	        <button class="button button-clear icon ion-ios-arrow-left" ui-sref="homepage.homeGroup"></button>
+	        <h1 class="title">创建圈子</h1>
+	        <button class="button button-clear"  ng-click="submitForm(circle)" >创建</button>
         </div> 
 
-      <ion-content class="has-header" padding="true">
-      
-<form name="create" id="create">
-<div class="list">
-   
+
+<div class="list has-header">
+   <label class="item item-input">
+    <span class="input-label">圈子名称</span>
+    <input type="text"  ng-model="circle.name">
+  </label>
   <label class="item item-input">
-  <span class=" icon ion-ios-information"></span>
-  <textarea id="notes" name="notes" maxLength="240" placeholder="对你的圈子的描述" rows="6" cols="20" style="resize:none;margin-left:20px;" ng-model="descroption" required ></textarea></label>
-  <label class="item item-input" style="padding:0;">
-    
-    <input type="text"  placeholder="亲，这能提高匹配度哦" ng-model="biaoqian" disabled="disabled" style="background-color:#fff;">
-    <button class="button" ng-click="openModal2()">添加标签</button>
+    <textarea placeholder="主题内容" maxLength="240" rows="6" cols="20"   ng-model="circle.content" style="height:30%"></textarea>
+  </label>
+  <p>标签</p>
+  
+   <label class="item item-input">
+    <input placeholder="学科" type="text"  ng-model="circle.subject">
+  </label>
+  
+  <label class="item item-input">
+    <input placeholder="所在地区" type="text"  ng-model="circle.area">
+  </label>
+  
+  <label class="item item-input">
+    <input placeholder="所在学校" type="text"  ng-model="circle.school">
+  </label>
+  
+  <label class="item item-input">
+    <input placeholder="所属学院" type="text"  ng-model="circle.college">
   </label>
 
-<input type="submit" name="register" value="创建" ng-click="submitForm(groupname,descroption,biaoqian)" class="button button-block button-balanced" style="margin-top:30%;"/>
+  <label class="item item-input">
+    <input placeholder="所属专业" type="text"  ng-model="circle.major">
+  </label> 
+  
+  <label class="item item-input">
+    <input placeholder="目标地区" type="text"  ng-model="circle.scolearea">
+  </label>
+  
+  <label class="item item-input">
+    <input placeholder="目标学校" type="text"  ng-model="circle.scoleschool">
+  </label>
+  
+  <label class="item item-input">
+    <input placeholder="所属学院" type="text"  ng-model="circle.scolecollege">
+  </label>
+  
+  <label class="item item-input">
+   <input placeholder="目标专业" type="text"  ng-model="circle.scolemajor">
+  </label>
 
 </div>
 
 </form>
-    </ion-view>
+</ion-content>
+</ion-view>
