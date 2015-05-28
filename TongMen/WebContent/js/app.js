@@ -1,3 +1,7 @@
+//全局变量
+var answers={};
+
+
 var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
     .config(['$stateProvider', '$urlRouterProvider','$ionicConfigProvider', function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
@@ -64,20 +68,34 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
          })
          
-         //主页-关注的人
-          .state("homepage.homeFriend",{
-            url:"/friend",
+         //主页-我关注的人
+          .state("homepage.myFocusFriend",{
+            url:"/myfoucsfriend",
             views:{
 
                 'friend':{
 
-                    templateUrl:'homeFriend.html',
-                   controller : 'homeFriendController'
+                    templateUrl:'UserList.html',
+                   controller : 'myFocusFriendController'
                 }
             }
 
          })
          
+       //主页-关注我的人
+         .state("homepage.FocusMeFriend",{
+           url:"/focusmefriend",
+           views:{
+
+               'friend':{
+
+                   templateUrl:'UserList.html',
+                  controller : 'FocusMeFriendController'
+               }
+           }
+
+        })
+        
           //圈子详细
           .state("circledetail", {
             url: "/circledetail",
@@ -191,12 +209,53 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 	                }
 	            }
 	         })
-
+	         
+	         //个人信息
               .state('person_information', {
                 url : '/person',                 
-                templateUrl : 'templates/person_information.html' , 
+                templateUrl : 'person_information.html' , 
                 controller : 'person_ctrl'
             })
+            
+             //个人发布的主题及资料
+          .state("myThemeResource", {
+            url: "/myThemeResource",
+            templateUrl: "myThemeResource.html",
+            abstract : true,
+
+        })
+        
+        //个人发布的-主题
+         .state("myThemeResource.theme",{
+            url:"/Theme",
+            views:{
+                'mytheme':{
+                    templateUrl:'ThemeList.html',
+                    controller : 'myThemeCtrl'
+                }
+            }
+
+         })
+         
+         
+         //个人发布的-资源
+          .state("myThemeResource.resource",{
+            url:"/Resource",
+            views:{
+                'myresource':{
+                    templateUrl:'ResourceList.html',
+                    controller :'myResourceCtrl'
+                }
+            }
+
+         })
+         
+         //编辑个人资料
+          .state("editUserInformation",{
+            url:"/edituserinformation",
+            templateUrl:'EditUserInformation.html',
+            controller :'editUserInformationCtrl'
+         })
 
 
         //$urlRouterProvider.otherwise('/homepage');
@@ -233,52 +292,25 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 })
 
 
-
-    .controller('homeFriendController', function($scope, $ionicSideMenuDelegate,$ionicHistory,userInformation) {
-		$scope.friends=[{"name":"nazhenhuiyi","desc":"aaasss","peoId":'123'}];
+//我关注好友
+    .controller('myFocusFriendController', function($scope, $ionicSideMenuDelegate,$ionicHistory,userInformation) {
      
-userInformation.do_getMyAteention().success(function(data, status, headers){
+		userInformation.do_getMyAteention().success(function(data, status, headers){
+			$scope.users= data;
+		});
+		
+		        
 
+    
+		
+    })
 
-$scope.friends= data;
-
-
-
-});
-        friend1=[{"name":"nazhenhuiyi1","desc":"aaasss","peoId":'123'},{"name":"nazhenhuiyi2","desc":"aaasss","peoId":'123'},{"name":"nazhenhuiyi3","desc":"aaasss","peoId":'123'}];
-        $scope.menus=["我关注的人","关注我的人"];
-        $scope.first=true;
-        $scope.second=false;
-        $scope.getPeopelInf1=function()
-     
-     {
-
-      if(!$scope.first)
-    {
-        $scope.first=!$scope.first;
-        $scope.second=!$scope.second;
-        $scope.friends=friend1;
-        console.log($scope.friends);
-    }
-
-userInformation.do_getMyAteention().success(function(data, status, headers){
-    $scope.friends=data;
-})
-
-        }
-	$scope.getPeopelInf2=function()
-    {
-        if(!$scope.second)
-           {
-            $scope.first=!$scope.first;
-            $scope.second=!$scope.second;
-           }
-
-userInformation.do_getAteentionMe().success(function(data, status, headers){
-    $scope.friends=data;
-})
-
-    }
+    //关注我好友
+    .controller('FocusMeFriendController', function($scope, $ionicSideMenuDelegate,$ionicHistory,userInformation) {
+	
+		userInformation.do_getAteentionMe().success(function(data, status, headers){
+		    $scope.users=data;
+		})
 		
     })
 
@@ -400,44 +432,91 @@ userInformation.do_getAteentionMe().success(function(data, status, headers){
 })
 
 //主题详细
-.controller("ThemeCtrl",function($scope,$state,$stateParams,ThemeInformation){
-//    $scope.theme = {
-//    useravrurl:'img/avatar.png',
-//    user:'习大大',
-//    tname:'我是传说中的主题名',
-//    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-//    time:'2015-05-15 8:10:10',
-//    praice:'32',
-//    comments:'5'
-//    };
-//    var answer={
-//    ans_user_url:'img/avatar.png',
-//    ans_username:'毛东东',
-//    ans_content:'我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气',
-//    ans_time:'2015-05-16 9:10:10',
-//    ans_praice:'32'
-//};
-		
+.controller("ThemeCtrl",function($scope,$state,$stateParams,$ionicPopup,ThemeInformation,PraiseService,AddThemeReply){
 		$scope.Tid =$stateParams.Tid;
 		ThemeInformation.do_getTheme($scope.Tid).success(function(data, status, headers){
 	
 	
 			$scope.theme = data[0];
 			
-			$scope.comments = data.ReplyNum;
+			$scope.comments = data[1].ReplyNum;
 	
 		});
 		
 		ThemeInformation.do_getAnswer($scope.Tid).success(function(data, status, headers){
-	
-			$scope.answers = data;
+			answers=data;
+			$scope.answers = answers;
 	
 		});
+		PraiseService.do_getpraisefunc($scope.Tid).success(function(data, status, headers){
+			if(data.result == 1001){
+				$scope.praisestate="取消赞";
+				$scope.praise = true;
+			}else{
+				$scope.praisestate="赞";
+				$scope.praise = false;
+			}
+	
+		});
+		$scope.praisefunc=function()
+		{
+			alert($scope.praise);
+			if($scope.praise){
+				$scope.praisestate="赞";
+				PraiseService.do_deletepraisefunc($scope.Tid).success(function(data, status, headers){
+					
+				})
+			}else{
+				$scope.praisestate="取消赞";
+				PraiseService.do_addpraisefunc($scope.Tid).success(function(data, status, headers){
+					
+				})
+			}
+			$scope.praise = !$scope.praise;
+
+		}
+
 
      $scope.back=function ()
     {
             history.back();
     }
+     
+     $scope.showPopup = function() {
+    	  $scope.data = {}
+    	  // An elaborate, custom popup
+    	  var myPopup = $ionicPopup.show({
+    	    template: '<textarea  placeholder="回复内容" maxLength="240" rows="6" cols="20"   ng-model="data.reply" style="height:30%"></textarea>',
+    	    title: '快速回复',
+    	    scope: $scope,
+    	    buttons: [
+    	      { text: '取消' },
+    	      {
+    	        text: '<b>发表</b>',
+    	        type: 'button-positive',
+    	        onTap: function(e) {
+    	        	alert($scope.data.reply);
+    	          if (!$scope.data.reply) {
+    	            //don't allow the user to close unless he enters wifi password
+    	            e.preventDefault();
+    	          } else {
+    	        	AddThemeReply.do_addThemeReply($scope.Tid,$scope.data.reply).success(function(data, status, headers){
+    	        		if(data.result == "回复成功")
+    	        		{
+    	        			ThemeInformation.do_getAnswer($scope.Tid).success(function(data, status, headers){
+    	        				$scope.answers = data;
+    	        		
+    	        			});
+    	        		}else{
+    	        			alert("服务器繁忙");
+    	        		}
+    	        	})
+    	          }
+    	        }
+    	      },
+    	    ]
+    	  });
+     }
     
 })
 
@@ -522,14 +601,20 @@ userInformation.do_getAteentionMe().success(function(data, status, headers){
 
 
 //圈子详细-用户
-.controller('circleResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
-	var resource = {
-    img:'img/avatar2.png',
-    rname:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
-    rtime:'2015-05-22 22:22:22',
-	}
+.controller('circleResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,CircleDetailResources) {
+//	var resource = {
+//    img:'img/avatar2.png',
+//    rname:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
+//    rtime:'2015-05-22 22:22:22',
+//	}
+	
+	CircleDetailResources.do_getResourceList().success(function(data, status, headers){
+		
+		$scope.resources = data;
 
-	$scope.resources = [resource,resource,resource,resource,resource,resource,resource];
+	});
+	
+	//$scope.resources = [resource,resource,resource,resource,resource,resource,resource];
 
 })
 
@@ -611,4 +696,37 @@ userInformation.do_getAteentionMe().success(function(data, status, headers){
             history.back();
     }
 
+})
+
+//个人发布-主题
+.controller('myThemeCtrl', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,myThemeResource) {
+	myThemeResource.do_getTheme().success(function(data, status, headers){
+		$scope.themes = data;
+	});
+
+})
+
+//个人发布-主题
+.controller('myResourceCtrl', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,myThemeResource) {
+	myThemeResource.do_getResource().success(function(data, status, headers){
+		$scope.resources = data;
+	});
+
+})
+
+//编辑个人资料
+.controller('editUserInformationCtrl', function($scope,$state,$ionicSideMenuDelegate,$ionicHistory,editUserInformation) {
+	editUserInformation.do_getUserInformation().success(function(data, status, headers){
+		$scope.user = data[0];
+	});
+	
+	 $scope.submitForm=function (user)
+	    {
+		 //alert(user.grade);
+		 editUserInformation.do_setUserInformation(user).success(function(data, status, headers){
+			 if(data.result == "修改成功"){
+				 $state.go("person_information");
+			 }
+		 })
+	    }
 })

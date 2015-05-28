@@ -14,7 +14,7 @@
 </head>
 
 <body ng-app="HomePages">
-	<div >
+
 			<ion-header-bar align-title="center" class="bar-positive" >
 				<button class="button button-clear icon ion-ios-arrow-left" ng-click="back()"></button>
 				<h1 class="title">主题详情</h1>
@@ -34,15 +34,15 @@
 					    
 				 		 </div>
 				 		 <div class="item tabs tabs-secondary tabs-icon-left">
-					    <a class="tab-item" href="#">
+					    <a class="tab-item" href="javascript:void(0)" ng-click="praisefunc()">
 					      <i class="icon ion-thumbsup"></i>
-					      {{theme.Tpraice}} 
-					      赞
+					      	<span>{{theme.Tpraise}}</span> 
+					      	<span>{{praisestate}}</span>
 					    </a>
-					    <a class="tab-item" href="#">
+					    <a class="tab-item" href="javascript:void(0)" ng-click="showPopup()">
 					      <i class="icon ion-ios-chatboxes-outline"></i>
 					      {{comments}} 
-					      评论
+					      	评论
 					    </a>
 					    <a class="tab-item" href="#">
 					      <i class="icon ion-ios-heart-outline"></i>
@@ -56,7 +56,11 @@
 							<div class="item item-avatar" >
 						    <img ng-src={{theme.useravrurl}}>
 						    <h2>{{item.username}}</h2>
-						    <p>{{item.Rcontent}} </p>
+						    <p>{{item.Redate}}</p>
+						    <div class="item item-body">
+							    <p>
+							      {{item.Recontent}}
+							    </p>
 						  </div>
 				 		 </div>
 				  </div>				  
@@ -64,7 +68,6 @@
 				<div>
 				</div>
 			</ion-content>
-	</div>
 </body>
 <html>
 

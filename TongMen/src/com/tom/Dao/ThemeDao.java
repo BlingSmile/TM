@@ -2,6 +2,8 @@ package com.tom.Dao;
 
 import java.sql.ResultSet;
 
+import net.sf.json.JSONObject;
+
 public interface ThemeDao {
 	public ResultSet GetPubTheme(int userId);
 	
@@ -13,11 +15,17 @@ public interface ThemeDao {
 	
 	public ResultSet GetThemeReply(int ReTid, int ReType);
 	
-	public int AddThemePraise(int Tid,int Uid,int Pid);
+	public int AddThemePraise(int Tid,int Pid);
 	
 	public int AddThemeReplyPra(int Reid, int Uid);
 	
 	public int GetThemeReplyNum(int ReTid, int Retype);
 	
 	public int DelectTheme(int Uid, int Tid);
+	
+	public int GetPraisestatu(int Uid,int Tid);
+	
+	public int DeleteThemepraise(int Tid, int Pid);
+	
+	public int AddReply(int Tid, int Uid, String content);
 }

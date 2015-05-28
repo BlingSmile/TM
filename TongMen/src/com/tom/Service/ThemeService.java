@@ -68,8 +68,13 @@ public class ThemeService {
 	}
 	
 	//给主题点赞,并且给主题发布者的点赞总数加一，并且加入点赞记录
-	public int AddThemePraise(int Tid, int Uid, int Pid) {
-		result = themedao.AddThemePraise(Tid,Uid,Pid);
+	public int AddThemePraise(int Tid, int Pid) {
+		result = themedao.AddThemePraise(Tid,Pid);
+		return result;
+	}
+	
+	public int DeleteThemepraise(int Tid, int Pid) {
+		result = themedao.DeleteThemepraise(Tid,Pid);
 		return result;
 	}
 
@@ -94,4 +99,14 @@ public class ThemeService {
 		object.put("result", result);
 		return object;
 	}
+	
+	public int GetPraisestatu(int Uid,int Tid) {
+		result = themedao.GetPraisestatu(Uid,Tid);
+		return result;
+	}
+	
+	public int AddReply(int Tid, int Uid, String content) {
+		return themedao.AddReply(Tid, Uid, content);
+	}
+	
 }

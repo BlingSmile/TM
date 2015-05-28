@@ -40,8 +40,8 @@ public class ThemeinfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String CircleId,ThemeId;
-		int Cid =-1,Tid = -1,ReplyNum = -1;
+		String ThemeId;
+		int Tid = -1,ReplyNum = -1;
 		ThemeService themeservice = new ThemeService();
 		JSONArray array = new JSONArray();
 		JSONObject object = new JSONObject();
@@ -50,7 +50,7 @@ public class ThemeinfoServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		//CircleId = request.getParameter("CircleId");
-		ThemeId = request.getParameter("ThemeId");
+		ThemeId = request.getParameter("Tid");
 		
 		//Cid = Integer.parseInt(CircleId);
 		Tid = Integer.parseInt(ThemeId);

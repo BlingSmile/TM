@@ -3,22 +3,24 @@ package com.tom.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 
-import com.tom.Service.CircleService;
 import com.tom.Service.ResourceService;
 
-public class ShowCircleReServlet extends HttpServlet {
+@WebServlet("/GetResourcelistAction")
+public class GetResourcelistServlet extends HttpServlet {
 	 private static final long serialVersionUID = 1L;
 	    
 	    /**
 	     * @see HttpServlet#HttpServlet()
 	     */
-	    public ShowCircleReServlet() {
+	    public GetResourcelistServlet() {
 	        super();
 	        // TODO Auto-generated constructor stub
 	    }
@@ -36,19 +38,14 @@ public class ShowCircleReServlet extends HttpServlet {
 			// TODO Auto-generated method stub
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
-			String Cid,Uid;
-			int circleId,userId;
-			int result;
+			int Cid;
 			JSONArray array = new JSONArray();
-		
-			Cid = request.getParameter("");
-			Uid = request.getParameter("");
-			circleId = Integer.parseInt(Cid);
-			userId = Integer.parseInt(Uid);
+			
+			HttpSession session = request.getSession();
+			Cid = (Integer) session.getAttribute("Cid");
 			
 			ResourceService resourceservice = new ResourceService();
-			
-			array = resourceservice.showCircleResource(circleId,userId);
+			array = resourceservice.GetResourcelist(Cid);
 			response.getWriter().print(array);
 				
 		}

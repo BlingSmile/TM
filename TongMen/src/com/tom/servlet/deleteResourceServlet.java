@@ -47,7 +47,7 @@ public class deleteResourceServlet extends HttpServlet{
 			
 			ResourceService resourceservice = new ResourceService();
 			
-			array = resourceservice.showCircleResource(circleId,userId);
+			//array = resourceservice.showCircleResource(circleId,userId);
 			response.getWriter().print(array);
 				
 		}

@@ -1,31 +1,23 @@
 package com.tom.servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import Utils.Config;
-
-import com.tom.Service.UserService;
-
-@SuppressWarnings("unused")
-@WebServlet("/GetpubAction")
-public class GetPubServlet extends HttpServlet{
+/**
+ * Servlet implementation class GetThemereplyNum
+ */
+@WebServlet("/GetThemereplyNum")
+public class GetThemereplyNum extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetPubServlet() {
+    public GetThemereplyNum() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,22 +34,6 @@ public class GetPubServlet extends HttpServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		String form = request.getParameter("form");
-		int Uid = -1;
-		
-		HttpSession session = request.getSession();
-		//Uid = (Integer) session.getAttribute("Uid");
-		Uid = 2;
-		UserService userservice = new UserService();
-		JSONArray array = new JSONArray();
-		
-		if(form.equals("GetPubTheme"))
-			array = userservice.GetPubThem(Uid);
-		else if(form.equals("GetPubRec"))
-			array = userservice.GetPubRec(Uid);
-		
-		response.getWriter().print(array);
 	}
+
 }

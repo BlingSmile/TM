@@ -38,8 +38,8 @@ public class ResourceService {
 		return array;
 	}
 	
-	public JSONArray showCircleResource(int Cid,int Uid) {
-		rs = resourcedao.showCircleResource(Cid,Uid);
+	public JSONArray GetResourcelist(int Cid) {
+		rs = resourcedao.GetResourcelist(Cid);
 		JSONArray array = new JSONArray();
 		
 		array = ToJSON.RsToJson(rs);

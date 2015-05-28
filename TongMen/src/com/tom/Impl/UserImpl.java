@@ -249,7 +249,7 @@ public class UserImpl implements UserDao{
 	}
 
 	@Override
-	public void UpdateColleLabel(Labelcolle label) {
+	public int UpdateColleLabel(Labelcolle label) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		sql = "update labelcolle set age = ?,grade = ?,school = ?, college = ?,"
@@ -265,20 +265,23 @@ public class UserImpl implements UserDao{
 			psmt.setString(4, label.getCollege());
 			psmt.setString(5, label.getMajor());
 			psmt.setString(6, label.getArea());
-			psmt.setString(7, label.getTcollege());
-			psmt.setString(8, label.getTmajor());
-			psmt.setString(9, label.getTmaster());
-			psmt.setString(10, label.getTarea());
+			psmt.setString(7, label.getTschool());
+			psmt.setString(8, label.getTcollege());
+			psmt.setString(9, label.getTmajor());
+			psmt.setString(10, label.getTmaster());
+			psmt.setString(11, label.getTarea());
+			
 			result = psmt.executeUpdate();
 			if(result > 0)
 				result = Config.SUCCESS;
-			
+			else
+				result = Config.FAILE;
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return result;
 	}
 
 	@Override
@@ -302,7 +305,7 @@ public class UserImpl implements UserDao{
 	public ResultSet GetColleLabel(int Uid) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select* from labelcolle where Uid = "+Uid;
+		sql = "select username,age,grade,school,college,major,area,Tschool,Tcollege,Tmajor,Tmaster,Tarea from labelcolle,user where labelcolle.Uid = user.Uid and user.Uid = "+Uid;
 		System.out.println(sql);
 		
 		try {
@@ -415,6 +418,47 @@ public class UserImpl implements UserDao{
 		}
 		
 		return rs;
+	}
+
+	@Override
+	public int UpdateUsername(String username, int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "update user set username = ? where Uid = "+Uid;
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, username);
+			result = psmt.executeUpdate();
+			if(result > 0)
+				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public String GetUsername(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select username from user where Uid = "+Uid;
+		String username = "";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				username = rs.getString("username");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return username;
 	}
 
 }

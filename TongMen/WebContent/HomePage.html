@@ -22,16 +22,15 @@
 						<ion-view>
 							<ion-header-bar>
 								<ion-nav-bar class="bar-positive">
-														<div>			
-															<ion-nav-buttons side="left">
-											
-											        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+												<div>			
+													<ion-nav-buttons side="left">
+											       			 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
 															<button class="button" ui-sref="homepage.HotCircle" nav-direction="back" >热门圈子</button>									  
 															<button class="button" ui-sref="homepage.HotTheme" nav-direction="forward" >热门主题</button>
 															<button class="button" ui-sref="homepage.HotUser" nav-direction="forward" >风云人物</button>
 											     	  </ion-nav-buttons>						
 											
-														</div>				
+												</div>				
 								</ion-nav-bar>
 							</ion-header-bar>
 							<ion-nav-view  name="theme" style="margin-top:14%"></ion-nav-view>	
@@ -56,23 +55,23 @@
 								<ion-nav-view  name="group" style="margin-top:14%;"></ion-nav-view>	
 						</ion-view>
 					</ion-tab>
-					<ion-tab  icon-on="ion-ios-people" icon-off="ion-ios-people-outline"  ui-sref="homepage.homeFriend">	
+					<ion-tab  icon-on="ion-ios-people" icon-off="ion-ios-people-outline"  ui-sref="homepage.myFocusFriend">	
 						<ion-view>
 						<ion-header-bar>
 								<ion-nav-bar class="bar-positive">
-														<div>			
-															<ion-nav-buttons side="left">
-											
-											        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-															
+												<div>			
+													<ion-nav-buttons side="left">
+											       			 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+															<button class="button" ui-sref="homepage.myFocusFriend" namuv-direction="back" >我关注的好友</button>									  
+															<button class="button" ui-sref="homepage.FocusMeFriend" nav-direction="forward" >关注我的好友</button>
 											     	  </ion-nav-buttons>						
 											
-														</div>				
+												</div>				
 								</ion-nav-bar>
 							</ion-header-bar>
 							
 
-								<ion-nav-view  name="friend"></ion-nav-view>	
+								<ion-nav-view  name="friend" style="margin-top:14%"></ion-nav-view>	
 							
 						</ion-view>
 					</ion-tab>

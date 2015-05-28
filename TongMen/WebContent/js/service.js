@@ -109,7 +109,7 @@
 
         method:'post',
         url:'ThemeinfoAction',
-        params:{"ThemeId":Tid}
+        params:{"Tid":Tid}
 
       })
 
@@ -336,6 +336,141 @@
 
 	    return { 
 	    do_createCircle:function(name,content,subject,area,school,college,major,scolearea,scoleschool,scolecollege,scolemajor){return createCircle(name,content,subject,area,school,college,major,scolearea,scoleschool,scolecollege,scolemajor);}
+	    }
+	  
+	  }])
+	  
+	  
+	  //个人发布的主题和资料
+  .factory('myThemeResource', ['$http', function($http) { 
+  
+    var getTheme= function(){
+      return $http({
+        method:'post',
+        url:'GetpubAction',
+        params:{"form":"GetPubTheme"}
+      })
+
+    };
+    var getResource= function(){
+      return $http({
+        method:'post',
+        url:'GetpubAction',
+        params:{"form":"GetPubRec"}
+      })
+
+    };
+   
+
+    
+    return { 
+    do_getTheme:function(){return getTheme();}
+    ,
+    do_getResource:function(){return getResource();}
+    }
+  
+  }])
+  
+  
+  //编辑个人信息
+ .factory('editUserInformation', ['$http', function($http) { 
+	  
+	    var getUserInformation= function(){
+	      return $http({
+	        method:'post',
+	        url:'CollelabelAction',
+	        params:{"form":"query"}
+	      })
+	    };
+	    
+	    var setUserInformation= function(user){
+	    	user.form="update";
+		      return $http({
+		        method:'post',
+		        url:'CollelabelAction',
+		        params:user
+		      })
+		 };
+		    
+
+	    return { 
+	    do_getUserInformation:function(){return getUserInformation();},
+	    do_setUserInformation:function(user){return setUserInformation(user);}
+	    }
+	  
+	  }])
+	  
+	  
+	  //圈子详细-资料
+ .factory('CircleDetailResources', ['$http', function($http) { 
+	  
+	    var getResourceList= function(){
+	      return $http({
+	        method:'post',
+	        url:'GetResourcelistAction',
+	      })
+	    };
+	    
+		    
+
+	    return { 
+	    do_getResourceList:function(){return getResourceList();}
+	    }
+	  
+	  }])
+	  
+	 //点赞
+ .factory('PraiseService', ['$http', function($http) { 
+	  	
+	 	var getpraisefunc= function(Tid){
+	      return $http({
+	        method:'post',
+	        url:'GetpraiseAction',
+	        params:{"Tid":Tid,"form":"GetPraisestatu"}
+	      })
+	    };
+	    
+	    var addpraisefunc= function(Tid){
+	      return $http({
+	        method:'post',
+	        url:'GetpraiseAction',
+	        params:{"Tid":Tid,"form":"AddThemepraise"}
+	      })
+	    };
+	    
+	    var deletepraisefunc= function(Tid){
+		      return $http({
+		        method:'post',
+		        url:'GetpraiseAction',
+		        params:{"Tid":Tid,"form":"DeleteThemepraise"}
+		      })
+		    };
+	    
+		    
+
+	    return { 
+	    do_addpraisefunc:function(Tid){return addpraisefunc(Tid);},
+	    do_getpraisefunc:function(Tid){return getpraisefunc(Tid);},
+	    do_deletepraisefunc:function(Tid){return deletepraisefunc(Tid);}
+	    }
+	  
+	  }])
+	  
+	   //主题回复
+ .factory('AddThemeReply', ['$http', function($http) { 
+	  
+	    var addThemeReply= function(Tid,content){
+	      return $http({
+	        method:'post',
+	        url:'AddReplyAction',
+	        params:{"Tid":Tid,"content":content}
+	      })
+	    };
+	    
+		    
+
+	    return { 
+	    do_addThemeReply:function(Tid,content){return addThemeReply(Tid,content);}
 	    }
 	  
 	  }])

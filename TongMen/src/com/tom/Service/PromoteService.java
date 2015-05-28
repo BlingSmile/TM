@@ -4,10 +4,6 @@ import java.sql.ResultSet;
 
 import com.tom.Dao.PromoteDao;
 import com.tom.Impl.PromoteImpl;
-import com.tom.Impl.ResourceImpl;
-import com.tom.Impl.ThemeImpl;
-import com.tom.Impl.UserImpl;
-
 import net.sf.json.JSONArray;
 import Utils.Config;
 import Utils.ToJSON;

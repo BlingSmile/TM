@@ -123,8 +123,9 @@ public class UserService {
 		return PraiNum;
 	}
 	
-	public void UpdateColleLabel(Labelcolle labelcolle) {
-		userdao.UpdateColleLabel(labelcolle);
+	public int UpdateColleLabel(Labelcolle labelcolle) {
+		result = userdao.UpdateColleLabel(labelcolle);
+		return result;
 	}
 	
 	public JSONArray GetColleLabel(int Uid) {
@@ -165,4 +166,12 @@ public class UserService {
 	    return array;
 	}
 	
+	public int UpdateUsername(String username, int Uid) {
+		result = userdao.UpdateUsername(username,Uid);
+		return result;
+	}
+	
+	public String GetUsername(int Uid) {
+		return userdao.GetUsername(Uid);
+	}
 }

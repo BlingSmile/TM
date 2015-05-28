@@ -102,10 +102,10 @@ public  class ResourceImpl implements ResourceDao{
 		return rs;
 	}
 	
-	public ResultSet showCircleResource(int Cid,int Uid){
+	public ResultSet GetResourcelist(int Cid){
 		 conn=DBUtil.getConnection();
 		 try{
-		 sql = "select Rtitle,Rcontent,Rlink FROM Resource Where resource.Cid= "+Cid+"and Uid="+Uid;
+		 sql = "select * FROM Resource Where Cid= "+Cid;
 		// System.out.println("");
 			psmt = conn.prepareStatement(sql);						
 			rs = psmt.executeQuery();
@@ -115,7 +115,6 @@ public  class ResourceImpl implements ResourceDao{
 			e.printStackTrace();
 		}
 		return rs;
-		
 	}
 
 	public int deleteResource(int Uid,int Cid) {

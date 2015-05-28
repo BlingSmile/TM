@@ -23,7 +23,7 @@ public interface UserDao {
 	
 	public int GetPraiNum(int userId);
 	
-	public void UpdateColleLabel(Labelcolle label);
+	public int UpdateColleLabel(Labelcolle label);
 	
 	public ResultSet GetColleLabel(int Uid);
 	
@@ -39,4 +39,8 @@ public interface UserDao {
 	public ResultSet GetSaveresource(int Uid);
 	
 	public ResultSet GetFocuscircle(int Uid);
+	
+	public int UpdateUsername(String username, int Uid);
+	
+	public String GetUsername(int Uid);
 }

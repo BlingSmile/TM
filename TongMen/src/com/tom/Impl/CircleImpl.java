@@ -62,7 +62,9 @@ public class CircleImpl implements CircleDao {
 			psmt.setInt(1, Uid);
 			psmt.setString(2,Cname);
 			rs = psmt.executeQuery();
+			rs.next();
 			int Cid = rs.getInt("Cid");
+			System.out.println(Cid);
 			
 			sql = "insert into labelcircle(Cid,subject,school,college,major,area,Tschool,Tcollege,Tmajor,Tarea) values(?,?,?,?,?,?,?,?,?,?)";
 			//conn.close();
@@ -77,6 +79,12 @@ public class CircleImpl implements CircleDao {
 			psmt.setString(8,labcic.getTcollege());
 			psmt.setString(9,labcic.getTmajor());
 			psmt.setString(10,labcic.getTarea());
+			result = psmt.executeUpdate();
+			
+			sql = "insert into focusc (Uid,Cid) values(?,?)";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, Cid);
 			result = psmt.executeUpdate();
 			
 			if(result>0)

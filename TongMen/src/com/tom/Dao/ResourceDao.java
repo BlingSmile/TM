@@ -9,7 +9,7 @@ public interface ResourceDao {
 	public int UploadResource(int cid, int uid, String rtitle, String rcontent,
 			Date rdata, String rlink);
 
-	public ResultSet showCircleResource(int cid, int uid);
+	public ResultSet GetResourcelist(int cid);
 
 	public int deleteResource(int cid, int uid);
 
