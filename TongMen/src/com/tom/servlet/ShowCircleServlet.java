@@ -37,7 +37,6 @@ public class ShowCircleServlet extends HttpServlet{
 		response.setCharacterEncoding("UTF-8");
 		String Cid;
 		int circleId;
-		int result;
 		JSONArray array = new JSONArray();
 	
 		Cid = request.getParameter("");

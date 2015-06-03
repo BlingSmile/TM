@@ -61,10 +61,8 @@ public class UploadResourceServlet extends HttpServlet {
 		Rlink=java.net.URLDecoder.decode(Rlink, "UTF-8");
 		
 		HttpSession session = request.getSession();
-		//Uid = (Integer) session.getAttribute("Uid");
-		//Cid = (Integer) session.getAttribute("Cid");
-		Uid=3;
-		Cid=26;
+		Uid = (Integer) session.getAttribute("Uid");
+		Cid = (Integer) session.getAttribute("Cid");
 		ResourceService resourceservice = new ResourceService();
 		array = resourceservice.UploadResource(Cid,Uid,Rtitle,Rcontent,d,Rlink);
 		

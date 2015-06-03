@@ -155,9 +155,19 @@
 
 		    };
  
+		    var getUnreadmessageNum= function(){
+			      return $http({
+			        method:'post',
+			        url:'MessageAction',
+			        params:{"form":"GetUnreadmessageNum"}
+			      })
+
+			    };
+			    
 	    return { 
 	    do_getInformation:function(){return getInformation();},
-	    do_getSchoolInformation:function(){return getSchoolInformation();}
+	    do_getSchoolInformation:function(){return getSchoolInformation();},
+	    do_getUnreadmessageNum:function(){return getUnreadmessageNum();}
 	    }
 	  
 	  }]) 
@@ -456,6 +466,44 @@
 	  
 	  }])
 	  
+	  
+	   //收藏
+ .factory('CollectService', ['$http', function($http) { 
+	  	
+	 	var getCollectFunc= function(Tid,type){
+	      return $http({
+	        method:'post',
+	        url:'SaveAction',
+	        params:{"Tid":Tid,"form":"GetSaveStatu","type":type}
+	      })
+	    };
+	    
+	    var addCollectFunc= function(Tid,type){
+	      return $http({
+	        method:'post',
+	        url:'SaveAction',
+	        params:{"Tid":Tid,"form":"AddSave","type":type}
+	      })
+	    };
+	    
+	    var deleteCollectFunc= function(Tid,type){
+		      return $http({
+		        method:'post',
+		        url:'SaveAction',
+		        params:{"Tid":Tid,"form":"DeleteSave","type":type}
+		      })
+		    };
+	    
+		    
+
+	    return { 
+	    do_getCollectFunc:function(Tid,type){return getCollectFunc(Tid,type);},
+	    do_addCollectFunc:function(Tid,type){return addCollectFunc(Tid,type);},
+	    do_deleteCollectFunc:function(Tid,type){return deleteCollectFunc(Tid,type);}
+	    }
+	  
+	  }])
+	  
 	   //主题回复
  .factory('AddThemeReply', ['$http', function($http) { 
 	  
@@ -474,3 +522,54 @@
 	    }
 	  
 	  }])
+	  
+	  //私信
+	  .factory('MessageService', ['$http', function($http) { 
+	  
+	    var getMessageList= function(){
+	      return $http({
+	        method:'post',
+	        url:'MessageAction',
+	        params:{"form":"GetAllMessage"}
+	      })
+	    };
+	    
+	    var sendMessage= function(ToId,content){
+		      return $http({
+		        method:'post',
+		        url:'MessageAction',
+		        params:{"form":"SendMessage","ToId":ToId,"content":content}
+		      })
+		    };
+	    return { 
+	    	do_getMessages:function(){return getMessageList();},
+	    	do_sendMessage:function(ToId,content){return sendMessage(ToId,content);}
+	    }
+	  
+	  }])
+	  
+	  //关注、取消关注
+	  .factory('FocusService', ['$http', function($http) { 
+	  
+	    var addFocusFunc= function(Uid){
+	      return $http({
+	        method:'post',
+	        url:'',
+	        params:{"form":"GetAllMessage"}
+	      })
+	    };
+	    
+	    var deleteFocusFunc= function(Uid){
+		      return $http({
+		        method:'post',
+		        url:'MessageAction',
+		        params:{"form":"SendMessage","ToId":ToId,"content":content}
+		      })
+		    };
+	    return { 
+	    	do_addFocusFunc:function(Uid){return addFocusFunc(Uid);},
+	    	do_deleteFocusFunc:function(Uid){return deleteFocusFunc(Uid);}
+	    }
+	  
+	  }])
+	  

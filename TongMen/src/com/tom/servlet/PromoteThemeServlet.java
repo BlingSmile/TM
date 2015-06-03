@@ -13,7 +13,6 @@ import net.sf.json.JSONArray;
 import com.tom.Service.PromoteService;
 
 
-@SuppressWarnings("unused")
 @WebServlet("/PromoteThemeAction")
 public class PromoteThemeServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;

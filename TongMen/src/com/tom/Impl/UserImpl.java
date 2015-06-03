@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import Utils.Config;
 import Utils.DBUtil;
@@ -459,6 +461,244 @@ public class UserImpl implements UserDao{
 			e.printStackTrace();
 		}
 		return username;
+	}
+
+	@Override
+	public int AddSave(int Uid, int Sid, int type) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "insert into save(Uid,Stype,Sid) values(?,?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, type);
+			psmt.setInt(3, Sid);
+			result = psmt.executeUpdate();
+			
+			if(result > 0)
+				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int GetSaveStatu(int Uid, int Sid, int type) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "select * from save where Uid = ? and Stype = ? and Sid = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, type);
+			psmt.setInt(3, Sid);
+			rs = psmt.executeQuery();
+			
+			if(rs.next())
+				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int DeleteSave(int Uid, int Sid, int type) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "delete from save where Uid = ? and Stype = ? and Sid = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, type);
+			psmt.setInt(3, Sid);
+			result = psmt.executeUpdate();
+			
+			if(result > 0)
+				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int SendMessage(int fromId, int toId, String message) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "insert into message(FromId,ToId,Message,Time) values(?,?,?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, fromId);
+			psmt.setInt(2, toId);
+			psmt.setString(3, message);
+			psmt.setTimestamp(4, new Timestamp(new Date().getTime()));
+			result = psmt.executeUpdate();
+			
+			if(result > 0)
+				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int ResetMessageStatu(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "update message set State=1 where ToId ="+Uid;
+		try {
+			psmt = conn.prepareStatement(sql);
+			result = psmt.executeUpdate();
+			
+			if(result > 0)
+				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	
+	@Override
+	public ResultSet GetAllMessage(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "select Uid,username,message,time from user,message where `user`.Uid=message.FromId and ToId="+Uid+" ORDER BY time DESC";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;	
+	}
+
+	@Override
+	public int GetUnreadmessageNum(int Uid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "select count(Mid) as UnreadmessageNum from message where State=0 and ToId="+Uid;
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next())
+				result = rs.getInt("UnreadmessageNum");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;	
+	}
+
+
+	@Override
+	public ResultSet GetMassegetoOther(int Uid, int ToId) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "select Message,Time FROM message where FromId = ? and ToId = ? ORDER BY Time DESC";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, ToId);
+			rs = psmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	@Override
+	public int AddFucos(int Uid, int Fid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "insert into focusu(Uid,Fid) values(?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, Fid);
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int FucosState(int Uid, int Fid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "select* from focusu where Uid = ? and Fid = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, Fid);
+			rs = psmt.executeQuery();
+			
+			if(rs.next())
+				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int DeleteFucos(int Uid, int Fid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection();
+		
+		sql = "delete from focusu where Uid = ? and Fid = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, Fid);
+			result = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

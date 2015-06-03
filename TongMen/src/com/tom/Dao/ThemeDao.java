@@ -2,8 +2,6 @@ package com.tom.Dao;
 
 import java.sql.ResultSet;
 
-import net.sf.json.JSONObject;
-
 public interface ThemeDao {
 	public ResultSet GetPubTheme(int userId);
 	

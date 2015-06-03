@@ -174,4 +174,48 @@ public class UserService {
 	public String GetUsername(int Uid) {
 		return userdao.GetUsername(Uid);
 	}
+	
+	public int AddSave(int Uid, int Sid, int type) {
+		return userdao.AddSave(Uid, Sid, type);
+	}
+	
+	public int GetSaveStatu(int Uid, int Sid, int type){
+		return userdao.GetSaveStatu(Uid, Sid, type);
+	}
+	
+	public int DeleteSave(int Uid, int Sid, int type){
+		return userdao.DeleteSave(Uid, Sid, type);
+	}
+	
+	public int SendMessage(int fromId, int toId, String message) {
+		return userdao.SendMessage(fromId, toId, message);
+	}
+	
+	public JSONArray GetAllMessage(int Uid) {
+		return ToJSON.RsToJson(userdao.GetAllMessage(Uid));
+	}
+	
+	public int GetUnreadmessageNum(int Uid) {
+		return userdao.GetUnreadmessageNum(Uid);
+	}
+	
+	public int ResetMessageStatu(int Uid) {
+		return userdao.ResetMessageStatu(Uid);
+	}
+	
+	public JSONArray GetMassegetoOther(int Uid, int ToId) {
+		return ToJSON.RsToJson(userdao.GetMassegetoOther(Uid, ToId));
+	}
+	
+	public int AddFucos(int Uid, int Fid) {
+		return userdao.AddFucos(Uid, Fid);
+	}
+	
+	public int FucosState(int Uid,int Fid) {
+		return userdao.FucosState(Uid,Fid);
+	}
+	
+	public int DeleteFucos(int Uid, int Fid) {
+		return userdao.DeleteFucos(Uid,Fid);
+	}
 }

@@ -36,16 +36,14 @@ public class deleteResourceServlet extends HttpServlet{
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			String Cid,Uid;
-			int circleId,userId;
-			int result;
 			JSONArray array = new JSONArray();
 		
 			Cid = request.getParameter("");
 			Uid = request.getParameter("");
-			circleId = Integer.parseInt(Cid);
-			userId = Integer.parseInt(Uid);
+			Integer.parseInt(Cid);
+			Integer.parseInt(Uid);
 			
-			ResourceService resourceservice = new ResourceService();
+			new ResourceService();
 			
 			//array = resourceservice.showCircleResource(circleId,userId);
 			response.getWriter().print(array);

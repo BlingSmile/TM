@@ -43,4 +43,26 @@ public interface UserDao {
 	public int UpdateUsername(String username, int Uid);
 	
 	public String GetUsername(int Uid);
+	
+	public int AddSave(int Uid, int Sid, int type);
+	
+	public int GetSaveStatu(int Uid, int Sid, int type);
+	
+	public int DeleteSave(int Uid, int Sid, int type);
+	
+	public int SendMessage(int fromId, int toId, String message);
+	
+	public int ResetMessageStatu(int Mid);
+	
+	public ResultSet GetAllMessage(int Uid);
+	
+	public int GetUnreadmessageNum(int Uid);
+	
+	public ResultSet GetMassegetoOther(int Uid, int ToId);
+	
+	public int AddFucos(int Uid, int Fid);
+	
+	public int FucosState(int Uid,int Fid);
+	
+	public int DeleteFucos(int Uid, int Fid);
 }

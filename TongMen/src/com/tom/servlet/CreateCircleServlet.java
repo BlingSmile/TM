@@ -48,8 +48,7 @@ public class CreateCircleServlet extends HttpServlet{
 		response.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
-		//Uid = (Integer) session.getAttribute("Uid");
-		Uid=3;
+		Uid = (Integer) session.getAttribute("Uid");
 		Cname = request.getParameter("Cname");
 		Cname = new String(Cname.getBytes("ISO-8859-1"),"UTF8");
 		Cname=java.net.URLDecoder.decode(Cname, "UTF-8");

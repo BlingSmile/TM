@@ -38,11 +38,10 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
              url: "/HotCircle",
             views:{
                 'theme':{
-           
-            templateUrl: "CircleList.html",
-             controller: 'CircleCtrl'
-        }
-        }
+		            templateUrl: "CircleList.html",
+		             controller: 'CircleCtrl'
+                }
+            }
         })
         
         //主页用户推送
@@ -52,8 +51,8 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
                 'theme':{
             		templateUrl: "UserList.html",
             		controller : 'hotUserCtrl'
-        }
-        }
+                	}
+            }
         })
         
         //主页-我关注的圈子
@@ -74,7 +73,6 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
             views:{
 
                 'friend':{
-
                     templateUrl:'UserList.html',
                    controller : 'myFocusFriendController'
                 }
@@ -88,7 +86,6 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
            views:{
 
                'friend':{
-
                    templateUrl:'UserList.html',
                   controller : 'FocusMeFriendController'
                }
@@ -140,7 +137,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
          })
          
-					//登陆
+			//登陆
             .state('login', {
                 url : '/login',
               
@@ -158,7 +155,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
            
             })
 
-							//创建圈子
+				//创建圈子
               .state('createCircle', {
                 url : '/createCircle',                
                 templateUrl : 'creategroup.html' , 
@@ -258,6 +255,20 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
          })
 
 
+          //私信
+              .state('message', {
+                url : '/message',                 
+                templateUrl : 'MessageList.html' , 
+                controller : 'messagectrl'
+            })
+          
+        //主题详细
+        .state("userinformation", {
+            url: "/user/:Uid",
+            templateUrl: "UserInformation.html",
+            controller : "UserInformationCtrl"
+        })
+            
         //$urlRouterProvider.otherwise('/homepage');
 		$ionicConfigProvider.tabs.position('bottom');
     }])
@@ -273,18 +284,8 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
 //主页-圈子推送
 .controller("CircleCtrl",function($scope,$ionicSideMenuDelegate,$ionicHistory,CirclePromote){
-//
-//var circle ={
-//    cir_name:'高等数学',
-//    cir_img:'img/avatar2.png',
-//    cir_des:'数学是研究现实世界数量关系和空间形式的学科.随着现代科学技术和数学科学的发展，“数量关系”和“空间形式”有了越来越丰富的内涵和更加广泛的外延.数学不仅是一种工具，而且是一种思维模式； 不仅是一种知识，而且是一种素养； 不仅是一门科学，而且是一种文化.数学教育在培养高素质科技人才中具有其独特的、不可替代的作用.对于高等学校工科类专业的本科生而言，高等数学课程是一门非常重要的基础课，它内容丰富，理论严谨，应用广泛，影响深远.不仅为学习后继课程和进一步扩大数学知识面奠定必要的基础，而且在培养学生抽象思维、逻辑推理能力，综合利用所学知识分析问题解决问题的能力，较强的自主学习的能力，创新意识和创新能力上都具有非常重要的作用.',
-//    cir_user:'小小彬'
-//}
-//
-//    $scope.circles = [circle,circle,circle,circle,circle,circle,circle];
-	CirclePromote.do_CirclePromote().success(function(data, status, headers){
-			
-			
+
+	CirclePromote.do_CirclePromote().success(function(data, status, headers){			
 		$scope.circles = data;
 		
 	});
@@ -297,12 +298,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
      
 		userInformation.do_getMyAteention().success(function(data, status, headers){
 			$scope.users= data;
-		});
-		
-		        
-
-    
-		
+		});	
     })
 
     //关注我好友
@@ -409,33 +405,25 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
 	});
  
+ PeopleInformation.do_getUnreadmessageNum().success(function(data, status, headers){
+		$scope.unreadnum = data.UnreadMessNum;
+	});
+ 
 })
 
 
 //主页-主题推送
 .controller('circleThemeLists', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemePromote) {
-//	var theme={
-//    useravrurl:'img/avatar.png',
-//    tname:'主题名',
-//    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-//    time:'2015-05-15',
-//    praice:'32'
-//    };
-// 		$scope.themes= [theme,theme,theme];
  	
- 		ThemePromote.do_ThemePromote().success(function(data, status, headers){
- 			
- 			
-			$scope.themes = data;
-			
+ 		ThemePromote.do_ThemePromote().success(function(data, status, headers){		
+			$scope.themes = data;			
 		});
 })
 
 //主题详细
-.controller("ThemeCtrl",function($scope,$state,$stateParams,$ionicPopup,ThemeInformation,PraiseService,AddThemeReply){
+.controller("ThemeCtrl",function($scope,$state,$stateParams,$ionicPopup,ThemeInformation,PraiseService,AddThemeReply,CollectService){
 		$scope.Tid =$stateParams.Tid;
 		ThemeInformation.do_getTheme($scope.Tid).success(function(data, status, headers){
-	
 	
 			$scope.theme = data[0];
 			
@@ -458,9 +446,18 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 			}
 	
 		});
+		CollectService.do_getCollectFunc($scope.Tid,1).success(function(data, status, headers){
+			if(data.result == 1001){
+				$scope.collectstate="取消收藏";
+				$scope.collect = true;
+			}else{
+				$scope.collectstate="收藏";
+				$scope.collect = false;
+			}	
+		});
+		
 		$scope.praisefunc=function()
 		{
-			alert($scope.praise);
 			if($scope.praise){
 				$scope.praisestate="赞";
 				PraiseService.do_deletepraisefunc($scope.Tid).success(function(data, status, headers){
@@ -475,7 +472,22 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 			$scope.praise = !$scope.praise;
 
 		}
-
+	
+	$scope.collectfunc=function()
+	{
+		if($scope.collect){
+			$scope.collectstate="收藏";
+			CollectService.do_deleteCollectFunc($scope.Tid,1).success(function(data, status, headers){
+				
+			})
+		}else{
+			$scope.collectstate="取消收藏";
+			CollectService.do_addCollectFunc($scope.Tid,1).success(function(data, status, headers){
+				
+			})
+		}
+		$scope.collect = !$scope.collect;
+	}
 
      $scope.back=function ()
     {
@@ -523,26 +535,16 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
 //圈子详细-主题
 .controller('circleThemeList', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
-//	var theme={
-//    useravrurl:'img/avatar.png',
-//    tname:'主题名',
-//    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-//    time:'2015-05-15',
-//    praice:'32'
-//    };
 	$scope.Cid = $stateParams.Cid;
 	ThemeListInformation.do_getThemeList($scope.Cid).success(function(data, status, headers){
 		$scope.themes = data;
-
-
 	});
- 		//$scope.themes= [theme,theme,theme];
-
 })
 
 //圈子详细-用户
-.controller('circleUserCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
+.controller('circleUserCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,$ionicPopup,ThemeListInformation,MessageService) {
 	var user = {
+	Uid:1,
     user_name:'小小彬',
     user_img:'img/avatar2.png',
     user_des:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
@@ -555,24 +557,45 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 	}
 
 	$scope.users = [user,user,user,user,user,user,user,user,user,user,user,user,user];
+	
+	$scope.showPopup = function(Uid) {
+   	  $scope.data = {}
 
+    	var ToId=$scope.users[index].Uid
+   	  // An elaborate, custom popup
+   	  var myPopup = $ionicPopup.show({
+   	    template: '<textarea  placeholder="留言内容" maxLength="240" rows="6" cols="20"   ng-model="data.reply" style="height:30%"></textarea>',
+   	    title: '快速留言',
+   	    scope: $scope,
+   	    buttons: [
+   	      { text: '取消' },
+   	      {
+   	        text: '<b>发送</b>',
+   	        type: 'button-positive',
+   	        onTap: function(e) {
+   	          if (!$scope.data.reply) {
+   	            //don't allow the user to close unless he enters wifi password
+   	            e.preventDefault();
+   	          } else {
+   	        	MessageService.do_sendMessage(ToId,$scope.data.reply).success(function(data, status, headers){
+   	        		if(data.result == 1001)
+   	        		{
+   	        			alert("留言成功");
+   	        		}else{
+   	        			alert("服务器繁忙");
+   	        		}
+   	        	})
+   	          }
+   	        }
+   	      },
+   	    ]
+   	  });
+    }
 })
 
 //主页用户推送
 .controller('hotUserCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,UserPromote) {
-//	var user = {
-//    user_name:'小小彬',
-//    user_img:'img/avatar2.png',
-//    user_des:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
-//    user_city:'北京',
-//    user_school:'北京交通大学',
-//    user_grade:'研一',
-//    user_themenum:'5',
-//    user_ansnum:'12',
-//    user_focusnum:'2',
-//	}
-//
-//	$scope.users = [user,user,user,user,user,user,user,user,user,user,user,user,user];
+
 	UserPromote.do_UserPromote().success(function(data, status, headers){
 		
 		$scope.users = data;
@@ -587,35 +610,17 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 		$scope.circles = data;
 
 	});
-	
-//var circle ={
-//    cir_name:'高等数学',
-//    cir_img:'img/avatar2.png',
-//    cir_des:'数学是研究现实世界数量关系和空间形式的学科.随着现代科学技术和数学科学的发展，“数量关系”和“空间形式”有了越来越丰富的内涵和更加广泛的外延.数学不仅是一种工具，而且是一种思维模式； 不仅是一种知识，而且是一种素养； 不仅是一门科学，而且是一种文化.数学教育在培养高素质科技人才中具有其独特的、不可替代的作用.对于高等学校工科类专业的本科生而言，高等数学课程是一门非常重要的基础课，它内容丰富，理论严谨，应用广泛，影响深远.不仅为学习后继课程和进一步扩大数学知识面奠定必要的基础，而且在培养学生抽象思维、逻辑推理能力，综合利用所学知识分析问题解决问题的能力，较强的自主学习的能力，创新意识和创新能力上都具有非常重要的作用.',
-//    cir_user:'小小彬'
-//}
-//
-//    $scope.circles = [circle,circle,circle,circle,circle,circle,circle];
-    
 })
 
 
 //圈子详细-用户
 .controller('circleResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,CircleDetailResources) {
-//	var resource = {
-//    img:'img/avatar2.png',
-//    rname:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
-//    rtime:'2015-05-22 22:22:22',
-//	}
-	
 	CircleDetailResources.do_getResourceList().success(function(data, status, headers){
 		
 		$scope.resources = data;
 
 	});
 	
-	//$scope.resources = [resource,resource,resource,resource,resource,resource,resource];
-
 })
 
 
@@ -728,5 +733,52 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 				 $state.go("person_information");
 			 }
 		 })
+	    }
+})
+
+
+//私信
+.controller('messagectrl', function($scope,$state,$ionicSideMenuDelegate,$ionicHistory,MessageService) {
+	
+//	$scope.doRefresh=function(){
+//		MessageService.do_getMessages().then(function(data){
+//			$scope.messages = data;
+//		});
+//	}
+	MessageService.do_getMessages().success(function(data, status, headers){
+		$scope.messages = data;
+	});
+
+	 $scope.back=function ()
+	    {
+	            history.back();
+	    }
+})
+
+
+//私信
+.controller('UserInformationCtrl', function($scope,$state,$stateParams,$ionicSideMenuDelegate,$ionicHistory,FocusService) {
+	$scope.Uid =$stateParams.Uid;
+	
+	$scope.focusstate=true;
+	$scope.focus="关注"
+		
+	$scope.setFocus=function(){
+		if($scope.focusstate){
+			$scope.focus="关注";
+			FocusService.do_deleteFocusFunc($scope.Uid).success(function(data, status, headers){
+				$scope.focusstate=true;
+			})
+		}else{
+			$scope.focus="取消关注";
+			FocusService.do_addFocusFunc($scope.Uid).success(function(data, status, headers){
+				$scope.focusstate=false;
+			})
+		}
+		$scope.focusstate = !$scope.focusstate;
+	}
+	 $scope.back=function ()
+	    {
+	            history.back();
 	    }
 })

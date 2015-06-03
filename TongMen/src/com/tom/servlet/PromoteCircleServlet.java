@@ -12,7 +12,6 @@ import net.sf.json.JSONArray;
 
 import com.tom.Service.PromoteService;
 
-@SuppressWarnings("unused")
 @WebServlet("/PromoteCircleAction")
 public class PromoteCircleServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;

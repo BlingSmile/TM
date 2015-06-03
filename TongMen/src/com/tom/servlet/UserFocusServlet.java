@@ -49,18 +49,16 @@ public class UserFocusServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		int Uid;
+		int Uid,Fid;
 		int result;
 		JSONArray array = new JSONArray();
+		JSONObject JObject = new JSONObject();
 	
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
 		HttpSession httpsession = request.getSession();
-		//Uid = (Integer) httpsession.getAttribute("Uid");
-
-		Uid=2;
-
+		Uid = (Integer) httpsession.getAttribute("Uid");
 		UserService userservice = new UserService();
 		
 		String form = request.getParameter("form");
@@ -73,16 +71,33 @@ public class UserFocusServlet extends HttpServlet{
 		} else if(form.equals("GetFucosNum")) {
 			int FNum = userservice.GetFucosNum(Uid);
 			
-			JSONObject JObject = new JSONObject();
 			JObject.put("focusNum", FNum);
-			
 			response.getWriter().print(JObject);
+			
 		} else if(form.equals("GetWhofucos")) {
 			array = userservice.GetWhofucosMe(Uid);
 			response.getWriter().print(array.toString());
+			
 		} else if(form.equals("GetFocusciecle")) {
 			array = userservice.GetFocuscircle(Uid);
 			response.getWriter().print(array.toString());
+			
+		} else if(form.equals("AddFucos")) {
+			Fid = Integer.parseInt(request.getParameter("Fid"));
+			result = userservice.AddFucos(Uid, Fid);
+			JObject.put("result", result);
+			response.getWriter().print(JObject);
+			
+		} else if(form.equals("DeleteFucos")) {
+			Fid = Integer.parseInt(request.getParameter("Fid"));
+			result = userservice.DeleteFucos(Uid,Fid);
+			JObject.put("result", result);
+			response.getWriter().print(JObject);
+		} else if(form.equals("FucosState")) {
+			Fid = Integer.parseInt(request.getParameter("Fid"));
+			result = userservice.FucosState(Uid,Fid);
+			JObject.put("result", result);
+			response.getWriter().print(JObject);
 		}
 	}
 }
