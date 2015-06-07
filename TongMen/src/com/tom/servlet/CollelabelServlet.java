@@ -44,16 +44,21 @@ public class CollelabelServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int grade = 0,Uid = -1,result = -1;
-		String form = "";
+		String form = "",user = "";
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("utf-8");
-		//response.setHeader("contentType", "text/html; charset=utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
 		UserService userservice = new UserService();
-		HttpSession session = request.getSession();
-		Uid = (Integer) session.getAttribute("Uid");
+		
+		user = request.getParameter("user");
+		
+		if(user.equals("personal")) {
+			HttpSession session = request.getSession();
+			Uid = (Integer) session.getAttribute("Uid");
+		} else if(user.equals("other"))
+			Uid = Integer.parseInt(request.getParameter("Uid"));
 		
 		form = request.getParameter("form");
 		if(form.equals("update")) {

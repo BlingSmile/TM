@@ -1,6 +1,7 @@
 package com.tom.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +60,7 @@ public class MessageServlet extends HttpServlet {
 			response.getWriter().print(object);
 		} else if (form.equals("SendMessage")) {
 			ToId = Integer.parseInt(request.getParameter("ToId"));
-			Message = request.getParameter("Message");
+			Message = new String(request.getParameter("content").getBytes("ISO-8859-1"),"UTF8");
 			result = us.SendMessage(Uid, ToId, Message);
 			
 			
@@ -76,6 +77,12 @@ public class MessageServlet extends HttpServlet {
 			JSONArray array = new JSONArray();
 			array = us.GetAllMessage(Uid);
 			result = us.ResetMessageStatu(Uid);
+			response.getWriter().print(array);
+		} else if (form.equals("GetPrivateMessage")) {
+			JSONArray array = new JSONArray();
+			ToId = Integer.parseInt(request.getParameter("ToId"));
+			result = us.ResetMessageStatu(ToId);
+			array = us.GetAllMessage(ToId);
 			response.getWriter().print(array);
 		}
 	}

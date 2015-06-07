@@ -261,8 +261,15 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
                 templateUrl : 'MessageList.html' , 
                 controller : 'messagectrl'
             })
+            
+            //其他用户留言板
+              .state('usermessage', {
+                url : '/usermessage/:Uid',                 
+                templateUrl : 'MessageList.html' , 
+                controller : 'usermessagectrl'
+            })
           
-        //主题详细
+        //其他用户个人信息
         .state("userinformation", {
             url: "/user/:Uid",
             templateUrl: "UserInformation.html",
@@ -558,7 +565,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
 	$scope.users = [user,user,user,user,user,user,user,user,user,user,user,user,user];
 	
-	$scope.showPopup = function(Uid) {
+	$scope.showPopup = function(index) {
    	  $scope.data = {}
 
     	var ToId=$scope.users[index].Uid
@@ -756,23 +763,54 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 })
 
 
-//私信
-.controller('UserInformationCtrl', function($scope,$state,$stateParams,$ionicSideMenuDelegate,$ionicHistory,FocusService) {
+//其他用户私信
+.controller('usermessagectrl', function($scope,$state,$stateParams,$ionicSideMenuDelegate,$ionicHistory,MessageService) {
+	
+//	$scope.doRefresh=function(){
+//		MessageService.do_getMessages().then(function(data){
+//			$scope.messages = data;
+//		});
+//	}
+	$scope.Uid =$stateParams.Uid;
+	
+	MessageService.do_getUserMessageList($scope.Uid).success(function(data, status, headers){
+		$scope.messages = data;
+	});
+
+	 $scope.back=function ()
+	    {
+	            history.back();
+	    }
+})
+
+
+//其他用户信息
+.controller('UserInformationCtrl', function($scope,$state,$stateParams,$ionicSideMenuDelegate,$ionicHistory,FocusService,PeopleInformation) {
 	$scope.Uid =$stateParams.Uid;
 	
 	$scope.focusstate=true;
-	$scope.focus="关注"
-		
+	$scope.focus="关注";
+	FocusService.do_getFocusFunc($scope.Uid).success(function(data, status, headers){
+		if(data.result == 1001){
+			$scope.focus="取消关注";
+			$scope.focusstate = true;
+		}else{
+			$scope.focus="关注";
+			$scope.focusstate = false;
+		}
+
+	});
+	
 	$scope.setFocus=function(){
 		if($scope.focusstate){
 			$scope.focus="关注";
 			FocusService.do_deleteFocusFunc($scope.Uid).success(function(data, status, headers){
-				$scope.focusstate=true;
+				$scope.focusstate=false;
 			})
 		}else{
 			$scope.focus="取消关注";
 			FocusService.do_addFocusFunc($scope.Uid).success(function(data, status, headers){
-				$scope.focusstate=false;
+				$scope.focusstate=true;
 			})
 		}
 		$scope.focusstate = !$scope.focusstate;
@@ -781,4 +819,30 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 	    {
 	            history.back();
 	    }
+	 
+	 
+	 var grades=["大一","大二","大三","大四","研一","研二","研三"];   
+	 PeopleInformation.do_getgetUserInformation($scope.Uid).success(function(data, status, headers){
+			
+			$scope.focusNum = data.focusNum;
+			$scope.pubthemeNum = data.pubthemeNum;
+			$scope.pubrecNum = data.pubrecNum;
+			$scope.befocusNum = data.befocusNum;
+			$scope.praiNum = data.praiNum;
+
+		});
+	 PeopleInformation.do_getUserSchoolInformation($scope.Uid).success(function(data, status, headers){
+			if(data[0]!=null){
+				$scope.school = data[0].school;
+				$scope.college = data[0].college;
+				$scope.major = data[0].major;
+				$scope.grade = grades[data[0].grade];
+			}else{
+				$scope.school = "";
+				$scope.college = "";
+				$scope.major = "";
+				$scope.grade = "";
+			}
+
+		});
 })

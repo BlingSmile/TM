@@ -11,13 +11,13 @@ import net.sf.json.JSONArray;
 
 import com.tom.Service.ResourceService;
 
-public class deleteResourceServlet extends HttpServlet{
+public class DeleteResourceServlet extends HttpServlet{
 	 private static final long serialVersionUID = 1L;
 	    
 	    /**
 	     * @see HttpServlet#HttpServlet()
 	     */
-	    public deleteResourceServlet() {
+	    public DeleteResourceServlet() {
 	        super();
 	        // TODO Auto-generated constructor stub
 	    }

@@ -5,7 +5,9 @@
 				<div  class="list card">
 					<div >
 							<div class="sep">
-								<img class="circle_img user_img"  ng-src={{item.user_img}} style="width:15%;float:left;margin:5%">	
+								<a href="index.html#/user/{{item.Uid}}">
+								<img class="circle_img user_img"  ng-src={{item.user_img}} style="width:15%;float:left;margin:5%" >	
+								</a>
 								<div style="float:left;width:75%;height:60%">
 									<div style="float:left;width:100%">
 										<p class="user-name">{{item.username}}  </p>	<span class="small-p-right">{{item.user_city}}  {{item.user_school}}  {{item.user_grade}}</span>
@@ -46,13 +48,16 @@
 
 					    <a class="tab-item" href="javascript:void(0)" ng-click="showPopup($index)" >
 					      <i class="icon ion-ios-compose-outline"></i>
-					      私信
+					      留言
 					    </a>
 					    <div class="tab-item">
-					    	<button class="button button-calm button-small tab-item" ng-click="setFocus($index)" style="width:80%;height:70%;margin-top:5%;">{{focus}}</button>
+					    	<a class="button button-calm button-small tab-item" href="index.html#/user/{{item.Uid}}" style="width:80%;height:70%;margin-top:5%;">查看主页</a>
 					    </div>
 					  </div>
 				</div>
 				</div>
 				
 			</ion-content>
+
+
+</script>

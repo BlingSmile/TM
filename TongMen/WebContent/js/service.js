@@ -142,6 +142,7 @@
 
 	        method:'post',
 	        url:'GetUsernuminfoAction',
+	        params:{"user":"personal"}
 	      })
 
 	    };
@@ -150,10 +151,28 @@
 		      return $http({
 		        method:'post',
 		        url:'CollelabelAction',
-		        params:{"form":"query"}
+		        params:{"form":"query","user":"personal"}
 		      })
 
 		    };
+		var getUserInformation= function(Uid){
+			      return $http({
+
+			        method:'post',
+			        url:'GetUsernuminfoAction',
+			        params:{"form":"query","Uid":Uid,"user":"other"}
+			      })
+
+			    };
+			    
+	    var getUserSchoolInformation= function(Uid){
+				      return $http({
+				        method:'post',
+				        url:'CollelabelAction',
+				        params:{"form":"query","Uid":Uid,"user":"other"}
+				      })
+
+				    };
  
 		    var getUnreadmessageNum= function(){
 			      return $http({
@@ -167,6 +186,8 @@
 	    return { 
 	    do_getInformation:function(){return getInformation();},
 	    do_getSchoolInformation:function(){return getSchoolInformation();},
+	    do_getgetUserInformation:function(Uid){return getUserInformation(Uid);},
+	    do_getUserSchoolInformation:function(Uid){return getUserSchoolInformation(Uid);},
 	    do_getUnreadmessageNum:function(){return getUnreadmessageNum();}
 	    }
 	  
@@ -534,6 +555,14 @@
 	      })
 	    };
 	    
+	    var getUserMessageList= function(ToId){
+		      return $http({
+		        method:'post',
+		        url:'MessageAction',
+		        params:{"form":"GetPrivateMessage","ToId":ToId}
+		      })
+		    };
+	    
 	    var sendMessage= function(ToId,content){
 		      return $http({
 		        method:'post',
@@ -543,6 +572,7 @@
 		    };
 	    return { 
 	    	do_getMessages:function(){return getMessageList();},
+	    	do_getUserMessageList:function(ToId){return getUserMessageList(ToId);},
 	    	do_sendMessage:function(ToId,content){return sendMessage(ToId,content);}
 	    }
 	  
@@ -554,21 +584,29 @@
 	    var addFocusFunc= function(Uid){
 	      return $http({
 	        method:'post',
-	        url:'',
-	        params:{"form":"GetAllMessage"}
+	        url:'UserFocusAction',
+	        params:{"form":"AddFucos","Fid":Uid}
 	      })
 	    };
 	    
 	    var deleteFocusFunc= function(Uid){
 		      return $http({
 		        method:'post',
-		        url:'MessageAction',
-		        params:{"form":"SendMessage","ToId":ToId,"content":content}
+		        url:'UserFocusAction',
+		        params:{"form":"DeleteFucos","Fid":Uid}
 		      })
 		    };
+		var getFocusFunc= function(Uid){
+		return $http({
+			method:'post',
+			url:'UserFocusAction',
+			params:{"form":"FucosState","Fid":Uid}
+			})
+		};
 	    return { 
 	    	do_addFocusFunc:function(Uid){return addFocusFunc(Uid);},
-	    	do_deleteFocusFunc:function(Uid){return deleteFocusFunc(Uid);}
+	    	do_deleteFocusFunc:function(Uid){return deleteFocusFunc(Uid);},
+	    	do_getFocusFunc:function(Uid){return getFocusFunc(Uid);}
 	    }
 	  
 	  }])

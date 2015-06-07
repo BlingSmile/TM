@@ -42,11 +42,19 @@ public class GetUsernuminfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		int focusNum = 0, pubthemeNum = 0, pubrecNum = 0, befocusNum = 0, praiNum = 0;
 		int Uid = 0;
+		String user = "";
 		UserService userservice = new UserService();
 		
-		HttpSession session = request.getSession();
-		Uid = (Integer) session.getAttribute("Uid");
-		focusNum = userservice.GetFucosNum(Uid);
+		
+		
+		user = request.getParameter("user");
+		if(user.equals("personal")) {
+			HttpSession session = request.getSession();
+			Uid = (Integer) session.getAttribute("Uid");
+		} else if(user.equals("other")) 
+			Uid = Integer.parseInt(request.getParameter("Uid"));
+		
+		
 		
 		JSONObject JObject = new JSONObject();
 		focusNum = userservice.GetFucosNum(Uid);

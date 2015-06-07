@@ -594,7 +594,7 @@ public class UserImpl implements UserDao{
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection();
 		
-		sql = "select Uid,username,message,time from user,message where `user`.Uid=message.FromId and ToId="+Uid+" ORDER BY time DESC";
+		sql = "select Uid,username,Message,time from user,message where `user`.Uid=message.FromId and ToId="+Uid+" ORDER BY time DESC";
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
