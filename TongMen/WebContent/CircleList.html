@@ -1,14 +1,14 @@
 <!--导航框架之模板视图-->
 
 			<ion-content>
-				<div style="padding-left:5%" class="list list-borderless">
+				<div  class="list list-borderless">
 					
-					<a class="item" collection-repeat="item in circles"  item-width="45%" item-height="130px"   href="#/circledetail/Theme/{{item.Cid}}">
-						<div class="item">	
-							<h2>{{item.Cname}}</h2>
-							<p>{{item.Cdesc}}</p>
+					<button style="padding:0;margin:10px;" class="item" collection-repeat="item in circles"  item-width="45%" item-height="60px"  href="#/circledetail/Theme/{{item.Cid}}" >
+						<div  style="height:45px;border:2px solid;margin-left:15px;margin-top:15px;border-color:#CCCC99;border-radius:5px;">	
+							<h3 >{{item.Cname}}</h3>
+							<p style="font-size:2px;">{{item.Cdesc}}</p>
 						</div>
-			   		 </a>		    
+			   		 </button>		    
 				</div>
 			
 			</ion-content>
