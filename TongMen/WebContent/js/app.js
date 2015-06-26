@@ -231,6 +231,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
                     controller : 'myThemeCtrl'
                 }
             }
+<<<<<<< HEAD
 
          })
          
@@ -255,6 +256,32 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
          })
 
 
+=======
+
+         })
+         
+         
+         //个人发布的-资源
+          .state("myThemeResource.resource",{
+            url:"/Resource",
+            views:{
+                'myresource':{
+                    templateUrl:'ResourceList.html',
+                    controller :'myResourceCtrl'
+                }
+            }
+
+         })
+         
+         //编辑个人资料
+          .state("editUserInformation",{
+            url:"/edituserinformation",
+            templateUrl:'EditUserInformation.html',
+            controller :'editUserInformationCtrl'
+         })
+
+
+>>>>>>> origin/develope
           //私信
               .state('message', {
                 url : '/message',                 
@@ -303,6 +330,7 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 //我关注好友
     .controller('myFocusFriendController', function($scope, $ionicSideMenuDelegate,$ionicHistory,userInformation) {
      
+<<<<<<< HEAD
 <<<<<<< HEAD
      {
       //   {console.log(this.id);
@@ -404,6 +432,11 @@ $scope.question=[{'title':'那阵回忆'},{'title':'那阵回忆'},{'title':'那
 			$scope.users= data;
 		});	
 >>>>>>> origin/develope
+=======
+		userInformation.do_getMyAteention().success(function(data, status, headers){
+			$scope.users= data;
+		});	
+>>>>>>> origin/develope
     })
 
     //关注我好友
@@ -414,9 +447,15 @@ $scope.question=[{'title':'那阵回忆'},{'title':'那阵回忆'},{'title':'那
 		})
 		
     })
+<<<<<<< HEAD
 
 
 
+=======
+
+
+
+>>>>>>> origin/develope
 //登陆
     .controller('LoginController', function($scope,login_register) {
         $scope.username="";
@@ -637,6 +676,7 @@ $scope.question=[{'title':'那阵回忆'},{'title':'那阵回忆'},{'title':'那
     
 })
 
+<<<<<<< HEAD
 
 //圈子详细-主题
 .controller('circleThemeList', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
@@ -646,6 +686,17 @@ $scope.question=[{'title':'那阵回忆'},{'title':'那阵回忆'},{'title':'那
 	});
 })
 
+=======
+
+//圈子详细-主题
+.controller('circleThemeList', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
+	$scope.Cid = $stateParams.Cid;
+	ThemeListInformation.do_getThemeList($scope.Cid).success(function(data, status, headers){
+		$scope.themes = data;
+	});
+})
+
+>>>>>>> origin/develope
 //圈子详细-用户
 .controller('circleUserCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,$ionicPopup,ThemeListInformation,MessageService) {
 	var user = {
@@ -943,4 +994,8 @@ $scope.question=[{'title':'那阵回忆'},{'title':'那阵回忆'},{'title':'那
 			}
 
 		});
+<<<<<<< HEAD
 })
+=======
+})
+>>>>>>> origin/develope
