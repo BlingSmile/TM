@@ -18,11 +18,51 @@ public interface UserDao {
 	
 	public User GetUserInfo(int userId);
 	
-	public int GetFucosNum(int userId);
+	//被关注数
+	public int GetBeFucosNum(int userId);
 	
 	public int GetPraiNum(int userId);
 	
-	public void UpdateColleLabel(Labelcolle label);
+	public int UpdateColleLabel(Labelcolle label);
 	
 	public ResultSet GetColleLabel(int Uid);
+	
+	public int GetPubthemeNum(int Uid);
+	
+	public int GetPubrecNum(int Uid);
+	
+	//关注其他人的数目
+	public int GetFucosNum(int Uid);
+	
+	public ResultSet GetSavetheme(int Uid);
+	
+	public ResultSet GetSaveresource(int Uid);
+	
+	public ResultSet GetFocuscircle(int Uid);
+	
+	public int UpdateUsername(String username, int Uid);
+	
+	public String GetUsername(int Uid);
+	
+	public int AddSave(int Uid, int Sid, int type);
+	
+	public int GetSaveStatu(int Uid, int Sid, int type);
+	
+	public int DeleteSave(int Uid, int Sid, int type);
+	
+	public int SendMessage(int fromId, int toId, String message);
+	
+	public int ResetMessageStatu(int Mid);
+	
+	public ResultSet GetAllMessage(int Uid);
+	
+	public int GetUnreadmessageNum(int Uid);
+	
+	public ResultSet GetMassegetoOther(int Uid, int ToId);
+	
+	public int AddFucos(int Uid, int Fid);
+	
+	public int FucosState(int Uid,int Fid);
+	
+	public int DeleteFucos(int Uid, int Fid);
 }

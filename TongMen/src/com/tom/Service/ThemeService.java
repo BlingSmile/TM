@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import com.tom.Dao.ThemeDao;
 import com.tom.Impl.ThemeImpl;
@@ -51,8 +52,8 @@ public class ThemeService {
 	}
 	
 	//获取主题具体内容
-	public JSONArray GetThemeInfo(int circleId, int Tid) {
-		rs = themedao.GetThemeInfo(circleId, Tid);
+	public JSONArray GetThemeInfo(int Tid) {
+		rs = themedao.GetThemeInfo(Tid);
 		JSONArray array = new JSONArray();
 		array = ToJSON.RsToJson(rs);
 		return array;
@@ -67,8 +68,13 @@ public class ThemeService {
 	}
 	
 	//给主题点赞,并且给主题发布者的点赞总数加一，并且加入点赞记录
-	public int AddThemePraise(int Tid, int Uid, int Pid) {
-		result = themedao.AddThemePraise(Tid,Uid,Pid);
+	public int AddThemePraise(int Tid, int Pid) {
+		result = themedao.AddThemePraise(Tid,Pid);
+		return result;
+	}
+	
+	public int DeleteThemepraise(int Tid, int Pid) {
+		result = themedao.DeleteThemepraise(Tid,Pid);
 		return result;
 	}
 
@@ -79,14 +85,28 @@ public class ThemeService {
 	}
 	
 	//获取主题的回复数
-	public JSONArray GetThemeReplyNum(int ReTid, int Retype) {
+	public int GetThemeReplyNum(int ReTid, int Retype) {
 		int ReplyNum = themedao.GetThemeReplyNum(ReTid,Retype);
 		
-		Map<String, String> params = new HashMap<String, String>();
-		
-		params.put("ReplyNum", Integer.toString(ReplyNum));
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return ReplyNum;
 	}
+	
+	//删除发布的主题
+	public JSONObject DelectTheme(int Uid, int Tid) {
+		result = themedao.DelectTheme(Uid, Tid);
+		JSONObject object = new JSONObject();
+		
+		object.put("result", result);
+		return object;
+	}
+	
+	public int GetPraisestatu(int Uid,int Tid) {
+		result = themedao.GetPraisestatu(Uid,Tid);
+		return result;
+	}
+	
+	public int AddReply(int Tid, int Uid, String content) {
+		return themedao.AddReply(Tid, Uid, content);
+	}
+	
 }

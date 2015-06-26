@@ -7,11 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import Utils.Config;
 
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 import com.tom.Model.Labelcolle;
 import com.tom.Service.UserService;
 
@@ -42,35 +43,53 @@ public class CollelabelServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int grade = 0;
-		String form = "";
+		int grade = 0,Uid = -1,result = -1;
+		String form = "",user = "";
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 		
 		UserService userservice = new UserService();
+		
+		user = request.getParameter("user");
+		
+		if(user.equals("personal")) {
+			HttpSession session = request.getSession();
+			Uid = (Integer) session.getAttribute("Uid");
+		} else if(user.equals("other"))
+			Uid = Integer.parseInt(request.getParameter("Uid"));
 		
 		form = request.getParameter("form");
 		if(form.equals("update")) {
 			Labelcolle label = new Labelcolle();
-			label.setAge(Integer.parseInt(request.getParameter("")));
-			label.setUid(Integer.parseInt(request.getParameter("")));
-			for(; grade < 7; grade++) {
+			JSONObject object = new JSONObject();
+			label.setAge(Integer.parseInt(request.getParameter("age")));
+			label.setUid(Uid);
+			/*for(; grade < 7; grade++) {
 				if(Config.grade[grade].equals(request.getParameter("")))
 					break;
-			}
-			label.setGrade(grade+1);
-			label.setArea(request.getParameter(""));
-			label.setCollege(request.getParameter(""));
-			label.setMajor(request.getParameter(""));
-			label.setSchool(request.getParameter(""));
-			label.setTarea(request.getParameter(""));
-			label.setTcollege(request.getParameter(""));
-			label.setTmajor(request.getParameter(""));
-			label.setTmaster(request.getParameter(""));
-			label.setTschool(request.getParameter(""));
+			}*/
+			grade = Integer.parseInt(request.getParameter("grade"));
+			label.setGrade(grade);
+			label.setArea(new String(request.getParameter("area").getBytes("ISO-8859-1"),"UTF8"));
+			label.setCollege(new String(request.getParameter("school").getBytes("ISO-8859-1"),"UTF8"));
+			label.setMajor(new String(request.getParameter("college").getBytes("ISO-8859-1"),"UTF8"));
+			label.setSchool(new String(request.getParameter("major").getBytes("ISO-8859-1"),"UTF8"));
+			label.setTarea(new String(request.getParameter("Tarea").getBytes("ISO-8859-1"),"UTF8"));
+			label.setTcollege(new String(request.getParameter("Tcollege").getBytes("ISO-8859-1"),"UTF8"));
+			label.setTmajor(new String(request.getParameter("Tmajor").getBytes("ISO-8859-1"),"UTF8"));
+			//label.setTmaster("");
+			label.setTschool(new String(request.getParameter("Tschool").getBytes("ISO-8859-1"),"UTF8"));
 			
-			userservice.UpdateColleLabel(label);
+			result = userservice.UpdateColleLabel(label);
+			result = userservice.UpdateUsername(new String(request.getParameter("username").getBytes("ISO-8859-1"),"UTF8"), Uid);
+			if(result == Config.SUCCESS)
+				object.put("result", "修改成功");
+			else
+				object.put("result", "修改失败");
+			response.getWriter().print(object);
 		} else if(form.equals("query")) {
-			String userid = request.getParameter("Uid");
-			int Uid = Integer.parseInt(userid);
 			JSONArray array = new JSONArray();
 			
 			array = userservice.GetColleLabel(Uid);

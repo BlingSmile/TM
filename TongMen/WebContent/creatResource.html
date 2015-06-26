@@ -1,0 +1,31 @@
+<ion-view title="创建资料">
+<form name="creatResource" id="creatSource">
+
+
+      <ion-content " padding="true">
+      
+		<div class="bar header-bar bar-positive ">
+        <button class="button button-clear icon ion-ios-arrow-left" ng-click="back()"></button>
+        <h1 class="title">创建资料</h1>
+        <a class="button button-clear"  ng-click="submitForm(resource)" >创建</a>
+        </div> 
+
+<div class="list has-header">
+
+  
+  <label class="item item-input">
+    <input placeholder="资料名称" type="text"  ng-model="resource.name">
+  </label>
+  
+  <label class="item item-input">
+    <input placeholder="资料链接" type="text"  ng-model="resource.link">
+  </label>
+  
+  <label class="item item-input">
+    <textarea  placeholder="资料描述" maxLength="240" rows="6" cols="20"   ng-model="resource.content" style="height:30%"></textarea>
+  </label>
+
+</div>
+
+</form>
+</ion-view>

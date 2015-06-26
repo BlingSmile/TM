@@ -1,16 +1,14 @@
-ï»¿<!--å¯¼èˆªæ¡†æž¶ä¹‹æ¨¡æ¿è§†å›¾-->
+<!--µ¼º½¿ò¼ÜÖ®Ä£°åÊÓÍ¼-->
 
-			<ion-content ng-controller="CircleCtrl">
-				<div style="padding-left:5%" class="list list-borderless">
+			<ion-content>
+				<div  class="list list-borderless">
 					
-					<div class="item" collection-repeat="item in circles"  item-width="45%" item-height="130px">
-						<div class="item-image">
-							<img class="circle_img"style="width:80%" ng-src={{item.cir_img}}>	
-							<h2>{{item.cir_name}}</h2>
+					<button style="padding:0;margin:10px;" class="item" collection-repeat="item in circles"  item-width="45%" item-height="60px"  href="#/circledetail/Theme/{{item.Cid}}" >
+						<div  style="height:45px;border:2px solid;margin-left:15px;margin-top:15px;border-color:#CCCC99;border-radius:5px;">	
+							<h3 >{{item.Cname}}</h3>
+							<p style="font-size:2px;">{{item.Cdesc}}</p>
 						</div>
-			    </div>
-			    
+			   		 </button>		    
 				</div>
-				
-				
+			
 			</ion-content>

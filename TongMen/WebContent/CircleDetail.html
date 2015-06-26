@@ -1,0 +1,93 @@
+﻿
+<!DOCTYPE html>
+<html >
+<head>
+    <title>CircleDetail</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width,height=device-height">
+    <link rel="stylesheet" href="css/style.css">
+     <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+ 
+</head>
+
+<body >
+	<div >
+		<!--<ion-view>
+			<ion-header-bar align-title="center" class="bar-positive" >
+				<ion-nav-bar class="bar-positive">
+					<ion-nav-buttons side="left">
+						<button class="button button-clear icon ion-ios-arrow-left" ui-sref="homepage.HotCircle"></button>
+					</ion-nav-buttons>			
+				</ion-nav-bar>
+			</ion-header-bar>
+			 <div class="bar bar-subheader bar-positive">
+          <div class="button-bar">
+					<button class="button" ui-sref="circledetail.theme" nav-direction="back" >主题</button>
+					<button class="button" ui-sref="circledetail.resource" nav-direction="forward" >资源</button>
+					<button class="button"ui-sref="circledetail.user" nav-direction="forward" >关注者</button>
+					 </div>			
+        </div>
+								<ion-nav-view  name="content" style="margin-top:25%"></ion-nav-view>							
+				</ion-view>-->
+				
+				<ion-tabs  class="tabs-positive tabs-icon-top" has-header="true">
+					<ion-tab  icon-on="ion-ios-book" icon-off="ion-ios-book-outline" ui-sref="circledetail.theme">						
+						<ion-view>
+							<ion-header-bar>
+								<ion-nav-bar class="bar-positive">
+														<div>			
+															<ion-nav-buttons side="left">										
+											        <button class="button button-clear icon ion-ios-arrow-left" ui-sref="homepage.HotCircle"></button>
+											        <h1 class="title">主题 </h1>
+											        <button class="button button-icon icon ion-ios-plus-empty" ui-sref="createTheme"></button>
+											     	  </ion-nav-buttons>																
+														</div>				
+								</ion-nav-bar>
+							</ion-header-bar>
+							<ion-nav-view  name="theme" style="margin-top:14%"></ion-nav-view>	
+						</ion-view>
+					</ion-tab>
+					<ion-tab  icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline" ui-sref="circledetail.resource">	
+						<ion-view>
+						<ion-header-bar>
+								<ion-nav-bar class="bar-positive">
+														<div>			
+															<ion-nav-buttons side="left">
+											        <button class="button button-clear icon ion-ios-arrow-left" ui-sref="homepage.HotCircle"></button>
+															<h1 class="title">资料</h1>
+															<button class="button button-icon icon ion-ios-plus-empty" ui-sref="createResource" ></button>
+											     	  </ion-nav-buttons>						
+														</div>				
+								</ion-nav-bar>
+							</ion-header-bar>
+								<ion-nav-view  name="resource" style="margin-top:14%"></ion-nav-view>	
+						</ion-view>
+					</ion-tab>
+					<ion-tab  icon-on="ion-ios-body" icon-off="ion-ios-body-outline"  ui-sref="circledetail.user">	
+						<ion-view>
+						<ion-header-bar>
+								<ion-nav-bar class="bar-positive">
+														<div>			
+															<ion-nav-buttons side="left">
+											
+											        <button class="button button-clear icon ion-ios-arrow-left" ui-sref="homepage.HotCircle"></button>
+															<h1 class="title">关注者</h1>
+											     	  </ion-nav-buttons>						
+											
+														</div>				
+								</ion-nav-bar>
+							</ion-header-bar>
+							
+
+								<ion-nav-view  name="user" style="margin-top:14%"></ion-nav-view>	
+							
+						</ion-view>
+					</ion-tab>
+				</ion-tabs>
+			
+	</div>
+</body>
+<html>
+
+      

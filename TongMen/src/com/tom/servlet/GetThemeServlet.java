@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 
@@ -46,8 +47,13 @@ public class GetThemeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		CircleId = request.getParameter("");
+		CircleId = request.getParameter("CircleId");
 		Cid = Integer.parseInt(CircleId);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("Cid", Cid);
+		
+		System.out.println(CircleId+Cid);
 		
 		JSONArray array = new JSONArray();
 		array = themsev.GetThemeList(Cid);

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -45,7 +46,8 @@ public class RegisterServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String phone,name, psw, res,activecode;
-		JSONArray array;
+		int Uid = -1;
+		JSONObject object = new JSONObject();
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -56,8 +58,16 @@ public class RegisterServlet extends HttpServlet{
 		//activecode = request.getParameter("");
 		
 		UserService userservice = new UserService();
-		array = userservice.Register(phone, psw, "111", name);
+		Uid = userservice.Register(phone, psw, "111", name);
 		
-		response.getWriter().print(array);
+		if(Uid != Config.FAILE) {
+			HttpSession session = request.getSession();
+			session.setAttribute("Uid", Uid);
+			object.put("result", "注册成功");
+		} else {
+			object.put("result", "注册失败");
+		}
+		
+		response.getWriter().print(object);
 	}
 }

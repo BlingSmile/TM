@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -49,8 +50,24 @@ public class LoginServlet extends HttpServlet{
 		name = request.getParameter("name");
 		psw = request.getParameter("password");
 		UserService userservice = new UserService();
+		System.out.println(name+psw);
+		int result = userservice.Login(name, psw);
 		
-		JSONArray array = userservice.Login(name, psw);
+		String res = "";
+		
+		Map<String, String> params = new HashMap<String, String>();
+		if(result == Config.PHONE_NOT_EXIST)
+			res = "用户名或密码错误";
+		else if(result == Config.WRONG_PSW)
+			res = "用户名或密码错误";
+		else {
+			res = "登陆成功";
+		}
+		params.put("result", res);
+		JSONArray array = JSONArray.fromObject(params);
+		
+		HttpSession httpsession = request.getSession();
+		httpsession.setAttribute("Uid", result);
 		
 		response.getWriter().print(array);
 	}

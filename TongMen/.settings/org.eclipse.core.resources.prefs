@@ -1,3 +1,14 @@
 eclipse.preferences.version=1
+encoding//WebContent/UserInformation.html=UTF-8
+encoding//WebContent/UserList.html=UTF-8
+encoding//WebContent/creatResource.html=UTF-8
+encoding//WebContent/creategroup.html=UTF-8
+encoding//WebContent/friend.html=UTF-8
+encoding//WebContent/homeFriend.html=UTF-8
 encoding//WebContent/login.html=UTF-8
+encoding//WebContent/person_information.html=UTF-8
+encoding//WebContent/templates/person_information.html=UTF-8
+encoding//src/com/tom/servlet/CreatethemeServlet.java=UTF-8
+encoding//src/com/tom/servlet/GetSavelist.java=UTF-8
+encoding/<project>=UTF-8
 encoding/src=UTF-8

@@ -3,26 +3,21 @@ package com.tom.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-import com.tom.Service.ThemeService;
+import com.tom.Service.CircleService;
 
-/**
- * Servlet implementation class AddpraiseServlet
- */
-@WebServlet("/AddpraiseAction")
-public class AddpraiseServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+public class ShowCircleServlet extends HttpServlet{
+    private static final long serialVersionUID = 1L;
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddpraiseServlet() {
+    public ShowCircleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,27 +30,23 @@ public class AddpraiseServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String CircleId,ThemeId,form;
-		int Cid,Tid;
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		ThemeService themeservice = new ThemeService();
+		String Cid;
+		int circleId;
 		JSONArray array = new JSONArray();
+	
+		Cid = request.getParameter("");
+		circleId = Integer.parseInt(Cid);
 		
-		CircleId = request.getParameter("");
-		ThemeId = request.getParameter("");
-		form = request.getParameter("");
+		CircleService circleservice = new CircleService();
 		
-		Cid = Integer.parseInt(CircleId);
-		Tid = Integer.parseInt(ThemeId);
-		
-		array = themeservice.GetThemeInfo(Cid, Tid);
+		array = circleservice.ShowCircle(circleId);
 		response.getWriter().print(array);
-		
+			
 	}
-
 }
+

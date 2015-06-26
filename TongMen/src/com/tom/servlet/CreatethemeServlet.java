@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 
@@ -39,19 +40,25 @@ public class CreatethemeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String CircleId,UserId,title,content;
-		int Cid,Uid;
+		String title,content;
+		int Uid = -1,Cid = -1;
 		ThemeService themeservice = new ThemeService();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		CircleId = request.getParameter("");
-		UserId = request.getParameter("");
-		title = request.getParameter("");
-		content = request.getParameter("");
+		HttpSession session = request.getSession();
+		//Uid = (Integer) session.getAttribute("Uid");
+		Uid = 2;
+		Cid = (Integer) session.getAttribute("Cid");
+		title = request.getParameter("title");
+		title = new String(title.getBytes("ISO-8859-1"),"UTF8");
+		title=java.net.URLDecoder.decode(title, "UTF-8");
+		//title = request.getParameter("title");
+		content = request.getParameter("content");
+		content = new String(content.getBytes("ISO-8859-1"),"UTF8");
+		content=java.net.URLDecoder.decode(content, "UTF-8");
+		System.out.println(title+content);
 		
-		Cid = Integer.parseInt(CircleId);
-		Uid = Integer.parseInt(UserId);
 		
 		JSONArray array = new JSONArray();
 		array = themeservice.CreateTheme(Cid, Uid, title, content);

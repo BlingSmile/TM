@@ -30,7 +30,6 @@ public class ThemeImpl implements ThemeDao{
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,6 +44,7 @@ public class ThemeImpl implements ThemeDao{
 		conn = DBUtil.getConnection(); 
 		sql = "insert into theme(Cid,Uid,Ttitle,Tcontent,Tdate) values (?,?,?,?,?)";
 		System.out.println(sql);
+		System.out.println(title+content);
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, circleId);
@@ -71,12 +71,11 @@ public class ThemeImpl implements ThemeDao{
 	public ResultSet GetTmemeList(int circleId) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select Tid,Ttitle,Tdate,username from theme,user where theme.Uid = user.Uid and Cid = "+circleId;
+		sql = "select Tid,Ttitle,Tdate,username,Tcontent from theme,user where theme.Uid = user.Uid and Cid = "+circleId;
 		System.out.println(sql);
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,15 +85,14 @@ public class ThemeImpl implements ThemeDao{
 
 
 	@Override
-	public ResultSet GetThemeInfo(int circleId, int Tid) {
+	public ResultSet GetThemeInfo(int Tid) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
-		sql = "select username,level,sex,Ttitle,Tcontent,Tpraise,Tdate from theme,user where theme.Uid = user.Uid and Cid = "+circleId+" and Tid = "+Tid;
+		sql = "select username,level,sex,Ttitle,Tcontent,Tpraise,Tdate from theme,user where theme.Uid = user.Uid and Tid = "+Tid;
 		System.out.println(sql);
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,7 +110,6 @@ public class ThemeImpl implements ThemeDao{
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,14 +119,21 @@ public class ThemeImpl implements ThemeDao{
 
 
 	@Override
-	public int AddThemePraise(int Tid,int Uid,int Pid) {
+	public int AddThemePraise(int Tid, int Pid) {
 		// TODO Auto-generated method stub
 		conn = DBUtil.getConnection(); 
 		sql = "update theme set Tpraise = Tpraise+1 where Tid = "+Tid;
 		System.out.println(sql);
+		int Uid = -1;
 		try {
 			psmt = conn.prepareStatement(sql);
 			result = psmt.executeUpdate();
+			
+			sql = "select Uid from theme where Tid = "+Tid;
+			psmt = conn.prepareStatement(sql); 
+			rs = psmt.executeQuery();
+			if(rs.next())
+				Uid = rs.getInt("Uid");
 			
 			sql = "update user set praise = praise+1 where Uid = "+Uid;
 			psmt = conn.prepareStatement(sql); 
@@ -160,6 +164,7 @@ public class ThemeImpl implements ThemeDao{
 	@Override
 	public int AddThemeReplyPra(int Reid, int Uid) {
 		// TODO Auto-generated method stub
+		System.out.println("In AddThemeReplyPra");
 		conn = DBUtil.getConnection(); 
 		sql = "update reply set Repraise = Repraise+1 where Reid = "+Reid;
 		System.out.println(sql);
@@ -212,4 +217,124 @@ public class ThemeImpl implements ThemeDao{
 		return ReplyNum;
 	}
 
+
+	@Override
+	public int DelectTheme(int Uid, int Tid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "delete from theme where Tid = ? and Uid = ?";
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Tid);
+			psmt.setInt(2, Uid);
+			result = psmt.executeUpdate();
+			if(result > 0)
+				result = Config.SUCCESS;
+			else 
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(result);
+		return result;
+	}
+
+
+	@Override
+	public int GetPraisestatu(int Uid, int Tid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "select * from praise where Uid = ? and Tid = ?";
+		System.out.println(sql);
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, Tid);
+			rs = psmt.executeQuery();
+			if(rs.next())
+				result = Config.SUCCESS;
+			else 
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int DeleteThemepraise(int Tid, int Pid) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "update theme set Tpraise = Tpraise-1 where Tid = "+Tid;
+		System.out.println(sql);
+		int Uid = -1;
+		try {
+			psmt = conn.prepareStatement(sql);
+			result = psmt.executeUpdate();
+			
+			sql = "select Uid from theme where Tid = "+Tid;
+			psmt = conn.prepareStatement(sql); 
+			rs = psmt.executeQuery();
+			if(rs.next())
+				Uid = rs.getInt("Uid");
+			
+			sql = "update user set praise = praise-1 where Uid = "+Uid;
+			psmt = conn.prepareStatement(sql); 
+			result = psmt.executeUpdate();
+			
+			sql = "delete from praise where Uid = ? and Tid = ? and Pid = ?";
+			psmt = conn.prepareStatement(sql); 
+			psmt.setInt(1, Uid);
+			psmt.setInt(2, Tid);
+			psmt.setInt(3, Pid);
+			result = psmt.executeUpdate();
+			
+			if(result == 0)
+				result = Config.FAILE;
+			else
+				result = Config.SUCCESS;
+			
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
+	@Override
+	public int AddReply(int Tid, int Uid, String content) {
+		// TODO Auto-generated method stub
+		conn = DBUtil.getConnection(); 
+		sql = "insert into reply(ReTid,Retype,Uid,Recontent,Redate) values (?,?,?,?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,Tid);
+			psmt.setInt(2,1);
+			psmt.setInt(3,Uid);
+			psmt.setString(4,content);
+			psmt.setTimestamp(5, new Timestamp(new Date().getTime()));
+			result = psmt.executeUpdate();
+			System.out.println(result);
+			if(result > 0)
+				result = Config.SUCCESS;
+			else
+				result = Config.FAILE;
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

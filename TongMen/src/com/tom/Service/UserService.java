@@ -37,39 +37,15 @@ public class UserService {
 		return result;
 	}
 	
-	public JSONArray Register(String phone, String password, String activecode, String username) {
+	public int Register(String phone, String password, String activecode, String username) {
 		result = userdao.Register(phone, password, activecode, username);
-		String res = "";
 		
-		Map<String, String> params = new HashMap<String, String>();
-		
-		if(result == Config.FAILE)
-			res = "注册成功";
-		else
-			res = "注册成功";
-			
-		params.put("result", res);
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return result;
 	}
 	
-	public JSONArray Login(String phone, String password) {
+	public int Login(String phone, String password) {
 		result = userdao.Login(phone, password);
-		String res = "";
-		
-		Map<String, String> params = new HashMap<String, String>();
-		if(result == Config.PHONE_NOT_EXIST)
-			res = "用户名或密码错误";
-		else if(result == Config.WRONG_PSW)
-			res = "用户名或密码错误";
-		else
-			res = "登陆成功";
-			
-		params.put("result", res);
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return result;
 	}
 	
 	public JSONArray GetFucosList(int UserId) {
@@ -126,30 +102,30 @@ public class UserService {
 		return array;
 	}
 	
-	public JSONArray GetFucosNum(int userId) {
+	public int GetFucosNum(int userId) {
 		int FNum = 0;
 		FNum = userdao.GetFucosNum(userId);
 		
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("focusNum", FNum);
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return FNum;
 	}
 	
-	public JSONArray GetPraiseNum(int userId) {
+	public int GetBefucosNum(int userId) {
+		int FNum = 0;
+		FNum = userdao.GetBeFucosNum(userId);
+		
+		return FNum;
+	}
+	
+	public int GetPraiseNum(int userId) {
 		int PraiNum = 0;
 		PraiNum = userdao.GetPraiNum(userId);
 
-		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("focusNum", PraiNum);
-		JSONArray array = JSONArray.fromObject(params);
-		
-		return array;
+		return PraiNum;
 	}
 	
-	public void UpdateColleLabel(Labelcolle labelcolle) {
-		userdao.UpdateColleLabel(labelcolle);
+	public int UpdateColleLabel(Labelcolle labelcolle) {
+		result = userdao.UpdateColleLabel(labelcolle);
+		return result;
 	}
 	
 	public JSONArray GetColleLabel(int Uid) {
@@ -157,5 +133,89 @@ public class UserService {
 		JSONArray array = new JSONArray(); 
 	    array = ToJSON.RsToJson(rs);
 	    return array;
+	}
+	
+	public int GetPubthemeNum(int Uid) {
+		int PubthemeNum = userdao.GetPubthemeNum(Uid);
+		return PubthemeNum;
+	}
+	
+	public int GetPubrecNum(int Uid) {
+		int PubrecNum = userdao.GetPubrecNum(Uid);
+		return PubrecNum;
+	}
+	
+	public JSONArray GetSavetheme(int Uid) {
+		rs = userdao.GetSavetheme(Uid);
+		JSONArray array = new JSONArray(); 
+	    array = ToJSON.RsToJson(rs);
+	    return array;
+	}
+	
+	public JSONArray GetSaveresource(int Uid) {
+		rs = userdao.GetSaveresource(Uid);
+		JSONArray array = new JSONArray(); 
+	    array = ToJSON.RsToJson(rs);
+	    return array;
+	}
+	
+	public JSONArray GetFocuscircle(int Uid) {
+		rs = userdao.GetFocuscircle(Uid);
+		JSONArray array = new JSONArray(); 
+	    array = ToJSON.RsToJson(rs);
+	    return array;
+	}
+	
+	public int UpdateUsername(String username, int Uid) {
+		result = userdao.UpdateUsername(username,Uid);
+		return result;
+	}
+	
+	public String GetUsername(int Uid) {
+		return userdao.GetUsername(Uid);
+	}
+	
+	public int AddSave(int Uid, int Sid, int type) {
+		return userdao.AddSave(Uid, Sid, type);
+	}
+	
+	public int GetSaveStatu(int Uid, int Sid, int type){
+		return userdao.GetSaveStatu(Uid, Sid, type);
+	}
+	
+	public int DeleteSave(int Uid, int Sid, int type){
+		return userdao.DeleteSave(Uid, Sid, type);
+	}
+	
+	public int SendMessage(int fromId, int toId, String message) {
+		return userdao.SendMessage(fromId, toId, message);
+	}
+	
+	public JSONArray GetAllMessage(int Uid) {
+		return ToJSON.RsToJson(userdao.GetAllMessage(Uid));
+	}
+	
+	public int GetUnreadmessageNum(int Uid) {
+		return userdao.GetUnreadmessageNum(Uid);
+	}
+	
+	public int ResetMessageStatu(int Uid) {
+		return userdao.ResetMessageStatu(Uid);
+	}
+	
+	public JSONArray GetMassegetoOther(int Uid, int ToId) {
+		return ToJSON.RsToJson(userdao.GetMassegetoOther(Uid, ToId));
+	}
+	
+	public int AddFucos(int Uid, int Fid) {
+		return userdao.AddFucos(Uid, Fid);
+	}
+	
+	public int FucosState(int Uid,int Fid) {
+		return userdao.FucosState(Uid,Fid);
+	}
+	
+	public int DeleteFucos(int Uid, int Fid) {
+		return userdao.DeleteFucos(Uid,Fid);
 	}
 }
