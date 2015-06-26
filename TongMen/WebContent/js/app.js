@@ -1,3 +1,7 @@
+//全局变量
+var answers={};
+
+
 var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
 
     .config(['$stateProvider', '$urlRouterProvider','$ionicConfigProvider', function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
@@ -10,101 +14,130 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
                
             })
          
-        // .state("homepage", {
-        //    abstract : true,
-        //     url: "/homepage",
-        //     templateUrl: "HomePage.html"
-       
-        // })
+         //主题详细
         .state("theme", {
-            url: "theme",
+            url: "/theme/:Tid",
             templateUrl: "Theme.html",
             controller : "ThemeCtrl"
         })
+        
+       
+        //主页主题推送
         .state("homepage.HotTheme", {
             url: "/HotTheme",
             views:{
-                'theme':{
-            
-            templateUrl: "ThemeList.html"
-        }
-        }
+                'theme':{        
+           				 templateUrl: "ThemeList.html",
+           				 controller: 'circleThemeLists'
+                }
+            }
         })
+        
+        //主页圈子推送
         .state("homepage.HotCircle", {
              url: "/HotCircle",
             views:{
                 'theme':{
-           
-            templateUrl: "CircleList.html"
-        }
-        }
+		            templateUrl: "CircleList.html",
+		             controller: 'CircleCtrl'
+                }
+            }
         })
+        
+        //主页用户推送
          .state("homepage.HotUser", {
             url: "/HotUser",
             views:{
                 'theme':{
-            
-            templateUrl: "UserList.html"
-        }
-        }
+            		templateUrl: "UserList.html",
+            		controller : 'hotUserCtrl'
+                	}
+            }
         })
+        
+        //主页-我关注的圈子
          .state("homepage.homeGroup",{
-            url:"/group",
+            url:"/Circle",
             views:{
-
                 'group':{
-
-                    templateUrl:'homeGroup.html',
-                    controller : 'SndChatPageController'
+                    templateUrl:'CircleList.html',
+                    controller : 'MyCircleCtrl'
                 }
             }
 
          })
-          .state("homepage.homeFriend",{
-            url:"/friend",
+         
+         //主页-我关注的人
+          .state("homepage.myFocusFriend",{
+            url:"/myfoucsfriend",
             views:{
 
                 'friend':{
-
-                    templateUrl:'homeFriend.html',
-                   controller : 'homeFriendController'
+                    templateUrl:'UserList.html',
+                   controller : 'myFocusFriendController'
                 }
             }
 
          })
+         
+       //主页-关注我的人
+         .state("homepage.FocusMeFriend",{
+           url:"/focusmefriend",
+           views:{
 
-            
-          .state('group', {
-                url : '/group',
-                templateUrl : 'groupDetail.html',
-                abstract : true,
-                controller : 'groupController'
-            })
-          .state('group.question', {
-                url: '/question/:groupId',
-                views: {
-                  'tab-dash': {
-                   templateUrl:'groupQuestion.html',
-                    controller:'groupQController'
-                  }
-                }})
-            .state('group.resouce', {
-                url: '/resouce/:groupId',
-                views: {
-                  'tab-dash': {
-                   templateUrl:'resouce.html',
-                    controller:'groupQController'
-                  }
-                }})
-              .state('group.peopel', {
-                url: '/peopel/:groupId',
-                views: {
-                  'tab-dash': {
-                   templateUrl:'peopel.html',
-                    controller:'groupQController'
-                  }
-                }})
+               'friend':{
+                   templateUrl:'UserList.html',
+                  controller : 'FocusMeFriendController'
+               }
+           }
 
+        })
+        
+          //圈子详细
+          .state("circledetail", {
+            url: "/circledetail",
+            templateUrl: "CircleDetail.html",
+            abstract : true,
+
+        })
+        
+        //圈子详细-主题
+         .state("circledetail.theme",{
+            url:"/Theme/:Cid",
+            views:{
+                'theme':{
+                    templateUrl:'ThemeList.html',
+                    controller : 'circleThemeList'
+                }
+            }
+
+         })
+         
+         //圈子详细-用户
+          .state("circledetail.user",{
+            url:"/Users",
+            views:{
+                'user':{
+                    templateUrl:'UserList.html',
+                    controller :'circleUserCtrl'
+                }
+            }
+
+         })
+         
+         //圈子详细-资源
+          .state("circledetail.resource",{
+            url:"/Resource",
+            views:{
+                'resource':{
+                    templateUrl:'ResourceList.html',
+                    controller :'circleResourceCtrl'
+                }
+            }
+
+         })
+         
+			//登陆
             .state('login', {
                 url : '/login',
               
@@ -112,6 +145,8 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
                 controller : 'LoginController'
            
             })
+            
+            //注册
             .state('register', {
                 url : '/register',
               
@@ -119,190 +154,129 @@ var app =angular.module('demo', ['ionic','demo.service','expanderModule'])
                 controller : 'registerController'
            
             })
-			.state('lunbo', {
-                url : '/lunbo',
-                templateUrl : 'lunbo.html',
-                controller : 'RootPageController'
+
+				//创建圈子
+              .state('createCircle', {
+                url : '/createCircle',                
+                templateUrl : 'creategroup.html' , 
+                controller : 'createCircleCtrl'
             })
-
-            .state('fst', {
-                url : '/fst',
-                templateUrl : 'fst-abstract.html',
-                abstract : true,
-                controller : 'FstController'
+            
+            	//创建主题
+              .state('createTheme', {
+                url : '/createTheme',                
+                templateUrl : 'creatTheme.html' , 
+                controller : 'creatThemeCtrl'
             })
-
-             .state('content', {
-                url : '/content',
-                templateUrl : 'templates/content.html',
-                abstract : true,
-                controller : 'FstController'
+            
+            //创建资料
+              .state('createResource', {
+                url : '/createResource',                
+                templateUrl : 'creatResource.html' , 
+                controller : 'creatResourceCtrl'
             })
-            //  .state('content.friend', {
-            //     url: '/friend',
-            //     views: {
-            //         'mainContent': {
-            //             templateUrl: 'friend.html',
-            //             controller : 'FstHomePageController'
-            //         }
-            //     }
-            // })
-                .state('fst.group',{
-                    url:'/group/:groupId',
-                    views:{
-                        'fst':{
-templateUrl:'groupDetail.html',
-controller:'groupController'
-
-
-                        }
-                         }
-                     })
-
-
-
-
-
-
-//                          .state('fst.groupQuestion',{
-//                             url :'groupQuestion/:groupId'
-//                             ,
-//                             views:{
-//                                 'fst1':{
-// templateUrl:'groupQuestion.html',
-// controller:'groupQController'
-
-
-
-//                                 }
-
-
-//                             }
-
-
-//                          })
-
-
-
-
-                
-            .state('fst.home', {
-                url: '/home',
-                views: {
-                    'fst': {
-                        templateUrl: 'fst-home.html',
-                        controller : 'FstHomePageController'
-                    }
-                }
+            
+            //收藏
+              .state('Collection', {
+                url : '/Collection',                
+                templateUrl : 'Collection.html' , 
+                controller : 'CollectionCtrl',
+                 abstract : true,
             })
-            .state('fst.friend', {
-                url: '/friend/:friendID',
-                views: {
-                    'fst': {
-                        templateUrl: 'friend.html',
-                        controller : 'friendController'
-                    }
-                }
-            })
-            // .state('fst.first', {
-            //     url: '/first',
-            //     views: {
-            //         'fst': {
-            //             templateUrl: 'fst-first.html',
-            //             controller : 'FstFirstPageController'
-            //         }
-            //     }
-            // })
-            // .state('fst.second', {
-            //     url: '/second',
-            //     views: {
-            //         'fst': {
-            //             templateUrl: 'fst-second.html',
-            //             controller : 'FstSecondPageController'
-            //         }
-            //     }
-            // })
-
-            // .state('homepage', {
-            //     url : '/homepage',
-            //     templateUrl : 'snd-abstract.html',
-            //     abstract : true,
-            //     controller : 'SndController'
-            // })
-            // .state('homepage.home', {
-            //     url: '/home',
-            //     views: {
-            //         'homepage': {
-            //             templateUrl: 'snd-home.html',
-            //             controller : 'SndHomePageController'
-            //         }
-            //     }
-            // })
-
-              .state('create', {
-                url : '/create',
-             
-                  
-                templateUrl : 'templates/creategroup.html' , 
-                controller : 'validateCtrl'
-            })
-
+            
+            //收藏-主题
+	         .state("Collection.theme",{
+	            url:"/Theme",
+	            views:{
+	                'theme':{
+	                    templateUrl:'ThemeList.html',
+	                    controller :'CollectionThemeCtrl'
+	                }
+	            }
+	
+	         })
+	         
+	          //收藏-资源
+	         .state("Collection.resource",{
+	            url:"/Resource",
+	            views:{
+	                'resource':{
+	                    templateUrl:'ResourceList.html',
+	                    controller : 'CollectionResourceCtrl'
+	                }
+	            }
+	         })
+	         
+	         //个人信息
               .state('person_information', {
-                url : '/person',
-             
-                  
-                templateUrl : 'templates/person_information.html' , 
+                url : '/person',                 
+                templateUrl : 'person_information.html' , 
                 controller : 'person_ctrl'
             })
+            
+             //个人发布的主题及资料
+          .state("myThemeResource", {
+            url: "/myThemeResource",
+            templateUrl: "myThemeResource.html",
+            abstract : true,
 
-            // .state('homepage.download', {
-            //     url: '/homepage/download',
-            //     views: {
-            //         'group': {
-            //             templateUrl: 'snd-chat.html',
-            //             controller : 'SndChatPageController'
-            //         }
-            //     }
-            // })
-
-            // .state('homepage.chat-single', {
-            //   url: '/homepage/chat-single',
-            //   views: {
-            //     'friend': {
-            //       templateUrl: 'snd-chat-single.html',
-            //       controller : 'SndChatSinglePageController'
-            //     }
-            //   }
-            // })
-            // .state('homepage.friend', {
-            //     url: '/homepage/friend/',
-            //     views: {
-            //         'homepage': {
-            //             templateUrl: 'snd-drink.html',
-            //             controller : 'homeFriendController'
-            //         }
-            //     }
-            // })
-            //  .state('homepage.friend.attentionMe', {
-            //     url: '/attentionMe',
-            //     views: {
-            //         'friend': {
-            //             templateUrl: 'attentionMe.html',
-            //             controller : 'SndChatPageController'
-            //         }
-            //     }
-            // })
-            .state('snd.policy', {
-                url: '/policy',
-                views: {
-                    'snd': {
-                        templateUrl: 'snd-policy.html',
-                        controller : 'SndPolicyPageController'
-                    }
+        })
+        
+        //个人发布的-主题
+         .state("myThemeResource.theme",{
+            url:"/Theme",
+            views:{
+                'mytheme':{
+                    templateUrl:'ThemeList.html',
+                    controller : 'myThemeCtrl'
                 }
-            })
+            }
 
-        $urlRouterProvider.otherwise('/homepage');
+         })
+         
+         
+         //个人发布的-资源
+          .state("myThemeResource.resource",{
+            url:"/Resource",
+            views:{
+                'myresource':{
+                    templateUrl:'ResourceList.html',
+                    controller :'myResourceCtrl'
+                }
+            }
+
+         })
+         
+         //编辑个人资料
+          .state("editUserInformation",{
+            url:"/edituserinformation",
+            templateUrl:'EditUserInformation.html',
+            controller :'editUserInformationCtrl'
+         })
+
+
+          //私信
+              .state('message', {
+                url : '/message',                 
+                templateUrl : 'MessageList.html' , 
+                controller : 'messagectrl'
+            })
+            
+            //其他用户留言板
+              .state('usermessage', {
+                url : '/usermessage/:Uid',                 
+                templateUrl : 'MessageList.html' , 
+                controller : 'usermessagectrl'
+            })
+          
+        //其他用户个人信息
+        .state("userinformation", {
+            url: "/user/:Uid",
+            templateUrl: "UserInformation.html",
+            controller : "UserInformationCtrl"
+        })
+            
+        //$urlRouterProvider.otherwise('/homepage');
 		$ionicConfigProvider.tabs.position('bottom');
     }])
 
@@ -312,122 +286,24 @@ controller:'groupController'
       };
 })
 
-.controller("ThemeListCtrl",function($scope){
 
-var theme={
-    useravrurl:'img/avatar.png',
-    tname:'主题名',
-    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-    time:'2015-05-15',
-    praice:'32'
-    };
-    
-    $scope.themes = [theme,theme,theme,theme,theme,theme,theme,theme,theme,theme,theme,theme,theme];
-    $scope.items = [];
-    for(var i=0;i<50;i++) 
-        $scope.items.push(["item",i+1].join(""));
+
+
+//主页-圈子推送
+.controller("CircleCtrl",function($scope,$ionicSideMenuDelegate,$ionicHistory,CirclePromote){
+
+	CirclePromote.do_CirclePromote().success(function(data, status, headers){			
+		$scope.circles = data;
+		
+	});
     
 })
 
 
-.controller("ThemeCtrl",function($scope){
-    $scope.theme = {
-    useravrurl:'img/avatar.png',
-    user:'习大大',
-    tname:'我是传说中的主题名',
-    content:'我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟我是内容哟',
-    time:'2015-05-15 8:10:10',
-    praice:'32',
-    comments:'5'
-    };
-    $scope.answers = [answer,answer,answer,answer,answer];
-     $scope.back=function ()
-    {
-            history.back();
-    }
-    
-})
-
-.controller("CircleCtrl",function($scope){
-
-var answer={
-    ans_user_url:'img/avatar.png',
-    ans_username:'毛东东',
-    ans_content:'我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气我就是回答的呢么帅气',
-    ans_time:'2015-05-16 9:10:10',
-    ans_praice:'32'
-};
-
-var circle ={
-    cir_name:'高等数学',
-    cir_img:'img/avatar2.png',
-    cir_des:'数学是研究现实世界数量关系和空间形式的学科.随着现代科学技术和数学科学的发展，“数量关系”和“空间形式”有了越来越丰富的内涵和更加广泛的外延.数学不仅是一种工具，而且是一种思维模式； 不仅是一种知识，而且是一种素养； 不仅是一门科学，而且是一种文化.数学教育在培养高素质科技人才中具有其独特的、不可替代的作用.对于高等学校工科类专业的本科生而言，高等数学课程是一门非常重要的基础课，它内容丰富，理论严谨，应用广泛，影响深远.不仅为学习后继课程和进一步扩大数学知识面奠定必要的基础，而且在培养学生抽象思维、逻辑推理能力，综合利用所学知识分析问题解决问题的能力，较强的自主学习的能力，创新意识和创新能力上都具有非常重要的作用.',
-    cir_user:'小小彬'
-}
-
-var user = {
-    user_name:'小小彬',
-    user_img:'img/avatar2.png',
-    user_des:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
-    user_city:'北京',
-    user_school:'北京交通大学',
-    user_grade:'研一',
-    user_themenum:'5',
-    user_ansnum:'12',
-    user_focusnum:'2',
-}
-    $scope.circles = [circle,circle,circle,circle,circle,circle,circle];
-    
-})
-
-.controller("UserCtrl",function($scope){
-    $scope.users = [user,user,user,user,user,user,user,user,user,user,user,user,user];
-    
-})
-
-    .controller('RootPageController', function($scope, $ionicSideMenuDelegate) {
-    })
-
-    .controller('NavController', function($scope, $ionicSideMenuDelegate) {
-      $scope.toggleLeft = function() {
-        $ionicSideMenuDelegate.toggleLeft();
-      };
-    })
-    .controller('FstController', function($scope, $ionicSideMenuDelegate) {
- $scope.goback=function()
- {
-history.back();
-
-
- }
-
-
-    })
-    .controller('FstHomepageController', function($scope, $ionicSideMenuDelegate) {
-$scope.content_data;
-
-
-
-
-
-    })
-    .controller('homeFriendController', function($scope, $ionicSideMenuDelegate,$ionicHistory,userInformation) {
-		$scope.friends=[{"name":"nazhenhuiyi","desc":"aaasss","peoId":'123'}];
+//我关注好友
+    .controller('myFocusFriendController', function($scope, $ionicSideMenuDelegate,$ionicHistory,userInformation) {
      
-userInformation.do_getMyAteention().success(function(data, status, headers){
-
-
-$scope.friends= data;
-
-
-
-});
-        friend1=[{"name":"nazhenhuiyi1","desc":"aaasss","peoId":'123'},{"name":"nazhenhuiyi2","desc":"aaasss","peoId":'123'},{"name":"nazhenhuiyi3","desc":"aaasss","peoId":'123'}];
-        $scope.menus=["我关注的人","关注我的人"];
-        $scope.first=true;
-        $scope.second=false;
-        $scope.getPeopelInf1=function()
-     
+<<<<<<< HEAD
      {
       //   {console.log(this.id);
       //       if(this.id==1)
@@ -523,67 +399,46 @@ $scope.question=[{'title':'那阵回忆'},{'title':'那阵回忆'},{'title':'那
 
 
 
+=======
+		userInformation.do_getMyAteention().success(function(data, status, headers){
+			$scope.users= data;
+		});	
+>>>>>>> origin/develope
     })
 
-
-    .controller('FstSecondPageController', function($scope, $ionicSideMenuDelegate) {
-    })
-
-    .controller('SndController', function($scope, $ionicSideMenuDelegate) {
-    })
-    .controller('SndHomePageController', function($scope, $ionicSideMenuDelegate) {
+    //关注我好友
+    .controller('FocusMeFriendController', function($scope, $ionicSideMenuDelegate,$ionicHistory,userInformation) {
+	
+		userInformation.do_getAteentionMe().success(function(data, status, headers){
+		    $scope.users=data;
+		})
 		
-		$scope.items=[{"img":"avatar1.png"},{"img":"avatar1.png"}];
     })
-    .controller('SndChatPageController', function($scope, $ionicSideMenuDelegate) {
-
-// $scope.data=[{"title":'资源名字',"tag":'top',"download_url":"http://www.baidu.com","thumbsup":"120"},
-// {"title":'资源名字1',"tag":'top',"download_url":"/#","thumbsup":"120"}];
-$scope.group=[{'title':'北京交通大学','groupId':'123'}];
 
 
 
-    })
-    .controller('SndChatSinglePageController', function($scope, $ionicSideMenuDelegate) {
-    })
-    .controller('SndDrinkPageController', function($scope, $ionicSideMenuDelegate) {
-    })
-    .controller('SndPolicyPageController', function($scope, $ionicSideMenuDelegate) {
-    })
-
+//登陆
     .controller('LoginController', function($scope,login_register) {
         $scope.username="";
         $scope.password="";
         $scope.login=function(username,password)
         {
-
-             console.log(username); 
+             
             login_register.do_login(username,password)
              .success(function(data, status, headers) { 
-                    // the success function wraps the response in data 
-                    // so we need to call data.data to fetch the raw data 
-
-          if(data.data=="true")
+            	 alert(data[0]);
+          if(data[0].result=="登陆成功")
           {
-            location.href="www.baidu.com";
-
+            location.href="index.html#/homepage/HotTheme";
           }
           else
           {
-
-
           }
         }) 
-
-
-
         }
-
-
-
     })
 
-
+//注册
     .controller('registerController', function($scope,login_register) {
         $scope.username="";
         $scope.phone="";
@@ -600,57 +455,492 @@ $scope.group=[{'title':'北京交通大学','groupId':'123'}];
             
             login_register.do_register(username,password1,phone)
              .success(function(data, status, headers) { 
-                    // the success function wraps the response in data 
-                    // so we need to call data.data to fetch the raw data 
-console.log(data);
-                         if(data.data=="true")
-                          {
-                            location.href="www.baidu.com";
-
+                         if(data.result=="注册成功")
+                         {
+                            location.href="index.html#/homepage/HotTheme";
                           }
                           else
                           {
-
-
                           }
                         }) 
-
-
             }
         }
-
-
-
     })
 
     
-   .controller('validateCtrl',function($scope,$http){
-    
-    $scope.submitForm = function(groupname,descroption,biaoqian){
-            
-console.log(groupname+descroption);
 
-    }
-    $scope.back=function ()
+    //创建圈子
+.controller('createCircleCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,createCircle) {
+	
+	 $scope.submitForm=function (circle)
+	    {
+		 //alert(theme.themename);
+		 createCircle.do_createCircle(circle.name,circle.content,circle.subject,circle.area,circle.school,circle.college,circle.major,circle.scolearea,circle.scoleschool,circle.scolecollege,circle.scolemajor).success(function(data, status, headers){
+			 if(data[0].result == "创建成功"){
+				 history.back();
+			 }
+		 })
+	    }
+	 
+	 $scope.back=function ()
     {
+            history.back();
+    }
 
-history.back();
+})
 
+	//个人信息
+   .controller('person_ctrl',function($scope,$ionicSideMenuDelegate,$ionicHistory,PeopleInformation){
+	   var grades=["大一","大二","大三","大四","研一","研二","研三"];   
+ PeopleInformation.do_getInformation().success(function(data, status, headers){
+		
+		$scope.focusNum = data.focusNum;
+		$scope.pubthemeNum = data.pubthemeNum;
+		$scope.pubrecNum = data.pubrecNum;
+		$scope.befocusNum = data.befocusNum;
+		$scope.praiNum = data.praiNum;
+
+	});
+ PeopleInformation.do_getSchoolInformation().success(function(data, status, headers){
+		
+		$scope.school = data[0].school;
+		$scope.college = data[0].college;
+		$scope.major = data[0].major;
+		$scope.grade = grades[data[0].grade];
+
+	});
+ 
+ PeopleInformation.do_getUnreadmessageNum().success(function(data, status, headers){
+		$scope.unreadnum = data.UnreadMessNum;
+	});
+ 
+})
+
+
+//主页-主题推送
+.controller('circleThemeLists', function($scope, $ionicSideMenuDelegate,$ionicHistory,ThemePromote) {
+ 	
+ 		ThemePromote.do_ThemePromote().success(function(data, status, headers){		
+			$scope.themes = data;			
+		});
+})
+
+//主题详细
+.controller("ThemeCtrl",function($scope,$state,$stateParams,$ionicPopup,ThemeInformation,PraiseService,AddThemeReply,CollectService){
+		$scope.Tid =$stateParams.Tid;
+		ThemeInformation.do_getTheme($scope.Tid).success(function(data, status, headers){
+	
+			$scope.theme = data[0];
+			
+			$scope.comments = data[1].ReplyNum;
+	
+		});
+		
+		ThemeInformation.do_getAnswer($scope.Tid).success(function(data, status, headers){
+			answers=data;
+			$scope.answers = answers;
+	
+		});
+		PraiseService.do_getpraisefunc($scope.Tid).success(function(data, status, headers){
+			if(data.result == 1001){
+				$scope.praisestate="取消赞";
+				$scope.praise = true;
+			}else{
+				$scope.praisestate="赞";
+				$scope.praise = false;
+			}
+	
+		});
+		CollectService.do_getCollectFunc($scope.Tid,1).success(function(data, status, headers){
+			if(data.result == 1001){
+				$scope.collectstate="取消收藏";
+				$scope.collect = true;
+			}else{
+				$scope.collectstate="收藏";
+				$scope.collect = false;
+			}	
+		});
+		
+		$scope.praisefunc=function()
+		{
+			if($scope.praise){
+				$scope.praisestate="赞";
+				PraiseService.do_deletepraisefunc($scope.Tid).success(function(data, status, headers){
+					
+				})
+			}else{
+				$scope.praisestate="取消赞";
+				PraiseService.do_addpraisefunc($scope.Tid).success(function(data, status, headers){
+					
+				})
+			}
+			$scope.praise = !$scope.praise;
+
+		}
+	
+	$scope.collectfunc=function()
+	{
+		if($scope.collect){
+			$scope.collectstate="收藏";
+			CollectService.do_deleteCollectFunc($scope.Tid,1).success(function(data, status, headers){
+				
+			})
+		}else{
+			$scope.collectstate="取消收藏";
+			CollectService.do_addCollectFunc($scope.Tid,1).success(function(data, status, headers){
+				
+			})
+		}
+		$scope.collect = !$scope.collect;
+	}
+
+     $scope.back=function ()
+    {
+            history.back();
+    }
+     
+     $scope.showPopup = function() {
+    	  $scope.data = {}
+    	  // An elaborate, custom popup
+    	  var myPopup = $ionicPopup.show({
+    	    template: '<textarea  placeholder="回复内容" maxLength="240" rows="6" cols="20"   ng-model="data.reply" style="height:30%"></textarea>',
+    	    title: '快速回复',
+    	    scope: $scope,
+    	    buttons: [
+    	      { text: '取消' },
+    	      {
+    	        text: '<b>发表</b>',
+    	        type: 'button-positive',
+    	        onTap: function(e) {
+    	        	alert($scope.data.reply);
+    	          if (!$scope.data.reply) {
+    	            //don't allow the user to close unless he enters wifi password
+    	            e.preventDefault();
+    	          } else {
+    	        	AddThemeReply.do_addThemeReply($scope.Tid,$scope.data.reply).success(function(data, status, headers){
+    	        		if(data.result == "回复成功")
+    	        		{
+    	        			ThemeInformation.do_getAnswer($scope.Tid).success(function(data, status, headers){
+    	        				$scope.answers = data;
+    	        		
+    	        			});
+    	        		}else{
+    	        			alert("服务器繁忙");
+    	        		}
+    	        	})
+    	          }
+    	        }
+    	      },
+    	    ]
+    	  });
+     }
+    
+})
+
+
+//圈子详细-主题
+.controller('circleThemeList', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,ThemeListInformation) {
+	$scope.Cid = $stateParams.Cid;
+	ThemeListInformation.do_getThemeList($scope.Cid).success(function(data, status, headers){
+		$scope.themes = data;
+	});
+})
+
+//圈子详细-用户
+.controller('circleUserCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,$ionicPopup,ThemeListInformation,MessageService) {
+	var user = {
+	Uid:1,
+    user_name:'小小彬',
+    user_img:'img/avatar2.png',
+    user_des:'活泼可爱聪明善良惹人喜爱人见人爱花见花开机智善解人意的小小彬',
+    user_city:'北京',
+    user_school:'北京交通大学',
+    user_grade:'研一',
+    user_themenum:'5',
+    user_ansnum:'12',
+    user_focusnum:'2',
+	}
+
+	$scope.users = [user,user,user,user,user,user,user,user,user,user,user,user,user];
+	
+	$scope.showPopup = function(index) {
+   	  $scope.data = {}
+
+    	var ToId=$scope.users[index].Uid
+   	  // An elaborate, custom popup
+   	  var myPopup = $ionicPopup.show({
+   	    template: '<textarea  placeholder="留言内容" maxLength="240" rows="6" cols="20"   ng-model="data.reply" style="height:30%"></textarea>',
+   	    title: '快速留言',
+   	    scope: $scope,
+   	    buttons: [
+   	      { text: '取消' },
+   	      {
+   	        text: '<b>发送</b>',
+   	        type: 'button-positive',
+   	        onTap: function(e) {
+   	          if (!$scope.data.reply) {
+   	            //don't allow the user to close unless he enters wifi password
+   	            e.preventDefault();
+   	          } else {
+   	        	MessageService.do_sendMessage(ToId,$scope.data.reply).success(function(data, status, headers){
+   	        		if(data.result == 1001)
+   	        		{
+   	        			alert("留言成功");
+   	        		}else{
+   	        			alert("服务器繁忙");
+   	        		}
+   	        	})
+   	          }
+   	        }
+   	      },
+   	    ]
+   	  });
     }
 })
 
-   .controller('person_ctrl',function($scope){
-    
- //$scope.person=$http.get('');
- $scope.person={"personname":"那阵回忆","num_other_attention":'4',"num_good":'5',"num_my_attention":'6'};
-    $scope.back=function ()
-    {
+//主页用户推送
+.controller('hotUserCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,UserPromote) {
 
-history.back();
+	UserPromote.do_UserPromote().success(function(data, status, headers){
+		
+		$scope.users = data;
 
-    }
+	});
+})
+
+//主页-我关注的圈子
+.controller("MyCircleCtrl",function($scope, $ionicSideMenuDelegate,$ionicHistory,getFocusCircle){
+	getFocusCircle.do_getFocusCircleList().success(function(data, status, headers){
+	
+		$scope.circles = data;
+
+	});
 })
 
 
+//圈子详细-用户
+.controller('circleResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,CircleDetailResources) {
+	CircleDetailResources.do_getResourceList().success(function(data, status, headers){
+		
+		$scope.resources = data;
+
+	});
+	
+})
 
 
+//创建主题
+.controller('creatThemeCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,createTheme) {
+	 
+	 $scope.submitForm=function (theme)
+	    {
+		 //alert(theme.themename);
+		 createTheme.do_createTheme(theme.themename,theme.themecontent);
+	    }
+	 
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+//创建资料
+.controller('creatResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,createResource) {
+	
+	 $scope.submitForm=function (resource)
+	    {
+		 //alert(theme.themename);
+		 createResource.do_createResource(resource.name,resource.content,resource.link).success(function(data, status, headers){
+			 if(data[0].result == "上传成功"){
+				 history.back();
+			 }
+		 })
+	    }
+	 
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+//收藏
+.controller('CollectionCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory) {
+
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+//收藏主题
+.controller('CollectionThemeCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,getCollectionTheme) {
+
+	getCollectionTheme.do_getCollectionThemeList().success(function(data, status, headers){
+		
+		$scope.themes = data;
+
+	});
+	
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+
+//收藏资料
+.controller('CollectionResourceCtrl', function($scope, $ionicSideMenuDelegate,$ionicHistory,getCollectionResource) {
+
+	getCollectionResource.do_getCollectionResourceList().success(function(data, status, headers){
+		
+		$scope.resources = data;
+
+	});
+	
+	 $scope.back=function ()
+    {
+            history.back();
+    }
+
+})
+
+//个人发布-主题
+.controller('myThemeCtrl', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,myThemeResource) {
+	myThemeResource.do_getTheme().success(function(data, status, headers){
+		$scope.themes = data;
+	});
+
+})
+
+//个人发布-主题
+.controller('myResourceCtrl', function($scope,$stateParams,$ionicSideMenuDelegate,$ionicHistory,myThemeResource) {
+	myThemeResource.do_getResource().success(function(data, status, headers){
+		$scope.resources = data;
+	});
+
+})
+
+//编辑个人资料
+.controller('editUserInformationCtrl', function($scope,$state,$ionicSideMenuDelegate,$ionicHistory,editUserInformation) {
+	editUserInformation.do_getUserInformation().success(function(data, status, headers){
+		$scope.user = data[0];
+	});
+	
+	 $scope.submitForm=function (user)
+	    {
+		 //alert(user.grade);
+		 editUserInformation.do_setUserInformation(user).success(function(data, status, headers){
+			 if(data.result == "修改成功"){
+				 $state.go("person_information");
+			 }
+		 })
+	    }
+})
+
+
+//私信
+.controller('messagectrl', function($scope,$state,$ionicSideMenuDelegate,$ionicHistory,MessageService) {
+	
+//	$scope.doRefresh=function(){
+//		MessageService.do_getMessages().then(function(data){
+//			$scope.messages = data;
+//		});
+//	}
+	MessageService.do_getMessages().success(function(data, status, headers){
+		$scope.messages = data;
+	});
+
+	 $scope.back=function ()
+	    {
+	            history.back();
+	    }
+})
+
+
+//其他用户私信
+.controller('usermessagectrl', function($scope,$state,$stateParams,$ionicSideMenuDelegate,$ionicHistory,MessageService) {
+	
+//	$scope.doRefresh=function(){
+//		MessageService.do_getMessages().then(function(data){
+//			$scope.messages = data;
+//		});
+//	}
+	$scope.Uid =$stateParams.Uid;
+	
+	MessageService.do_getUserMessageList($scope.Uid).success(function(data, status, headers){
+		$scope.messages = data;
+	});
+
+	 $scope.back=function ()
+	    {
+	            history.back();
+	    }
+})
+
+
+//其他用户信息
+.controller('UserInformationCtrl', function($scope,$state,$stateParams,$ionicSideMenuDelegate,$ionicHistory,FocusService,PeopleInformation) {
+	$scope.Uid =$stateParams.Uid;
+	
+	$scope.focusstate=true;
+	$scope.focus="关注";
+	FocusService.do_getFocusFunc($scope.Uid).success(function(data, status, headers){
+		if(data.result == 1001){
+			$scope.focus="取消关注";
+			$scope.focusstate = true;
+		}else{
+			$scope.focus="关注";
+			$scope.focusstate = false;
+		}
+
+	});
+	
+	$scope.setFocus=function(){
+		if($scope.focusstate){
+			$scope.focus="关注";
+			FocusService.do_deleteFocusFunc($scope.Uid).success(function(data, status, headers){
+				$scope.focusstate=false;
+			})
+		}else{
+			$scope.focus="取消关注";
+			FocusService.do_addFocusFunc($scope.Uid).success(function(data, status, headers){
+				$scope.focusstate=true;
+			})
+		}
+		$scope.focusstate = !$scope.focusstate;
+	}
+	 $scope.back=function ()
+	    {
+	            history.back();
+	    }
+	 
+	 
+	 var grades=["大一","大二","大三","大四","研一","研二","研三"];   
+	 PeopleInformation.do_getgetUserInformation($scope.Uid).success(function(data, status, headers){
+			
+			$scope.focusNum = data.focusNum;
+			$scope.pubthemeNum = data.pubthemeNum;
+			$scope.pubrecNum = data.pubrecNum;
+			$scope.befocusNum = data.befocusNum;
+			$scope.praiNum = data.praiNum;
+
+		});
+	 PeopleInformation.do_getUserSchoolInformation($scope.Uid).success(function(data, status, headers){
+			if(data[0]!=null){
+				$scope.school = data[0].school;
+				$scope.college = data[0].college;
+				$scope.major = data[0].major;
+				$scope.grade = grades[data[0].grade];
+			}else{
+				$scope.school = "";
+				$scope.college = "";
+				$scope.major = "";
+				$scope.grade = "";
+			}
+
+		});
+})
